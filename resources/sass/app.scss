@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
+
+* {
+    outline: 0 !important;
+}
+
+header {
+    top: -6px;
+}
+
+button {
+    @apply rounded bg-blue-200 text-blue-800 py-2 uppercase font-bold text-sm tracking-wide transition-all duration-100 ease-in-out;
+
+    &[disabled] {
+        @apply opacity-50 pointer-events-none select-none cursor-default;
+    }
+
+    &:hover {
+        @apply bg-blue-500 text-white shadow-md;
+    }
+
+    &:active {
+        @apply bg-blue-600 shadow-none text-white;
+    }
+
+    &.btn-sm {
+        @apply bg-transparent border border-gray-300 text-gray-500 leading-none px-2 font-normal py-1;
+
+        &:hover {
+            @apply bg-transparent text-blue-500 border-blue-500;
+        }
+
+        &:active {
+            @apply bg-transparent shadow-none text-blue-500;
+        }
+    }
+}
+
+label {
+    @apply inline-block w-full;
+
+    span:first-of-type {
+        @apply block w-full font-semibold text-xs mb-1 text-gray-800;
+    }
+
+    input, .StripeElement {
+        @apply w-full rounded bg-gray-100 px-4 py-2 text-sm;
+
+        &:focus, .StripeElement--focus {
+            @apply bg-gray-200;
+        }
+    }
+
+    span:last-of-type {
+        @apply block w-full font-normal text-xs mt-1 text-red-500;
+    }
+}
+
+.font-number {
+    font-feature-settings: "tnum" 1;
+}
+
+.StripeElement {
+    @apply w-full rounded bg-gray-100 px-4 py-2 text-sm;
+
+    &.StripeElement--focus {
+        @apply bg-gray-200;
+    }
+}
+
 @tailwind utilities;

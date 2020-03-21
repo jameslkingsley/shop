@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="bg-background antialiased">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +10,11 @@
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 
-<body>
+<body class="text-gray-900 leading-normal text-base">
 <div id="app" v-cloak>
     @yield('content')
 </div>
