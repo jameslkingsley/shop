@@ -36,5 +36,9 @@
                 this.products = data
             },
         },
+
+        created() {
+            this.$root.menuVisible = false
+        }
     }
 </script>

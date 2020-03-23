@@ -1,8 +1,8 @@
 <template>
     <div class="inline-flex flex-col w-product bg-white shadow m-2 p-4 rounded">
-        <div class="block w-full h-32 bg-gray-100 rounded flex items-center justify-center mb-4 text-gray-500 text-xs">
-            Image Unavailable
-        </div>
+        <!--<div class="block w-full h-32 bg-gray-100 rounded flex items-center justify-center mb-4 text-gray-500 text-xs">-->
+        <!--    Image Unavailable-->
+        <!--</div>-->
 
         <span class="w-full mb-4 text-sm">{{ product.title }}</span>
 

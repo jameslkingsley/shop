@@ -44,5 +44,9 @@
                 this.products = products
             },
         },
+
+        created() {
+            this.$root.menuVisible = false
+        }
     }
 </script>
