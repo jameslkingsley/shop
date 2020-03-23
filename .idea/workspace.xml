@@ -2,53 +2,636 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a559737-c42b-4af5-ae61-c95e99ae4e22" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/BasketController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/GroupController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderAmendmentController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderCompletionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderDeliveryController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Repositories/CategoryRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Repositories/GroupRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Repositories/ProductRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Repositories/Repository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/StockItem.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/AddToBasket.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Order.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Product.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/views/Auth.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/views/Category.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/views/CheckoutComplete.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/views/Group.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/views/Orders.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminLoggedIn.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Sidebar.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/add-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/add-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/adjust.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/airplane.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/album.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/align-center.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/align-justified.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/align-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/align-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/anchor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/announcement.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/apparel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-outline-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-outline-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-outline-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-outline-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-thick-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-thick-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-thick-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-thick-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-thin-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-thin-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-thin-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-thin-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/arrow-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/artist.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/at-symbol.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/attachment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/backspace.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/backward-step.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/backward.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/badge.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/battery-full.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/battery-half.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/battery-low.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/beverage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/block.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/bluetooth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/bolt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/book-reference.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/bookmark copy 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/bookmark copy 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/bookmark-outline-add.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/bookmark-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/bookmark.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-bottom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-horizontal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-inner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-none.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-outer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-top.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/border-vertical.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/box.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/brightness-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/brightness-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/browser-window-new.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/browser-window-open.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/browser-window.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/bug.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/buoy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/calculator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/calendar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/camera.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/chart-bar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/chart-pie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/chart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/chat-bubble-dots.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/checkmark-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/checkmark.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cheveron-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cheveron-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cheveron-outline-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cheveron-outline-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cheveron-outline-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cheveron-outline-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cheveron-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cheveron-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/clipboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/close-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/close-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/close.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cloud-upload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cloud.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/code.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/coffee.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/cog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/color-palette.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/compose.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/computer-desktop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/computer-laptop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/conversation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/copy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/credit-card.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/currency-dollar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/date-add.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/dial-pad.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/directions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/document-add.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/document.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/dots-horizontal-double.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/dots-horizontal-triple.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/download.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/duplicate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/edit-copy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/edit-crop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/edit-cut.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/edit-pencil.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/education.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/envelope.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/exclamation-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/exclamation-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/explore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/factory.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/fast-forward.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/fast-rewind.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/film.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/filter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/flag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/flashlight.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/folder-outline-add.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/folder-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/folder.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/format-bold.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/format-font-size.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/format-italic.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/format-text-size.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/format-underline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/forward-step.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/forward.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/gift.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/globe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/hand-stop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/hard-drive.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/headphones.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/heart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/hot.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/hour-glass.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/inbox-check.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/inbox-download.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/inbox-full.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/inbox.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/indent-decrease.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/indent-increase.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/information-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/information-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/key.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/keyboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/layers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/library.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/light-bulb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/link.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/list-add.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/list-bullet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/load-balancer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location-current.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location-food.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location-gas-station.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location-hotel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location-marina.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location-park.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location-restroom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location-shopping.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/location.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/lock-closed.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/lock-open.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/map.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mic.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/minus-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/minus-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mobile-devices.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mood-happy-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mood-happy-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mood-neutral-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mood-neutral-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mood-sad-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mood-sad-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/mouse.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/music-album.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/music-artist.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/music-notes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/music-playlist.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/navigation-more.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/network.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/news-paper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/notification.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/notifications-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/notifications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/paste.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/pause-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/pause-solid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/pause.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/pen-tool.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/phone.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/photo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/php-elephant.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/pin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/play-outline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/play.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/playlist.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/plugin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/portfolio.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/printer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/pylon.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/question.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/queue.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/radar copy 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/radar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/radio.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/refresh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/reload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/reply-all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/reply.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/repost.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/save-disk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/screen-full.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/send.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/servers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/share-01.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/share-alt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/share.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/shield.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/shopping-cart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/show-sidebar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/shuffle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/stand-by.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/star-full.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/station.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/step-backward.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/step-forward.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/stethoscope.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/store-front.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/stroke-width.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/subdirectory-left.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/subdirectory-right.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/swap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/tablet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/tag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/target.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/text-box.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/text-decoration.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/thermometer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/thumbs-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/thumbs-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/ticket.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/time.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/timer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/tools copy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/translate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/trash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/travel-bus.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/travel-car.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/travel-case.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/travel-taxi-cab.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/travel-train.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/travel-walk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/travel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/trophy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/tuning.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/upload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/usb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/user-add.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/user-group.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/user-solid-circle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/user-solid-square.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/vector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/video-camera.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/view-carousel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/view-column.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/view-hide.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/view-list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/view-show.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/view-tile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/volume-down.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/volume-mute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/volume-off.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/volume-up.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/wallet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/watch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/window-new.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/window-open.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/window.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/wrench.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/yin-yang.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/zoom-in.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/icons/zoom-out.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/add-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/add-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/adjust.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/airplane.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/album.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/align-center.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/align-justified.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/align-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/align-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/anchor.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/announcement.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/apparel.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-outline-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-outline-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-outline-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-outline-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-thick-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-thick-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-thick-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-thick-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-thin-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-thin-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-thin-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-thin-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/arrow-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/artist.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/at-symbol.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/attachment.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/backspace.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/backward-step.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/backward.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/badge.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/battery-full.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/battery-half.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/battery-low.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/beverage.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/block.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/bluetooth.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/bolt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/book-reference.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/bookmark copy 2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/bookmark copy 3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/bookmark-outline-add.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/bookmark-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/bookmark.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-all.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-bottom.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-horizontal.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-inner.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-none.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-outer.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-top.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/border-vertical.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/box.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/brightness-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/brightness-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/browser-window-new.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/browser-window-open.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/browser-window.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/bug.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/buoy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/calculator.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/calendar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/camera.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/chart-bar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/chart-pie.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/chart.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/chat-bubble-dots.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/checkmark-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/checkmark.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cheveron-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cheveron-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cheveron-outline-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cheveron-outline-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cheveron-outline-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cheveron-outline-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cheveron-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cheveron-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/clipboard.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/close-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/close-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/close.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cloud-upload.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cloud.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/code.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/coffee.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/cog.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/color-palette.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/compose.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/computer-desktop.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/computer-laptop.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/conversation.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/copy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/credit-card.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/currency-dollar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/dashboard.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/date-add.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/dial-pad.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/directions.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/document-add.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/document.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/dots-horizontal-double.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/dots-horizontal-triple.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/download.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/duplicate.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/edit-copy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/edit-crop.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/edit-cut.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/edit-pencil.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/education.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/envelope.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/exclamation-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/exclamation-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/explore.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/factory.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/fast-forward.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/fast-rewind.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/film.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/filter.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/flag.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/flashlight.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/folder-outline-add.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/folder-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/folder.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/format-bold.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/format-font-size.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/format-italic.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/format-text-size.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/format-underline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/forward-step.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/forward.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/gift.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/globe.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/hand-stop.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/hard-drive.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/headphones.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/heart.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/home.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/hot.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/hour-glass.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/inbox-check.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/inbox-download.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/inbox-full.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/inbox.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/indent-decrease.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/indent-increase.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/information-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/information-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/key.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/keyboard.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/layers.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/library.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/light-bulb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/link.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/list-add.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/list-bullet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/list.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/load-balancer.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location-current.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location-food.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location-gas-station.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location-hotel.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location-marina.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location-park.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location-restroom.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location-shopping.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/location.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/lock-closed.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/lock-open.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/map.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/menu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mic.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/minus-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/minus-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mobile-devices.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mood-happy-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mood-happy-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mood-neutral-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mood-neutral-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mood-sad-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mood-sad-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/mouse.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/music-album.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/music-artist.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/music-notes.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/music-playlist.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/navigation-more.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/network.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/news-paper.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/notification.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/notifications-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/notifications.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/paste.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/pause-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/pause-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/pause.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/pen-tool.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/phone.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/photo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/php-elephant.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/pin.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/play-outline.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/play.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/playlist.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/plugin.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/portfolio.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/printer.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/pylon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/question.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/queue.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/radar copy 2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/radar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/radio.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/refresh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/reload.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/reply-all.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/reply.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/repost.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/save-disk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/screen-full.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/search.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/send.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/servers.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/share-01.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/share-alt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/share.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/shield.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/shopping-cart.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/show-sidebar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/shuffle.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/stand-by.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/star-full.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/station.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/step-backward.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/step-forward.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/stethoscope.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/store-front.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/stroke-width.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/subdirectory-left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/subdirectory-right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/swap.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/tablet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/tag.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/target.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/text-box.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/text-decoration.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/thermometer.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/thumbs-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/thumbs-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/ticket.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/time.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/timer.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/tools copy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/translate.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/trash.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/travel-bus.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/travel-car.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/travel-case.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/travel-taxi-cab.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/travel-train.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/travel-walk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/travel.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/trophy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/tuning.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/upload.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/usb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/user-add.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/user-group.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/user-solid-circle.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/user-solid-square.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/user.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/vector.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/video-camera.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/view-carousel.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/view-column.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/view-hide.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/view-list.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/view-show.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/view-tile.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/volume-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/volume-mute.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/volume-off.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/volume-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/wallet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/watch.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/window-new.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/window-open.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/window.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/wrench.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/yin-yang.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/zoom-in.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/svg/zoom-out.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/schematics.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GroupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GroupController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderAmendmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderAmendmentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderCompletionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderCompletionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/CategoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/CategoryRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/GroupRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/GroupRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/ProductRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/session.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/vendor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Order.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Order.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Product.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Product.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/views/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/Checkout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/Checkout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/Category.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/Checkout.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/CheckoutComplete.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/CheckoutComplete.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/Group.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/Group.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/views/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/Orders.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/Orders.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -219,7 +802,8 @@
       <workItem from="1584466033146" duration="1015000" />
       <workItem from="1584551359846" duration="4501000" />
       <workItem from="1584637583815" duration="739000" />
-      <workItem from="1584726482467" duration="23652000" />
+      <workItem from="1584726482467" duration="35715000" />
+      <workItem from="1584984127706" duration="8167000" />
     </task>
     <servers />
   </component>
@@ -247,11 +831,11 @@
       <screen x="0" y="23" width="2560" height="1350" />
     </state>
     <state x="950" y="438" width="659" height="518" key="find.popup/-1920.178.1920.1080/0.23.2560.1350/2560.-317.2560.1440@0.23.2560.1350" timestamp="1584794278762" />
-    <state x="945" y="331" width="670" height="678" key="search.everywhere.popup" timestamp="1584802674896">
+    <state x="945" y="331" width="670" height="678" key="search.everywhere.popup" timestamp="1585001332662">
       <screen x="0" y="23" width="2560" height="1350" />
     </state>
     <state x="945" y="330" width="670" height="676" key="search.everywhere.popup/-1920.178.1920.1080/0.23.2560.1347/2560.-317.2560.1440@0.23.2560.1347" timestamp="1584553038522" />
-    <state x="945" y="331" width="670" height="678" key="search.everywhere.popup/-1920.178.1920.1080/0.23.2560.1350/2560.-317.2560.1440@0.23.2560.1350" timestamp="1584802674896" />
+    <state x="945" y="331" width="670" height="678" key="search.everywhere.popup/-1920.178.1920.1080/0.23.2560.1350/2560.-317.2560.1440@0.23.2560.1350" timestamp="1585001332662" />
     <state x="945" y="330" width="670" height="676" key="search.everywhere.popup/0.23.2560.1347/2560.0.2560.1440@0.23.2560.1347" timestamp="1584469702446" />
   </component>
 </project>

@@ -1,21 +1,30 @@
 <template>
-    <div class="flex">
-        <div class="block bg-white shadow-md rounded-b-lg w-sidebar flex-shrink-0 p-4">
-            <span class="block text-gray-900 font-bold text-sm mb-2">Pick a category</span>
-
-            <router-link :to="`/group/${group.id}`" v-for="group in groups" :key="`group-${group.id}`" class="hover:underline inline-block w-full text-sm text-black">
+    <div class="flex flex-wrap">
+        <sidebar title="Pick a category">
+            <router-link :to="`/group/${group.id}`" v-for="group in groups" :key="`group-${group.id}`" class="hover:underline inline-block w-full py-1 text-sm text-black">
                 {{ group.title }}
             </router-link>
+        </sidebar>
+
+        <div class="block w-full px-6 py-8 text-center">
+            <span class="w-full text-xl sm:text-2xl font-bold">To start, pick a category.</span>
+            <p>You can choose which items you would like, place your order online, and we'll deliver it to your door!</p>
         </div>
 
-        <div class="flex-1">
-            Top Picks?
+        <div class="flex flex-wrap p-6 flex-1">
+            <router-link :to="`/group/${group.id}`" v-for="group in groups" :key="`group-${group.id}`" class="inline-block bg-white rounded shadow m-2 px-4 py-4 w-product text-base text-black">
+                {{ group.title }}
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
+    import Sidebar from '../components/Sidebar'
+
     export default {
+        components: { Sidebar },
+
         data() {
             return {
                 groups: [],

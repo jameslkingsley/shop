@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Stripe\Customer;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -15,13 +16,9 @@ class Order extends Model
 
     protected $appends = [
         'total',
+        'customer',
     ];
 
-    /**
-     * The attributes that are guarded.
-     *
-     * @var array
-     */
     protected $guarded = [];
 
     public function items()
@@ -32,5 +29,14 @@ class Order extends Model
     public function getTotalAttribute()
     {
         return $this->items->map(fn($item) => $item->quantity * $item->amount)->sum();
+    }
+
+    public function getCustomerAttribute()
+    {
+        if (! $this->customer_id) {
+            return null;
+        }
+
+        return Customer::retrieve($this->customer_id)->toArray();
     }
 }

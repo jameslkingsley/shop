@@ -9,7 +9,7 @@ class CategoryRepository extends Repository
 {
     public function all(int $groupId)
     {
-        return Cache::remember('categories:' . $groupId, 300, function () use ($groupId) {
+        return Cache::remember('categories:' . $groupId, 600, function () use ($groupId) {
             return DB::connection('sle')->select('
                 SELECT pcatID as id, pcatTitle as title
                 FROM tblproductcats

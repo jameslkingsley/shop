@@ -27,6 +27,8 @@
     window.App = new CreateApp({
         user: @json(auth()->user()),
         csrfToken: @json(csrf_token()),
+        stripeToken: @json(config('services.stripe.key')),
+        adminLoggedIn: @json(session('admin_logged_in', false)),
     })
 
     window.App.boot()

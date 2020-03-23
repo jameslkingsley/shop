@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 
@@ -10,10 +12,10 @@ header {
 }
 
 button {
-    @apply rounded bg-blue-200 text-blue-800 py-2 uppercase font-bold text-sm tracking-wide transition-all duration-100 ease-in-out;
+    @apply rounded bg-blue-200 text-blue-800 py-2 uppercase font-bold text-sm tracking-wide transition-all duration-200 ease-in-out;
 
     &[disabled] {
-        @apply opacity-50 pointer-events-none select-none cursor-default;
+        @apply text-blue-300 pointer-events-none select-none cursor-default;
     }
 
     &:hover {
@@ -44,16 +46,22 @@ label {
         @apply block w-full font-semibold text-xs mb-1 text-gray-800;
     }
 
-    input, .StripeElement {
-        @apply w-full rounded bg-gray-100 px-4 py-2 text-sm;
+    input {
+        @apply w-full rounded bg-gray-100 px-4 py-3 text-base transition-all duration-200 ease-in-out;
 
-        &:focus, .StripeElement--focus {
-            @apply bg-gray-200;
+        &:focus {
+            @apply bg-gray-100 shadow-input;
         }
     }
 
     span:last-of-type {
-        @apply block w-full font-normal text-xs mt-1 text-red-500;
+        @apply block w-full font-normal text-sm mt-1 text-gray-700;
+    }
+
+    &.error {
+        span:last-of-type {
+            @apply text-red-600 font-semibold;
+        }
     }
 }
 
@@ -61,11 +69,37 @@ label {
     font-feature-settings: "tnum" 1;
 }
 
-.StripeElement {
-    @apply w-full rounded bg-gray-100 px-4 py-2 text-sm;
+@responsive {
+    .w-basket {
+        width: 24rem;
 
-    &.StripeElement--focus {
-        @apply bg-gray-200;
+        @screen xl {
+            width: 24rem;
+        }
+    }
+}
+
+.svg-icon {
+    @apply inline-block fill-current;
+}
+
+.w-product {
+    width: 100%;
+
+    @screen sm {
+        width: calc(50% - 1rem);
+    }
+
+    @screen md {
+        width: calc(33% - 1rem);
+    }
+
+    @screen lg {
+        width: calc(25% - 1rem);
+    }
+
+    @screen xl {
+        width: calc(16.66% - 1rem);
     }
 }
 

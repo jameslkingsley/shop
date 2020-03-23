@@ -1,10 +1,10 @@
 <template>
     <div class="flex">
-        <div class="block bg-white shadow-md rounded-b-lg w-sidebar p-4">
-            <router-link :to="`/group/${$route.params.group}`" class="hover:underline inline-block w-full text-sm text-black opacity-50">
-                &larr; Back to Sub-categories
+        <sidebar title="Pick a sub-category">
+            <router-link :to="`/group/${$route.params.group}`" class="hover:underline inline-block w-full py-1 text-sm text-black opacity-50">
+                &larr; Back to sub-categories
             </router-link>
-        </div>
+        </sidebar>
 
         <div class="flex flex-wrap flex-1 p-4">
             <product v-for="product in products" :product="product" :key="`product-${product.id}`" />
@@ -14,9 +14,10 @@
 
 <script>
     import Product from '../components/Product'
+    import Sidebar from '../components/Sidebar'
 
     export default {
-        components: { Product },
+        components: { Sidebar, Product },
 
         data() {
             return {

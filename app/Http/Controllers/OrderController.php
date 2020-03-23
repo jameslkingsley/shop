@@ -8,9 +8,20 @@ use Stripe\Checkout\Session;
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('adminLoggedIn')->only('index', 'show');
+    }
+
     public function index()
     {
-        return Order::whereNotNull('customer_id')->with('items')->get();
+        return Order::whereNotNull('customer_id')->with('items')->get()
+            ->mapWithKeys(fn($order) => [$order->id => $order]);
+    }
+
+    public function show(Order $order)
+    {
+        return $order->load('items');
     }
 
     public function store(Request $request)
@@ -37,7 +48,7 @@ class OrderController extends Controller
             'mode' => 'setup',
             'payment_method_types' => ['card'],
             'client_reference_id' => $order->id,
-            'cancel_url' => 'http://shop.test/checkout',
+            'cancel_url' => 'http://shop.test',
             'metadata' => ['telephone' => $request->telephone],
             'shipping_address_collection' => ['allowed_countries' => ['GB']],
             'success_url' => 'http://shop.test/checkout/complete?session_id={CHECKOUT_SESSION_ID}',

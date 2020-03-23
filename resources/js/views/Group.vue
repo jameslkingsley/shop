@@ -1,41 +1,47 @@
 <template>
     <div class="flex">
-        <div class="block bg-white shadow-md rounded-b-lg w-sidebar p-4">
-            <span class="block text-gray-900 font-bold text-sm mb-2">Pick a sub-category</span>
-
-            <router-link to="/" class="hover:underline inline-block w-full text-sm text-black opacity-50 mb-2">
-                &larr; Back to Categories
+        <sidebar title="Pick a sub-category">
+            <router-link to="/" class="hover:underline inline-block w-full py-1 text-sm text-black opacity-50">
+                &larr; Back to categories
             </router-link>
 
             <router-link :to="`/group/${$route.params.group}/${category.id}`" v-for="category in categories" :key="`category-${category.id}`"
-                class="hover:underline inline-block w-full text-sm text-black">
+                class="hover:underline inline-block w-full py-1 text-sm text-black">
                 {{ category.title }}
             </router-link>
-        </div>
+        </sidebar>
 
-        <div class="flex-1">
-            Products in group
+        <div class="flex flex-wrap flex-1 p-4">
+            <product v-for="product in products" :product="product" :key="`product-${product.id}`" />
         </div>
     </div>
 </template>
 
 <script>
+    import Product from '../components/Product'
+    import Sidebar from '../components/Sidebar'
+
     export default {
+        components: { Sidebar, Product },
+
         data() {
             return {
+                products: [],
                 categories: [],
             }
         },
 
         async beforeRouteEnter(to, from, next) {
-            const { data } = await ajax.get(`/api/group/${to.params.group}`)
+            const categories = await ajax.get(`/api/group/${to.params.group}`)
+            const products = await ajax.get(`/api/product/${to.params.group}`)
 
-            next(vm => vm.fill(data))
+            next(vm => vm.fill(categories.data, products.data))
         },
 
         methods: {
-            fill(data) {
-                this.categories = data
+            fill(categories, products) {
+                this.categories = categories
+                this.products = products
             },
         },
     }

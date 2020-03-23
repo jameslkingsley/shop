@@ -27,9 +27,3 @@
         },
     }
 </script>
-
-<style scoped lang="scss">
-    .w-product {
-        width: calc(25% - 1rem);
-    }
-</style>

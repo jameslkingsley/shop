@@ -29,16 +29,17 @@ class OrderCompletionController extends Controller
                 'email' => $setupIntent->payment_method->billing_details->email,
                 'shipping' => array_merge($session->shipping->toArray(), [
                     'phone' => $session->metadata->telephone,
-                ])
+                ]),
             ]),
         ]);
 
-        Order::findOrFail($session->client_reference_id)
-            ->update([
-                'customer_id' => $customer->id,
-                'payment_method_id' => $setupIntent->payment_method->id,
-            ]);
+        $order = Order::findOrFail($session->client_reference_id);
 
-        return view('app');
+        $order->update([
+            'customer_id' => $customer->id,
+            'payment_method_id' => $setupIntent->payment_method->id,
+        ]);
+
+        return redirect('/checkout/completed/?amount=' . $order->total);
     }
 }

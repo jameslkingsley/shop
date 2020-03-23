@@ -7,13 +7,17 @@ use App\OrderItem;
 
 class OrderAmendmentController extends Controller
 {
-    public function store(Order $order, OrderItem $orderItem)
+    public function __construct()
     {
-        $orderItem->increment('quantity');
+        $this->middleware('adminLoggedIn')->only('destroy');
     }
 
     public function destroy(Order $order, OrderItem $orderItem)
     {
         $orderItem->decrement('quantity');
+
+        if ($orderItem->quantity <= 0) {
+            $orderItem->delete();
+        }
     }
 }

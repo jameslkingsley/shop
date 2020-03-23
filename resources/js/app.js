@@ -1,3 +1,6 @@
+import './icons'
+import SvgIcon from 'vue-svgicon'
+
 import router from './router'
 import routes from './routes'
 
@@ -67,6 +70,8 @@ export default class {
     render() {
         Vue.mixin(this.mixin())
 
+        Vue.use(SvgIcon, { tagName: 'icon' })
+
         this.renderer = new Vue({
             el: '#app',
             render: h => h(App),
@@ -74,6 +79,7 @@ export default class {
 
             data: {
                 basket: {},
+                menuVisible: false,
                 user: window.App.user,
             },
 
