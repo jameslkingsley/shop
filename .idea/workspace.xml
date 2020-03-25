@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a559737-c42b-4af5-ae61-c95e99ae4e22" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/database/factories/.gitkeep" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/OrderItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/OrderItem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/CategoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/CategoryRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/GroupRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/GroupRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/ProductRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +179,8 @@
       <workItem from="1584551359846" duration="4501000" />
       <workItem from="1584637583815" duration="739000" />
       <workItem from="1584726482467" duration="35715000" />
-      <workItem from="1584984127706" duration="8577000" />
+      <workItem from="1584984127706" duration="8820000" />
+      <workItem from="1585178399270" duration="895000" />
     </task>
     <servers />
   </component>
@@ -205,11 +212,11 @@
       <screen x="0" y="23" width="2560" height="1350" />
     </state>
     <state x="950" y="438" width="659" height="518" key="find.popup/-1920.178.1920.1080/0.23.2560.1350/2560.-317.2560.1440@0.23.2560.1350" timestamp="1584794278762" />
-    <state x="945" y="331" width="670" height="678" key="search.everywhere.popup" timestamp="1585001332662">
+    <state x="945" y="331" width="670" height="678" key="search.everywhere.popup" timestamp="1585003559677">
       <screen x="0" y="23" width="2560" height="1350" />
     </state>
     <state x="945" y="330" width="670" height="676" key="search.everywhere.popup/-1920.178.1920.1080/0.23.2560.1347/2560.-317.2560.1440@0.23.2560.1347" timestamp="1584553038522" />
-    <state x="945" y="331" width="670" height="678" key="search.everywhere.popup/-1920.178.1920.1080/0.23.2560.1350/2560.-317.2560.1440@0.23.2560.1350" timestamp="1585001332662" />
+    <state x="945" y="331" width="670" height="678" key="search.everywhere.popup/-1920.178.1920.1080/0.23.2560.1350/2560.-317.2560.1440@0.23.2560.1350" timestamp="1585003559677" />
     <state x="945" y="330" width="670" height="676" key="search.everywhere.popup/0.23.2560.1347/2560.0.2560.1440@0.23.2560.1347" timestamp="1584469702446" />
   </component>
 </project>

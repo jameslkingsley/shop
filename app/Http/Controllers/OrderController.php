@@ -46,12 +46,12 @@ class OrderController extends Controller
 
         $session = Session::create([
             'mode' => 'setup',
+            'cancel_url' => url('/'),
             'payment_method_types' => ['card'],
             'client_reference_id' => $order->id,
-            'cancel_url' => 'http://shop.test',
             'metadata' => ['telephone' => $request->telephone],
             'shipping_address_collection' => ['allowed_countries' => ['GB']],
-            'success_url' => 'http://shop.test/checkout/complete?session_id={CHECKOUT_SESSION_ID}',
+            'success_url' => url('/checkout/complete?session_id={CHECKOUT_SESSION_ID}'),
         ]);
 
         return response()->json([

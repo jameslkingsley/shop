@@ -27,16 +27,9 @@ class OrderItem extends Model
     public function getProductAttribute()
     {
         return DB::connection('sle')->select('
-            SELECT prodID AS id, prodTitle AS title, siUnitSize AS unit_size, CAST((siOurPrice * 100) AS SIGNED) AS price
+            SELECT prodID AS id, prodTitle AS title, prodUnitSize AS unit_size, CAST((prodOurPrice * 100) AS SIGNED) AS price
             FROM tblProducts
-            LEFT JOIN tblStockItem ON prodID = siProduct
             WHERE prodID = ' . $this->product_id . '
-            AND tblStockItem.siID = (
-                SELECT MAX(siID)
-                FROM tblStockItem
-                WHERE prodID = siProduct
-                AND siStatus = "closed"
-            )
         ')[0];
     }
 
