@@ -39,9 +39,10 @@
                     &times;
                 </span>
 
-                <span class="font-number text-right">
-                    {{ item.amount | currency }}
-                </span>
+                <input v-model.number="item.amount / 100" placeholder="Amount" class="font-number text-right border rounded px-1 w-16" />
+                <!--<span class="font-number text-right">-->
+                <!--    {{ item.amount | currency }}-->
+                <!--</span>-->
             </div>
         </div>
     </div>

@@ -12,6 +12,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <script src="https://js.stripe.com/v3/"></script>
+
+    @livewireStyles
 </head>
 
 <body class="text-gray-900 leading-normal text-base">
@@ -33,5 +35,7 @@
 
     window.App.boot()
 </script>
+
+@livewireScripts
 </body>
 </html>

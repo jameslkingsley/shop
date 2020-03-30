@@ -1,7 +1,6 @@
 <?php
 
-use App\Product;
-use App\Category;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //
+        User::create([
+            'name' => 'Admin',
+            'email' => 'steven@shortlanesendstore.co.uk',
+            'email_verified_at' => now(),
+            'password' => bcrypt(config('auth.admin_secret')),
+        ]);
     }
 }

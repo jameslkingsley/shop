@@ -24,7 +24,7 @@ class OrderCompletionController extends Controller
         ]);
 
         $setupIntent->payment_method->attach([
-            'customer' => $customer = Customer::create([
+            'customer' => $customer = Customer::create($metadata = [
                 'name' => $session->shipping->name,
                 'email' => $setupIntent->payment_method->billing_details->email,
                 'shipping' => array_merge($session->shipping->toArray(), [
@@ -36,6 +36,7 @@ class OrderCompletionController extends Controller
         $order = Order::findOrFail($session->client_reference_id);
 
         $order->update([
+            'metadata' => $metadata,
             'customer_id' => $customer->id,
             'payment_method_id' => $setupIntent->payment_method->id,
         ]);

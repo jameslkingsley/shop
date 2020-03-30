@@ -12,18 +12,54 @@ header {
 }
 
 button {
-    @apply rounded bg-blue-200 text-blue-800 py-2 uppercase font-bold text-sm tracking-wide transition-all duration-200 ease-in-out;
+    @apply rounded py-2 uppercase font-bold text-sm tracking-wide transition-all duration-200 ease-in-out;
 
-    &[disabled] {
-        @apply text-blue-300 pointer-events-none select-none cursor-default;
+    &.btn-primary {
+        @apply bg-blue-500 text-white;
+
+        &[disabled] {
+            @apply text-blue-300 pointer-events-none select-none cursor-default;
+        }
+
+        &:hover {
+            @apply bg-blue-500 text-white shadow-md;
+        }
+
+        &:active {
+            @apply bg-blue-600 shadow-none text-white;
+        }
     }
 
-    &:hover {
-        @apply bg-blue-500 text-white shadow-md;
+    &.btn-white {
+        @apply shadow bg-white text-black text-xs border;
+
+        &[disabled] {
+            @apply text-gray-400 pointer-events-none select-none cursor-default;
+        }
+
+        &:hover {
+            @apply shadow-md;
+        }
+
+        &:active {
+            @apply shadow-none text-gray-600;
+        }
     }
 
-    &:active {
-        @apply bg-blue-600 shadow-none text-white;
+    &:not(.btn-white):not(.btn-primary) {
+        @apply bg-blue-200 text-blue-800;
+
+        &[disabled] {
+            @apply text-blue-300 pointer-events-none select-none cursor-default;
+        }
+
+        &:hover {
+            @apply bg-blue-500 text-white shadow-md;
+        }
+
+        &:active {
+            @apply bg-blue-600 shadow-none text-white;
+        }
     }
 
     &.btn-sm {
@@ -100,6 +136,24 @@ label {
 
     @screen xl {
         width: calc(16.66% - 1rem);
+    }
+}
+
+.orders-pending {
+    .order {
+        //
+    }
+}
+
+.orders-out-for-delivery {
+    .order {
+        //
+    }
+}
+
+.orders-fulfilled {
+    .order {
+        //
     }
 }
 

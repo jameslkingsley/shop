@@ -16,7 +16,12 @@ class Order extends Model
 
     protected $appends = [
         'total',
-        'customer',
+        'subTotal',
+        'deliveryFee',
+    ];
+
+    protected $casts = [
+        'metadata' => 'object',
     ];
 
     protected $guarded = [];
@@ -26,17 +31,35 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function getTotalAttribute()
+    public function getSubTotalAttribute()
     {
         return $this->items->map(fn($item) => $item->quantity * $item->amount)->sum();
     }
 
-    public function getCustomerAttribute()
+    public function getDeliveryFeeAttribute()
+    {
+        if ($this->subtotal >= 30 * 100) {
+            return 0;
+        }
+
+        if ($this->subtotal >= 20 * 100) {
+            return 100;
+        }
+
+        return 200;
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->subTotal + $this->deliveryFee;
+    }
+
+    public function getCustomer()
     {
         if (! $this->customer_id) {
             return null;
         }
 
-        return Customer::retrieve($this->customer_id)->toArray();
+        return Customer::retrieve($this->customer_id);
     }
 }

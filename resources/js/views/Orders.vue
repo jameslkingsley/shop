@@ -1,5 +1,5 @@
 <template>
-    <div class="block w-full p-6">
+    <div class="container mx-auto p-6">
         <template v-if="loggedIn">
             <template v-if="keys(orders).length">
                 <span class="text-3xl block w-full font-bold">Awaiting packing</span>
@@ -12,7 +12,8 @@
 
                 <span class="text-3xl block w-full font-bold mt-16">Fulfilled</span>
                 <span v-show="! keys(fulfilled).length">No orders available.</span>
-                <order @fetch="fetchOne(order.id)" v-for="order in fulfilled" :key="`order-${order.id}`" :order="order" />
+                <!--<order @fetch="fetchOne(order.id)" v-for="order in fulfilled" :key="`order-${order.id}`" :order="order" />-->
+                <livewire:order v-for="order in fulfilled" :key="`order-${order.id}`" :order-id="order.id" />
             </template>
 
             <template v-else>

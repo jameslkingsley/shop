@@ -17,6 +17,10 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('customer_id')->nullable();
             $table->string('payment_method_id')->nullable();
+            $table->json('metadata')->nullable();
+            $table->string('group')->nullable();
+            $table->unsignedInteger('bags')->default(1);
+            $table->unsignedInteger('order')->default(1);
             $table->timestamp('charged_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
             $table->timestamps();

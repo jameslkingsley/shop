@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <button @click="checkout" :disabled="(isCheckingOut && ! form.telephone) || ! subTotal" class="w-full bg-blue-500 text-white py-4 text-lg rounded-none">
+            <button @click="checkout" :disabled="(isCheckingOut && ! form.telephone) || ! subTotal" class="w-full btn-primary py-4 text-lg rounded-none">
                 {{ isCheckingOut ? 'Place Order &rarr;' : 'Checkout' }}
             </button>
         </div>

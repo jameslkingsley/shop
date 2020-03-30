@@ -9,12 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
+        "ext-json": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/cashier": "^10.7",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
+        "livewire/livewire": "^1.0",
+        "nothingworks/blade-svg": "^0.3.4",
         "stripe/stripe-php": "^7.27"
     },
     "require-dev": {
