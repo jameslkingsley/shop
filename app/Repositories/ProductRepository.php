@@ -13,6 +13,8 @@ class ProductRepository extends Repository
             FROM tblProducts
             WHERE prodStatus = "active"
             AND prodCatID = ' . $categoryId . '
+            AND prodLastBought > DATE_ADD(NOW(), INTERVAL -180 DAY)
+            AND prodOurPrice != 0
             ORDER BY prodTitle, prodUnitSize, prodID
         ');
     }
@@ -26,6 +28,8 @@ class ProductRepository extends Repository
             INNER JOIN tblProductGroups ON pcatGroup = pgID
             WHERE pgID = ' . $groupId . '
             AND prodStatus = "active"
+            AND prodLastBought > DATE_ADD(NOW(), INTERVAL -180 DAY)
+            AND prodOurPrice != 0
             ORDER BY prodTitle, prodUnitSize, prodID
         ');
     }
