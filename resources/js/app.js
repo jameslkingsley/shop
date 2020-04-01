@@ -47,6 +47,10 @@ export default class {
                 $addToBasket(product) {
                     let existing = _.get(this.$root.basket, product.id, { ...product, qty: 0 })
 
+                    if (existing.qty >= 10) {
+                        return
+                    }
+
                     _.set(existing, 'qty', existing.qty + 1)
 
                     this.$set(this.$root.basket, product.id, existing)

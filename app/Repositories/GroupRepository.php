@@ -13,6 +13,7 @@ class GroupRepository extends Repository
             FROM tblproductgroups
             WHERE pgType = "sale"
             AND pgID > 30
+            AND pgShow = 1
             ORDER BY pgTitle
         ');
     }

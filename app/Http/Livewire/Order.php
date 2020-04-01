@@ -36,6 +36,10 @@ class Order extends Component
 
     public function decreaseBags()
     {
+        if ($this->order->bags === 0) {
+            return;
+        }
+
         $this->order->decrement('bags');
 
         $this->refresh();
@@ -50,6 +54,10 @@ class Order extends Component
 
     public function decreaseOrder()
     {
+        if ($this->order->order === 0) {
+            return;
+        }
+
         $this->order->decrement('order');
 
         $this->refresh();

@@ -13,6 +13,7 @@ class CategoryRepository extends Repository
             FROM tblproductcats
             WHERE pcatGroup = ' . $groupId . '
             AND pcatType = "product"
+            AND pcatShow = 1
             ORDER BY pcatTitle
         ');
     }

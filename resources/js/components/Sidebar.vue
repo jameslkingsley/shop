@@ -21,18 +21,6 @@
     export default {
         props: {
             title: String
-        },
-
-        computed: {
-            isCheckout() {
-                return _.startsWith(this.$route.path, '/checkout')
-            },
         }
     }
 </script>
-
-<style scoped lang="scss">
-    .-ml-basket {
-        margin-left: -24rem;
-    }
-</style>

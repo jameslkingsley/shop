@@ -12,36 +12,35 @@
         </sidebar>
 
         <div class="flex flex-wrap flex-1 p-4">
-            <product v-for="product in products" :product="product" :key="`product-${product.id}`" />
+            <router-link :to="`/group/${$route.params.group}/${category.id}`" v-for="category in categories" :key="`category-${category.id}`"
+                class="inline-block bg-white rounded shadow m-2 px-4 py-4 w-product text-base text-black">
+                {{ category.title }}
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
-    import Product from '../components/Product'
     import Sidebar from '../components/Sidebar'
 
     export default {
-        components: { Sidebar, Product },
+        components: { Sidebar },
 
         data() {
             return {
-                products: [],
                 categories: [],
             }
         },
 
         async beforeRouteEnter(to, from, next) {
             const categories = await ajax.get(`/api/group/${to.params.group}`)
-            const products = await ajax.get(`/api/product/${to.params.group}`)
 
-            next(vm => vm.fill(categories.data, products.data))
+            next(vm => vm.fill(categories.data))
         },
 
         methods: {
-            fill(categories, products) {
+            fill(categories) {
                 this.categories = categories
-                this.products = products
             },
         },
 
