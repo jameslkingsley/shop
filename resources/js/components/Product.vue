@@ -1,8 +1,8 @@
 <template>
     <div class="inline-flex flex-col w-product bg-white shadow m-2 p-4 rounded">
-        <!--<div class="block w-full h-32 bg-gray-100 rounded flex items-center justify-center mb-4 text-gray-500 text-xs">-->
-        <!--    Image Unavailable-->
-        <!--</div>-->
+        <div class="block w-full h-32 bg-white rounded flex items-center justify-center mb-4 text-gray-500 text-xs">
+            <img :src="imageUrl" :alt="product.title" />
+        </div>
 
         <span class="w-full mb-4 text-sm">{{ product.title }}</span>
 
@@ -25,5 +25,23 @@
         props: {
             product: Object,
         },
+
+        computed: {
+            imageUrl() {
+                return App.imageEndpoint + '/' + btoa(
+                    JSON.stringify({
+                        key: `images/${this.product.ref}.jpg`,
+                        bucket: 'sle-shop',
+                        edits: {
+                            resize: {
+                                width: 128,
+                                height: 128,
+                                fit: 'cover',
+                            }
+                        }
+                    })
+                )
+            }
+        }
     }
 </script>

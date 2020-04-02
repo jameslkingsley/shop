@@ -33,6 +33,21 @@ return [
     'stripe' => [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
-    ]
+    ],
+
+    'image_resize' => [
+        'endpoint' => env('AWS_IMAGERESIZE_ENDPOINT'),
+
+        /**
+         * Changing these values will cause the
+         * image processor to generate new images.
+         */
+        'sizes' => [
+            'sm' => 128,
+            'md' => 256,
+            'lg' => 512,
+            'og' => null,
+        ],
+    ],
 
 ];

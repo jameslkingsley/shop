@@ -31,6 +31,7 @@
         csrfToken: @json(csrf_token()),
         stripeToken: @json(config('services.stripe.key')),
         adminLoggedIn: @json(session('admin_logged_in', false)),
+        imageEndpoint: @json(config('services.image_resize.endpoint')),
     })
 
     window.App.boot()
