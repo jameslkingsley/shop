@@ -91,7 +91,7 @@
                 <div class="inline-flex flex-col text-sm">
                     <div class="text-right select-none">
                         @if ($order->charged_at)
-                            <span class="text-green-500 mr-4">Payed &checkmark;</span>
+                            <span class="text-green-500 mr-4">Paid &checkmark;</span>
                         @else
                             <button wire:click="takePayment" wire:loading.attr="disabled" class="px-4 ml-2 btn-white">
                                 Take Payment
