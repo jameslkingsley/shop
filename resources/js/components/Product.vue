@@ -1,7 +1,7 @@
 <template>
     <div class="inline-flex flex-col w-product bg-white shadow m-2 p-4 rounded">
         <div class="block w-full h-32 bg-white rounded flex items-center justify-center mb-4 text-gray-500 text-xs">
-            <img :src="imageUrl" :alt="product.title" />
+            <img :src="imageUrl" :alt="product.title" class="h-32" />
         </div>
 
         <span class="w-full mb-4 text-sm">{{ product.title }}</span>
@@ -28,19 +28,7 @@
 
         computed: {
             imageUrl() {
-                return App.imageEndpoint + '/' + btoa(
-                    JSON.stringify({
-                        key: `images/${this.product.ref}.jpg`,
-                        bucket: 'sle-shop',
-                        edits: {
-                            resize: {
-                                width: 128,
-                                height: 128,
-                                fit: 'cover',
-                            }
-                        }
-                    })
-                )
+                return `https://sle-shop.s3.eu-west-2.amazonaws.com/images/${this.product.ref}.jpg`
             }
         }
     }

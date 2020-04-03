@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use DOMDocument;
+use App\Product;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -47,7 +48,8 @@ class FetchBookerImages extends Command
             ->table('tblProducts')
             ->select(['prodID', 'prodRef', 'prodTitle'])
             ->where('prodRef', '!=', '')
-            ->whereRaw('length(prodRef) = 6')
+            ->whereRaw('length(prodRef) >= 5')
+            ->whereNull('prodImg')
             ->get();
 
         $this->info('Fetching ' . $products->count() . ' images...');
@@ -69,7 +71,15 @@ class FetchBookerImages extends Command
             if ($image = $document->getElementById('imgImage')) {
                 $imageUrl = static::BOOKER_URL . $image->getAttribute('src');
 
-                Storage::put('images/' . $product->prodRef . '.jpg', fopen($imageUrl, 'r'));
+                if (! Storage::exists($path = 'images/' . $product->prodRef . '.jpg')) {
+                    Storage::put($path, fopen($imageUrl, 'r'));
+                }
+
+                Product::findOrFail($product->prodID)
+                    ->update([
+                        'prodImg' => Storage::url($path),
+                        'prodDesc' => $image->getAttribute('alt') ?: null,
+                    ]);
             }
 
             $bar->advance();
