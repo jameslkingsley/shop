@@ -1,10 +1,11 @@
 <template>
     <div class="inline-flex flex-col w-product bg-white shadow m-2 p-4 rounded">
         <div class="block w-full h-32 bg-white rounded flex items-center justify-center mb-4 text-gray-500 text-xs">
-            <img :src="imageUrl" :alt="product.title" class="h-32" />
+            <img :src="imageUrl" alt="No image available" class="h-32" />
         </div>
 
-        <span class="w-full mb-4 text-sm">{{ product.title }}</span>
+        <span class="w-full text-sm">{{ product.title }}</span>
+        <span class="w-full mb-4 text-2xs text-gray-500">#{{ product.id }}</span>
 
         <div class="flex-1 flex items-end">
             <div class="flex flex-col w-full">

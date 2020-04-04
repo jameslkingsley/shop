@@ -7,6 +7,10 @@ module.exports = {
         },
 
         extend: {
+            fontSize: {
+                '2xs': '0.66rem'
+            },
+
             screens: {
                 '2xl': '2200px'
             },

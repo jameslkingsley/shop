@@ -1,4 +1,4 @@
-<div wire:init="fetch" class="flex flex-wrap items-start justify-between w-full py-4 sm:py-8 px-4 sm:px-10">
+<div wire:init="fetch" wire:poll.5000ms="fetch" class="flex flex-wrap items-start justify-between w-full py-4 sm:py-8 px-4 sm:px-10">
     <div class="block w-full lg:w-1/2 xl:w-1/3 mb-16 orders-pending lg:pr-8 xl:pr-16">
         <span class="text-xl block w-full font-bold -mb-2">Pending</span>
 
@@ -16,11 +16,11 @@
             @livewire('order', compact('order'), key($order->id))
         @endforeach
 
-        @foreach ($groups as $group)
+        @foreach ($groups as $index => $group)
             @if (collect($outForDelivery)->where('group', $group)->isNotEmpty())
                 <div class="relative block w-full mb-16">
                     @forelse (collect($outForDelivery)->where('group', $group)->sortBy('order') as $order)
-                        @livewire('order', compact('order'), key($group . '-' . $order->id))
+                        @livewire('order', compact('order'), key($index . $order->id))
                     @empty
                         <span class="text-gray-600 mt-2 block w-full">No orders available.</span>
                     @endforelse

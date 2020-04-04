@@ -12,18 +12,18 @@
         </div>
 
         <div class="flex flex-wrap p-6 flex-1">
-            <router-link :to="`/group/${group.id}`" v-for="group in groups" :key="`group-${group.id}`" class="inline-block bg-white rounded shadow m-2 px-4 py-4 w-product text-base text-black">
-                {{ group.title }}
-            </router-link>
+            <category :title="group.title" :url="`/group/${group.id}`"
+                v-for="group in groups" :key="`group-${group.id}`" />
         </div>
     </div>
 </template>
 
 <script>
     import Sidebar from '../components/Sidebar'
+    import Category from '../components/Category'
 
     export default {
-        components: { Sidebar },
+        components: { Sidebar, Category },
 
         data() {
             return {

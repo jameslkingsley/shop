@@ -33,17 +33,6 @@ class Orders extends Component
         $this->fetch();
     }
 
-    public function print($group)
-    {
-        // OrderModel::whereNotNull('customer_id')
-        //     ->whereNotNull('charged_at')
-        //     ->whereNull('delivered_at')
-        //     ->whereGroup($group)
-        //     ->update(['delivered_at' => now()]);
-
-        $this->fetch();
-    }
-
     public function fetch()
     {
         $this->pending = OrderModel::whereNotNull('customer_id')

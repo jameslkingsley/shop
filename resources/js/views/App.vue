@@ -7,6 +7,11 @@
                     <span class="sm:hidden font-bold text-sm">Menu</span>
                 </span>
 
+                <router-link to="/" class="inline-flex items-center mr-6 cursor-pointer select-none">
+                    <icon name="home" width="20" height="20" class="text-white mr-2" />
+                    <span class="sm:hidden font-bold text-sm">Home</span>
+                </router-link>
+
                 <div class="hidden sm:flex flex-col">
                     <router-link to="/" class="text-xl font-bold tracking-wide">
                         Shortlanesend Store
@@ -17,7 +22,11 @@
                     </span>
                 </div>
 
-                <div class="inline-flex items-center justify-end flex-1">
+                <div class="flex-1 inline-flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-24 xl:px-32">
+                    <input @keyup.enter="submitSearch" placeholder="Search for a product" class="px-4 py-2 rounded bg-white text-black shadow focus:shadow-md w-full" />
+                </div>
+
+                <div class="inline-flex items-center justify-end xl:flex-1">
                     <span @click="basketVisible = ! basketVisible" class="inline-flex items-center text-lg font-bold cursor-pointer select-none">
                         <icon name="shopping-cart" width="20" height="20" class="text-white mr-2" />
                         <span>{{ subTotal | currency }}</span>
@@ -162,6 +171,10 @@
                 this.isCheckingOut = true
 
                 setTimeout(() => this.$refs.telephoneInput.focus(), 150)
+            },
+
+            submitSearch(event) {
+                this.$router.push('/search?keyword=' + event.target.value)
             }
         }
     }

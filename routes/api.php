@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', 'LoginController@store');
 
+Route::post('/search', 'SearchController@store');
+
 Route::get('/product/{group}', 'GroupController@products');
 
 Route::get('/group', 'GroupController@index');
