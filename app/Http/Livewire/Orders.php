@@ -9,7 +9,6 @@ class Orders extends Component
 {
     public $pending = [];
     public $fulfilled = [];
-    public $outForDelivery = [];
     protected $listeners = ['fetch'];
 
     public const GROUP_COLORS = [
@@ -22,36 +21,19 @@ class Orders extends Component
         //
     }
 
-    public function markAllAsDelivered($group)
-    {
-        OrderModel::whereNotNull('customer_id')
-            ->whereNotNull('charged_at')
-            ->whereNull('delivered_at')
-            ->whereGroup($group)
-            ->update(['delivered_at' => now()]);
-
-        $this->fetch();
-    }
-
     public function fetch()
     {
         $this->pending = OrderModel::whereNotNull('customer_id')
             ->whereNull('charged_at')
             ->whereNull('delivered_at')
             ->orderBy('created_at', 'desc')
-            ->with('items')->get();
-
-        $this->outForDelivery = OrderModel::whereNotNull('customer_id')
-            ->whereNotNull('charged_at')
-            ->whereNull('delivered_at')
-            ->orderBy('order')
-            ->with('items')->get();
+            ->get();
 
         $this->fulfilled = OrderModel::whereNotNull('customer_id')
             ->whereNotNull('charged_at')
             ->whereNotNull('delivered_at')
             ->orderBy('delivered_at', 'desc')
-            ->with('items')->get();
+            ->get();
     }
 
     public function render()

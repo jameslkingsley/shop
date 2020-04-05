@@ -50,6 +50,7 @@ class Order extends Component
         $this->order->increment('order');
 
         $this->refresh();
+        $this->emitUp('fetch');
     }
 
     public function decreaseOrder()
@@ -61,6 +62,7 @@ class Order extends Component
         $this->order->decrement('order');
 
         $this->refresh();
+        $this->emitUp('fetch');
     }
 
     public function assignToGroup($group)
@@ -69,8 +71,7 @@ class Order extends Component
             'group' => $this->order->group === $group ? null : $group,
         ]);
 
-        $this->refresh();
-        $this->emitUp('fetch');
+        $this->emit('fetch');
     }
 
     public function takePayment()
@@ -100,6 +101,16 @@ class Order extends Component
         $this->refresh();
 
         $this->emitUp('fetch');
+    }
+
+    public function markAsUndelivered()
+    {
+        $this->expanded = false;
+        $this->order->update(['delivered_at' => null]);
+
+        $this->refresh();
+
+        $this->emit('fetch');
     }
 
     public function createOrderItem()

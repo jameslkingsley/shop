@@ -18,7 +18,7 @@
         </div>
 
         <div class="flex flex-wrap flex-1 p-4">
-            <category :title="category.title" :url="`/group/${$route.params.group}/${category.id}`"
+            <category :title="category.title" :image="category.image" :url="`/group/${$route.params.group}/${category.id}`"
                 v-for="category in categories" :key="`category-${category.id}`" />
         </div>
     </div>

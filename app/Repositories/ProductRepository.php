@@ -13,7 +13,7 @@ class ProductRepository extends Repository
             FROM tblProducts
             WHERE prodStatus = "active"
             AND prodCatID = ' . $categoryId . '
-            AND prodLastBought > DATE_ADD(NOW(), INTERVAL -180 DAY)
+            AND prodLastBought > DATE_ADD(NOW(), INTERVAL -365 DAY)
             AND prodOurPrice != 0
             ORDER BY prodTitle, prodUnitSize, prodID
         ');

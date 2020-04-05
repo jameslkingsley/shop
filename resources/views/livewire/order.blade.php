@@ -99,7 +99,9 @@
                         @endif
 
                         @if ($order->delivered_at)
-                            <span class="text-green-500">Delivered &checkmark;</span>
+                            <button wire:click="markAsUndelivered" wire:loading.attr="disabled" class="px-3 btn-white">
+                                Mark As Un-Delivered
+                            </button>
                         @elseif ($order->charged_at)
                             <button wire:click="markAsDelivered" wire:loading.attr="disabled" class="px-3 btn-white">
                                 Delivered &checkmark;

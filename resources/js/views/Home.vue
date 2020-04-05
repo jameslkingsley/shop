@@ -12,7 +12,7 @@
         </div>
 
         <div class="flex flex-wrap p-6 flex-1">
-            <category :title="group.title" :url="`/group/${group.id}`"
+            <category :title="group.title" :image="group.image" :url="`/group/${group.id}`"
                 v-for="group in groups" :key="`group-${group.id}`" />
         </div>
     </div>
