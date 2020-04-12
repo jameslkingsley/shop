@@ -30,10 +30,12 @@
             <div class="{{ ($order->charged_at && ! $order->delivered_at) ? 'ml-6 2xl:ml-8' : '' }} flex-1 inline-flex flex-col text-sm 2xl:text-base">
                 <span class="font-bold truncate">
                     {{ $order->metadata->shipping->name }}
-                    &mdash;
-                    <a href="tel:{{ $order->metadata->shipping->phone }}" class="text-xs font-normal">
-                        {{ $order->metadata->shipping->phone }}
-                    </a>
+                    @if ($order->charged_at && ! $order->delivered_at)
+                        &mdash;
+                        <a href="tel:{{ $order->metadata->shipping->phone }}" class="text-xs font-normal">
+                            {{ $order->metadata->shipping->phone }}
+                        </a>
+                    @endif
                 </span>
 
                 @if ($order->charged_at && ! $order->delivered_at)
@@ -46,8 +48,8 @@
                     </div>
                 @else
                     <div class="inline-flex flex-row items-center text-xs 2xl:text-sm text-gray-600">
-                        <span class="hidden sm:inline-block">{{ $order->created_at->shortRelativeToNowDiffForHumans() }}</span>
-                        <span class="hidden sm:inline-block mx-2">&middot;</span>
+                        <span class="inline-block">{{ $order->created_at->shortRelativeToNowDiffForHumans() }}</span>
+                        <span class="inline-block mx-2">&middot;</span>
                         <a href="tel:{{ $order->metadata->shipping->phone }}">{{ $order->metadata->shipping->phone }}</a>
                     </div>
                 @endif
@@ -144,7 +146,7 @@
                                         <p class="text-yellow-800 font-bold pb-2">Missing Payment Method</p>
                                         <p class="text-sm">This order is missing a payment method. You can take payment manually through Stripe, and then confirm the payment has been received here.</p>
 
-                                        <div class="flex items-center w-full mt-4">
+                                        <div class="flex flex-wrap items-center w-full mt-4">
                                             <button class="btn-white text-2xs p-0">
                                                 <a href="{{ "https://dashboard.stripe.com/customers/{$order->customer_id}" }}" target="_blank" class="inline-block px-2 py-1">
                                                     Take Payment

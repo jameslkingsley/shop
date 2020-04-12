@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7a559737-c42b-4af5-ae61-c95e99ae4e22" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Livewire/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -207,7 +204,7 @@
       <workItem from="1586099584995" duration="4407000" />
       <workItem from="1586640673777" duration="7738000" />
       <workItem from="1586692992077" duration="8309000" />
-      <workItem from="1586707628465" duration="3811000" />
+      <workItem from="1586707628465" duration="4108000" />
     </task>
     <servers />
   </component>
