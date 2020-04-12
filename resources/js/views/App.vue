@@ -39,7 +39,7 @@
 
         <div v-show="basketVisible || $root.menuVisible" @click="closeSidebars" class="fixed inset-0 z-40 bg-blue-500 opacity-25"></div>
 
-        <div v-show="basketVisible" class="fixed z-50 flex flex-col right-0 top-0 bottom-0 w-full sm:w-basket transition-all duration-200 ease-in-out">
+        <div v-show="basketVisible" class="fixed overflow-y-auto z-50 flex flex-col right-0 top-0 bottom-0 w-full sm:w-basket transition-all duration-200 ease-in-out">
             <div class="flex flex-1 flex-col bg-background-lighter shadow-lg">
                 <span class="flex items-center text-gray-900 font-bold text-xl px-6 py-4 bg-white border-b border-gray-200">
                     <icon @click.native="basketVisible = false" name="close" width="20" height="20" class="text-black mr-4 cursor-pointer select-none" />
