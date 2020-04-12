@@ -34,7 +34,6 @@ class OrderController extends Controller
             'basket' => 'required',
             'comment' => 'nullable|string',
             'customer_id' => 'nullable|string',
-            'payment_method_id' => 'nullable|string',
             'telephone' => auth()->check() ? 'nullable|string' : 'required',
         ]);
 
@@ -51,36 +50,25 @@ class OrderController extends Controller
         $order = Order::create();
         $order->items()->createMany($items);
 
-        if ($request->customer_id && $request->payment_method_id) {
-            $metadata = [];
-
+        if ($request->customer_id) {
             try {
                 $customer = Customer::retrieve($request->customer_id);
 
-                $metadata['name'] = $customer->name;
-                $metadata['email'] = $customer->email;
-                $metadata['shipping'] = $customer->shipping->toArray();
+                $order->update([
+                    'customer_id' => $request->customer_id,
+                    'metadata' => [
+                        'name' => $customer->name,
+                        'email' => $customer->email,
+                        'shipping' => $customer->shipping->toArray(),
+                    ],
+                ]);
+
+                return response('Order created.', 204);
             } catch (InvalidRequestException $exception) {
                 throw ValidationException::withMessages([
                     'customer_id' => $exception->getMessage(),
                 ]);
             }
-
-            try {
-                PaymentMethod::retrieve($request->payment_method_id);
-            } catch (InvalidRequestException $exception) {
-                throw ValidationException::withMessages([
-                    'payment_method_id' => $exception->getMessage(),
-                ]);
-            }
-
-            $order->update([
-                'metadata' => $metadata,
-                'customer_id' => $request->customer_id,
-                'payment_method_id' => $request->payment_method_id
-            ]);
-
-            return response('Order created.', 204);
         }
 
         $session = Session::create([

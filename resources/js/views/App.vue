@@ -101,18 +101,12 @@
 
                     <div v-if="isAdmin && isCheckingOut" class="block w-full p-4 rounded border border-yellow-300 bg-yellow-100 mt-4 select-none transition-all duration-300 ease-in-out">
                         <p class="text-yellow-800 font-bold pb-2">You are logged in as admin.</p>
-                        <p class="text-sm">You can bypass the checkout process by entering a Stripe customer and payment method below.</p>
+                        <p class="text-sm">You can bypass the checkout process by entering a Stripe customer ID below.</p>
 
-                        <label class="my-4" :class="{ 'error': errors.customer_id }">
+                        <label class="mt-4" :class="{ 'error': errors.customer_id }">
                             <span>Stripe Customer ID</span>
                             <input v-model="form.customer_id" placeholder="cus_H52s8qZ2UrqKLt" />
                             <span v-show="errors.customer_id" v-text="errors.customer_id"></span>
-                        </label>
-
-                        <label :class="{ 'error': errors.payment_method_id }">
-                            <span>Stripe Payment Method ID</span>
-                            <input v-model="form.payment_method_id" placeholder="pm_1GWsmREk7C5pFTckhQ3wo5EY" />
-                            <span v-show="errors.payment_method_id" v-text="errors.payment_method_id"></span>
                         </label>
                     </div>
                 </div>
@@ -138,7 +132,6 @@
                     comment: null,
                     telephone: null,
                     customer_id: null,
-                    payment_method_id: null,
                 },
             }
         },
@@ -196,7 +189,6 @@
                         this.form.comment = null
                         this.form.telephone = null
                         this.form.customer_id = null
-                        this.form.payment_method_id = null
                         return this.$clearBasket()
                     }
 

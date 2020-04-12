@@ -120,6 +120,15 @@ class Order extends Component
         $this->emit('fetch');
     }
 
+    public function confirmPayment()
+    {
+        $this->order->update(['charged_at' => now()]);
+
+        $this->refresh();
+
+        $this->emitUp('fetch');
+    }
+
     public function takePayment()
     {
         PaymentIntent::create([

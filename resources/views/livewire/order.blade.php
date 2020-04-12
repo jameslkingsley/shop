@@ -135,9 +135,30 @@
                             @if ($order->charged_at)
                                 <span class="text-green-500 mr-4">Paid &checkmark;</span>
                             @else
-                                <button wire:click="takePayment" wire:loading.attr="disabled" class="px-4 mr-2 btn-white">
-                                    Take Payment
-                                </button>
+                                @if ($order->payment_method_id)
+                                    <button wire:click="takePayment" wire:loading.attr="disabled" class="px-4 mr-2 btn-white">
+                                        Take Payment
+                                    </button>
+                                @else
+                                    <div class="block w-full p-4 rounded border border-yellow-300 bg-yellow-100 select-none transition-all duration-300 ease-in-out">
+                                        <p class="text-yellow-800 font-bold pb-2">Missing Payment Method</p>
+                                        <p class="text-sm">This order is missing a payment method. You can take payment manually through Stripe, and then confirm the payment has been received here.</p>
+
+                                        <div class="flex items-center w-full mt-4">
+                                            <button class="btn-white text-2xs p-0">
+                                                <a href="{{ "https://dashboard.stripe.com/customers/{$order->customer_id}" }}" target="_blank" class="inline-block px-2 py-1">
+                                                    Take Payment
+                                                </a>
+                                            </button>
+
+                                            <span class="flex-1 px-4 font-bold">then confirm the payment &rarr;</span>
+
+                                            <button wire:click="confirmPayment" wire:loading.attr="disabled" class="px-2 btn-white text-2xs py-1">
+                                                Confirm
+                                            </button>
+                                        </div>
+                                    </div>
+                                @endif
                             @endif
 
                             @if ($order->delivered_at)
