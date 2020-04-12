@@ -5,13 +5,14 @@ namespace App\Http\Livewire;
 use App\Product;
 use Livewire\Component;
 use Stripe\PaymentIntent;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Component
 {
     public $order;
     public $amount;
-    public $productId;
-    public $originalAmount;
+    public $searchQuery;
+    public $searchResults = [];
     public bool $expanded = false;
 
     protected $listeners = ['refresh'];
@@ -19,12 +20,57 @@ class Order extends Component
     public function mount(\App\Order $order)
     {
         $this->order = $order;
-        $this->originalAmount = $order->total;
+    }
+
+    public function addProductToOrder($productId)
+    {
+        if ($product = Product::find($productId)) {
+            $this->order->items()->create([
+                'quantity' => 1,
+                'product_id' => $product->prodID,
+                'amount' => $product->prodOurPrice * 100,
+            ]);
+
+            $this->searchResults = [];
+            $this->searchQuery = null;
+
+            $this->refresh();
+        }
+    }
+
+    public function updatedExpanded()
+    {
+        $this->emitUp('orderExpanded', $this->expanded);
+    }
+
+    public function updatedSearchQuery()
+    {
+        if (! $this->searchQuery) {
+            return $this->searchResults = [];
+        }
+
+        $this->searchResults = DB::connection('sle')->select('
+            SELECT prodID AS id, prodRef as ref, prodTitle AS title, prodUnitSize AS unit_size, CAST((prodOurPrice * 100) AS SIGNED) AS price
+            FROM tblProducts
+            WHERE prodStatus = "active"
+            AND prodLastBought > DATE_ADD(NOW(), INTERVAL -180 DAY)
+            AND prodOurPrice != 0
+            AND (
+                prodTitle LIKE "%'.$this->searchQuery.'%"
+                OR prodID = CONVERT("'.$this->searchQuery.'", SIGNED INTEGER)
+            )
+            ORDER BY prodTitle, prodUnitSize, prodID
+        ');
     }
 
     public function refresh()
     {
         $this->order->refresh();
+    }
+
+    public function startPicking()
+    {
+        $this->order->update(['picking_at' => now()]);
     }
 
     public function increaseBags()
@@ -111,20 +157,6 @@ class Order extends Component
         $this->refresh();
 
         $this->emit('fetch');
-    }
-
-    public function createOrderItem()
-    {
-        if ($product = Product::find($this->productId)) {
-            $this->order->items()->create([
-                'quantity' => 1,
-                'product_id' => $product->prodID,
-                'amount' => $product->prodOurPrice * 100,
-            ]);
-
-            $this->refresh();
-            $this->productId = null;
-        }
     }
 
     public function render()

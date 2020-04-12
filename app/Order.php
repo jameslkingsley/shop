@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $connection= 'sle';
+    protected $table = 'shop_orders';
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -28,7 +31,7 @@ class Order extends Model
 
     public function items()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasMany(OrderItem::class)->with('product');
     }
 
     public function getSubTotalAttribute()

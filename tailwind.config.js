@@ -28,9 +28,17 @@ module.exports = {
                 sidebar: '16rem',
             },
 
+            minWidth: {
+                '1/2': '50%'
+            },
+
             height: {
                 product: '4rem',
                 header: '5rem',
+            },
+
+            maxHeight: {
+                'order': '90vh'
             },
 
             margin: {

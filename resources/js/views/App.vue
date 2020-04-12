@@ -3,13 +3,11 @@
         <header class="fixed py-4 top-0 left-0 right-0 block bg-blue-500 text-white px-6 md:px-8 text-lg z-40">
             <nav class="flex items-center justify-between w-full h-full">
                 <span @click="toggleMenu" class="inline-flex items-center mr-6 cursor-pointer select-none">
-                    <icon name="menu" width="20" height="20" class="text-white mr-2" />
-                    <span class="sm:hidden font-bold text-sm">Menu</span>
+                    <icon name="menu" width="20" height="20" class="text-white" />
                 </span>
 
-                <router-link to="/" class="inline-flex items-center mr-6 cursor-pointer select-none">
-                    <icon name="home" width="20" height="20" class="text-white mr-2" />
-                    <span class="sm:hidden font-bold text-sm">Home</span>
+                <router-link to="/" class="inline-flex items-center mr-4 sm:mr-6 cursor-pointer select-none">
+                    <icon name="home" width="20" height="20" class="text-white" />
                 </router-link>
 
                 <div class="hidden sm:flex flex-col">
@@ -23,7 +21,7 @@
                 </div>
 
                 <div class="flex-1 inline-flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-24 xl:px-32">
-                    <input @keyup.enter="submitSearch" placeholder="Search for a product" class="px-4 py-2 rounded bg-white text-black shadow focus:shadow-md w-full" />
+                    <input @keyup.enter="submitSearch" placeholder="Search" class="px-4 py-2 text-sm sm:text-base rounded bg-white text-black shadow focus:shadow-md w-full" />
                 </div>
 
                 <div class="inline-flex items-center justify-end xl:flex-1">
@@ -39,7 +37,7 @@
             <router-view></router-view>
         </main>
 
-        <div v-show="basketVisible || $root.menuVisible" @click="closeSidebars" class="fixed inset-0 z-10 bg-blue-500 opacity-25"></div>
+        <div v-show="basketVisible || $root.menuVisible" @click="closeSidebars" class="fixed inset-0 z-40 bg-blue-500 opacity-25"></div>
 
         <div v-show="basketVisible" class="fixed z-50 flex flex-col right-0 top-0 bottom-0 w-full sm:w-basket transition-all duration-200 ease-in-out">
             <div class="flex flex-1 flex-col bg-background-lighter shadow-lg">
@@ -47,7 +45,6 @@
                     <icon @click.native="basketVisible = false" name="close" width="20" height="20" class="text-black mr-4 cursor-pointer select-none" />
                     <span>Your Basket</span>
                 </span>
-
 
                 <div class="flex-1 bg-background-lighter p-4 xl:p-6 overflow-y-auto">
                     <div v-for="(product, id) in $root.basket" :key="`basket-${id}`"
@@ -88,17 +85,40 @@
                         <span class="flex-shrink-0 text-right font-number text-xl xl:text-2xl font-extrabold">{{ total | currency }}</span>
                     </div>
 
-                    <div v-show="isCheckingOut" class="block w-full mt-6 select-none transition-all duration-300 ease-in-out">
+                    <div class="block w-full mt-4">
+                        <label>
+                            <textarea v-model="form.comment" placeholder="Additional comments, delivery instructions etc." class="w-full text-sm px-2 py-1 max-w-full" />
+                        </label>
+                    </div>
+
+                    <div v-show="isCheckingOut" class="block w-full mt-4 select-none transition-all duration-300 ease-in-out">
                         <label :class="{ 'error': errors.telephone }">
                             <p class="text-sm mb-2 text-gray-700">Please enter your phone number below.<br />We will contact you to confirm delivery of your items.</p>
                             <input ref="telephoneInput" v-model="form.telephone" required type="tel" name="telephone" placeholder="Mobile or home number" class="text-center" />
                             <span v-show="errors.telephone" v-text="errors.telephone"></span>
                         </label>
                     </div>
+
+                    <div v-if="isAdmin && isCheckingOut" class="block w-full p-4 rounded border border-yellow-300 bg-yellow-100 mt-4 select-none transition-all duration-300 ease-in-out">
+                        <p class="text-yellow-800 font-bold pb-2">You are logged in as admin.</p>
+                        <p class="text-sm">You can bypass the checkout process by entering a Stripe customer and payment method below.</p>
+
+                        <label class="my-4" :class="{ 'error': errors.customer_id }">
+                            <span>Stripe Customer ID</span>
+                            <input v-model="form.customer_id" placeholder="cus_H52s8qZ2UrqKLt" />
+                            <span v-show="errors.customer_id" v-text="errors.customer_id"></span>
+                        </label>
+
+                        <label :class="{ 'error': errors.payment_method_id }">
+                            <span>Stripe Payment Method ID</span>
+                            <input v-model="form.payment_method_id" placeholder="pm_1GWsmREk7C5pFTckhQ3wo5EY" />
+                            <span v-show="errors.payment_method_id" v-text="errors.payment_method_id"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <button @click="checkout" :disabled="(isCheckingOut && ! form.telephone) || ! subTotal" class="w-full btn-primary py-4 text-lg rounded-none">
+            <button @click="checkout" :disabled="placeOrderDisabled" class="w-full btn-primary py-4 text-lg rounded-none">
                 {{ isCheckingOut ? 'Place Order &rarr;' : 'Checkout' }}
             </button>
         </div>
@@ -112,12 +132,26 @@
                 errors: {},
                 isCheckingOut: false,
                 basketVisible: false,
-                form: { telephone: null },
+                isAdmin: App.adminLoggedIn,
                 stripe: Stripe(App.stripeToken),
+                form: {
+                    comment: null,
+                    telephone: null,
+                    customer_id: null,
+                    payment_method_id: null,
+                },
             }
         },
 
         computed: {
+            placeOrderDisabled() {
+                if (this.isAdmin) {
+                    return ! this.subTotal
+                }
+
+                return (this.isCheckingOut && ! this.form.telephone) || ! this.subTotal
+            },
+
             subTotal() {
                 return _.sum(
                     _.values(
@@ -153,12 +187,22 @@
 
             async placeOrder() {
                 try {
-                    const { data: { sessionId } } = await ajax.post('/api/order', {
+                    const response = await ajax.post('/api/order', {
                         basket: this.$root.basket, ...this.form
                     })
 
-                    this.stripe.redirectToCheckout({ sessionId })
+                    if (response.status === 204) {
+                        this.isCheckingOut = false
+                        this.form.comment = null
+                        this.form.telephone = null
+                        this.form.customer_id = null
+                        this.form.payment_method_id = null
+                        return this.$clearBasket()
+                    }
+
+                    this.stripe.redirectToCheckout({ sessionId: response.data.sessionId })
                 } catch ({ response }) {
+                    console.error(response.data.message)
                     this.errors = _.mapValues(response.data.errors, e => _.first(e))
                 }
             },

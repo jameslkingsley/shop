@@ -38,6 +38,7 @@ class OrderCompletionController extends Controller
         $order->update([
             'metadata' => $metadata,
             'customer_id' => $customer->id,
+            'comment' => $session->metadata->comment,
             'payment_method_id' => $setupIntent->payment_method->id,
         ]);
 

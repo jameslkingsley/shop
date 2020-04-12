@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/dispatch/{group}', 'DispatchController@index')->middleware('auth');
+
 Route::get('/checkout/complete', 'OrderCompletionController@store');
 
 Route::livewire('/login', 'login')->layout('layouts.wire')->name('login');

@@ -2,16 +2,13 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
-    /**
-     * The attributes that are guarded.
-     *
-     * @var array
-     */
+    protected $connection= 'sle';
+    protected $table = 'shop_order_items';
+
     protected $guarded = [];
 
     protected $appends = [
@@ -24,13 +21,9 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function getProductAttribute()
+    public function product()
     {
-        return DB::connection('sle')->select('
-            SELECT prodID AS id, prodTitle AS title, prodUnitSize AS unit_size, CAST((prodOurPrice * 100) AS SIGNED) AS price
-            FROM tblProducts
-            WHERE prodID = ' . $this->product_id . '
-        ')[0];
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function getTotalAttribute()
