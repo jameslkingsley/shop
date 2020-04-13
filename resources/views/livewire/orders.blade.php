@@ -49,5 +49,7 @@
         @empty
             <span class="text-gray-600 mt-2 block w-full px-4 sm:px-0">No orders available.</span>
         @endforelse
+
+        {{ $fulfilled->links() }}
     </div>
 </div>

@@ -50,7 +50,7 @@ class OrderController extends Controller
         $order = Order::create();
         $order->items()->createMany($items);
 
-        if ($request->customer_id) {
+        if ($request->customer_id && auth()->check()) {
             try {
                 $customer = Customer::retrieve($request->customer_id);
 
