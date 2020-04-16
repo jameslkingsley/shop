@@ -20,6 +20,7 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "livewire/livewire": "^1.0",
         "nothingworks/blade-svg": "^0.3.4",
+        "pusher/pusher-php-server": "^4.1",
         "stripe/stripe-php": "^7.27"
     },
     "require-dev": {

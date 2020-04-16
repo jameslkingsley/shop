@@ -1,4 +1,4 @@
-<div wire:init="fetch" wire:poll.5000ms="fetch">
+<div wire:init="fetch">
     @if (count($orders))
         <div class="relative block w-full mb-16">
             @forelse ($orders as $order)

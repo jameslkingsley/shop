@@ -10,16 +10,24 @@ class Orders extends Component
 {
     use WithPagination;
 
-    protected $listeners = [
-        'fetch' => '$refresh',
-    ];
-
-    public int $perPage = 5;
-
     public const GROUP_COLORS = [
         'indigo', 'red',
         'green', 'orange',
     ];
+
+    protected $listeners = [
+        'echo:orders,OrderPlaced' => 'updateNewOrdersCounter',
+        // 'fetch' => '$refresh',
+    ];
+
+    public int $perPage = 5;
+    public int $newOrders = 0;
+
+    public function updateNewOrdersCounter()
+    {
+        info('new order placed');
+        $this->newOrders++;
+    }
 
     public function markAllAsDelivered(string $group)
     {
@@ -57,6 +65,17 @@ class Orders extends Component
             ->get();
     }
 
+    public function collectedOrders()
+    {
+        return OrderModel::whereNotNull('customer_id')
+            ->whereNotNull('charged_at')
+            ->whereNotNull('picking_at')
+            ->whereNull('delivered_at')
+            ->whereCollection(true)
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->perPage);
+    }
+
     public function fulfilledOrders()
     {
         return OrderModel::whereNotNull('customer_id')
@@ -73,6 +92,7 @@ class Orders extends Component
             'pending' => $this->pendingOrders(),
             'picking' => $this->pickingOrders(),
             'fulfilled' => $this->fulfilledOrders(),
+            'collected' => $this->collectedOrders(),
         ]);
     }
 }

@@ -34,6 +34,7 @@ class OrderController extends Controller
             'basket' => 'required',
             'comment' => 'nullable|string',
             'customer_id' => 'nullable|string',
+            'collection' => 'nullable|boolean',
             'telephone' => auth()->check() ? 'nullable|string' : 'required',
         ]);
 
@@ -47,7 +48,11 @@ class OrderController extends Controller
             ];
         }
 
-        $order = Order::create();
+        $order = Order::create([
+            'comment' => $request->comment,
+            'collection' => $request->collection
+        ]);
+
         $order->items()->createMany($items);
 
         if ($request->customer_id && auth()->check()) {
@@ -76,9 +81,9 @@ class OrderController extends Controller
             'cancel_url' => url('/'),
             'payment_method_types' => ['card'],
             'client_reference_id' => $order->id,
+            'metadata' => ['telephone' => $request->telephone],
             'shipping_address_collection' => ['allowed_countries' => ['GB']],
             'success_url' => url('/checkout/complete?session_id={CHECKOUT_SESSION_ID}'),
-            'metadata' => ['telephone' => $request->telephone, 'comment' => $request->comment],
         ]);
 
         return response()->json([

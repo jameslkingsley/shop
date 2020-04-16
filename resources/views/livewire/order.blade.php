@@ -2,7 +2,7 @@
     <div wire:click="$set('expanded', false)" class="{{ $expanded ? 'block lg:hidden' : 'hidden' }} fixed inset-0 bg-blue-500 opacity-25 z-20"></div>
 
     <div wire:loading.class="pointer-events-none"
-        class="{{ $order->group ? "border-t-2 border-{$order->group}-400" : '' }} {{ $expanded ? 'fixed lg:relative bottom-0 left-0 right-0 z-40 shadow-lg max-h-order lg:max-h-auto rounded-t-lg lg:rounded overflow-y-auto' : 'my-4' }} order flex flex-wrap w-full items-center sm:my-4 bg-white shadow sm:rounded hover:shadow-md">
+        class="{{ $order->group ? "border-t-2 border-{$order->group}-400" : '' }} {{ $expanded ? 'fixed lg:relative bottom-0 left-0 right-0 z-40 shadow-lg max-h-order lg:max-h-auto rounded-t-lg lg:rounded overflow-y-auto' : 'my-4' }} order flex flex-wrap w-full items-center sm:my-4 bg-white shadow sm:rounded">
 
         <div wire:click="$toggle('expanded')" class="{{ $expanded ? 'sticky top-0 border-b border-gray-200' : 'relative' }} bg-white lg:bg-transparent z-10 inline-flex flex-1 items-start p-4 2xl:p-6 cursor-pointer select-none">
             @if (! $order->charged_at && ! $order->delivered_at)
@@ -32,9 +32,9 @@
                     {{ $order->metadata->shipping->name }}
                     @if ($order->charged_at && ! $order->delivered_at)
                         &mdash;
-                        <a href="tel:{{ $order->metadata->shipping->phone }}" class="text-xs font-normal">
+                        <span class="text-xs font-normal">
                             {{ $order->metadata->shipping->phone }}
-                        </a>
+                        </span>
                     @endif
                 </span>
 
@@ -50,7 +50,7 @@
                     <div class="inline-flex flex-row items-center text-xs 2xl:text-sm text-gray-600">
                         <span class="inline-block">{{ $order->created_at->shortRelativeToNowDiffForHumans() }}</span>
                         <span class="inline-block mx-2">&middot;</span>
-                        <a href="tel:{{ $order->metadata->shipping->phone }}">{{ $order->metadata->shipping->phone }}</a>
+                        <span>{{ $order->metadata->shipping->phone }}</span>
                     </div>
                 @endif
             </div>
@@ -80,7 +80,7 @@
                 </div>
             @endif
 
-            @if ($order->charged_at && ! $order->delivered_at)
+            @if ($order->charged_at && ! $order->delivered_at && ! $order->collection)
                 <div class="whitespace-no-wrap inline-flex flex-wrap items-center justify-end ml-4" style="width: 36px;">
                     @foreach ($groups->chunk(2) as $chunk)
                         <div class="flex items-center justify-end">
@@ -109,6 +109,15 @@
 
         @if ($expanded)
             <div class="block w-full">
+                @if ($order->collection)
+                    <div class="block w-full p-4">
+                        <div class="block w-full p-4 rounded border border-blue-300 bg-blue-100 select-none transition-all duration-300 ease-in-out">
+                            <p class="text-blue-800 font-bold pb-2">Click & Collect</p>
+                            <p class="text-sm">This order is for collection. Make sure to contact the customer when their order is ready to be collected.</p>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="flex flex-wrap justify-between items-start w-full p-4 2xl:p-6 border-b border-gray-200">
                     <div class="inline-flex w-1/2 flex-col text-xs 2xl:text-sm">
                         <span class="font-bold">Address</span>
@@ -121,8 +130,8 @@
                     <div class="inline-flex w-1/2 flex-col text-xs 2xl:text-sm">
                         <span class="font-bold">Contact Info</span>
                         <span>{{ $order->metadata->shipping->name }}</span>
-                        <a href="tel:{{ $order->metadata->shipping->phone }}">{{ $order->metadata->shipping->phone }}</a>
-                        <a href="mailto:{{ $order->metadata->email }}">{{ $order->metadata->email }}</a>
+                        <a href="tel:{{ $order->metadata->shipping->phone }}" class="underline">{{ $order->metadata->shipping->phone }}</a>
+                        <a href="mailto:{{ $order->metadata->email }}" class="underline">{{ $order->metadata->email }}</a>
                     </div>
 
                     @if ($order->comment)
@@ -165,17 +174,17 @@
 
                             @if ($order->delivered_at)
                                 <button wire:click="markAsUndelivered" wire:loading.attr="disabled" class="px-3 btn-white">
-                                    Un-Delivered &cross;
+                                    Un-{{ $order->collection ? 'Collected' : 'Delivered' }} &cross;
                                 </button>
                             @elseif ($order->charged_at)
                                 <button wire:click="markAsDelivered" wire:loading.attr="disabled" class="px-3 btn-white">
-                                    Delivered &checkmark;
+                                    {{ $order->collection ? 'Collected' : 'Delivered' }} &checkmark;
                                 </button>
                             @endif
                         </div>
 
                         <div class="inline-flex text-xs justify-start text-gray-500 mt-2">
-                            <span class="hidden 2xl:block">Stripe Customer:&nbsp;&nbsp;</span>
+                            <span class="pr-4">Order ID: {{ $order->id }}</span>
                             <span>{{ $order->customer_id }}</span>
                         </div>
                     </div>

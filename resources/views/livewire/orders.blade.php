@@ -1,6 +1,6 @@
-<div wire:poll.5000ms class="flex flex-wrap items-start justify-between w-full py-4 sm:py-8 sm:px-10">
+<div class="flex flex-wrap items-start justify-between w-full py-4 sm:py-8 sm:px-10">
     <div class="block w-full lg:w-1/2 xl:w-1/3 mb-16 orders-pending lg:pr-8 xl:pr-16">
-        <span class="text-xl block w-full font-bold -mb-2 px-4 sm:px-0">New Orders</span>
+        <span class="text-xl block w-full font-bold -mb-2 px-4 sm:px-0">New Orders {{ $newOrders }}</span>
 
         @forelse ($pending as $order)
             @livewire('order', compact('order'), key($order->id))
@@ -18,6 +18,16 @@
             @livewire('order', compact('order'), key($order->id))
         @empty
             <span class="text-gray-600 mt-2 block w-full px-4 sm:px-0">No orders being picked right now.</span>
+        @endforelse
+    </div>
+
+    <div class="block w-full lg:w-1/2 xl:w-1/3 mb-16 orders-pending lg:pr-8 xl:pr-16">
+        <span class="text-xl block w-full font-bold -mb-2 px-4 sm:px-0">Waiting for collection</span>
+
+        @forelse ($collected as $order)
+            @livewire('order', compact('order'), key($order->id))
+        @empty
+            <span class="text-gray-600 mt-2 block w-full px-4 sm:px-0">No orders are ready for collection.</span>
         @endforelse
     </div>
 

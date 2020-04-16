@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use Stripe\Customer;
 use Stripe\SetupIntent;
+use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
 
@@ -38,9 +39,10 @@ class OrderCompletionController extends Controller
         $order->update([
             'metadata' => $metadata,
             'customer_id' => $customer->id,
-            'comment' => $session->metadata->comment,
             'payment_method_id' => $setupIntent->payment_method->id,
         ]);
+
+        event(new OrderPlaced($order));
 
         return redirect('/checkout/completed/?amount=' . $order->total);
     }

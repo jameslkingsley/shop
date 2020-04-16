@@ -9,7 +9,7 @@ class DeliveryGroup extends Component
 {
     public $group;
     public $orders = [];
-    protected $listeners = ['fetch'];
+    // protected $listeners = ['fetch'];
 
     public function mount($group)
     {
@@ -33,6 +33,7 @@ class DeliveryGroup extends Component
             ->whereNotNull('charged_at')
             ->whereNull('delivered_at')
             ->where('group', $this->group)
+            ->whereCollection(false)
             ->orderBy('order')
             ->get();
     }

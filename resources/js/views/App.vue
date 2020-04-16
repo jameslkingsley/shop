@@ -91,11 +91,23 @@
                         </label>
                     </div>
 
+                    <div class="flex items-center w-full mt-4 rounded-md overflow-hidden text-center bg-blue-100 text-blue-500">
+                        <div @click="form.collection = false" :class="{ 'bg-blue-500 text-white': ! form.collection }"
+                            class="flex-1 cursor-pointer select-none px-6 py-2 font-bold">
+                            Home Delivery
+                        </div>
+
+                        <div @click="form.collection = true" :class="{ 'bg-blue-500 text-white': form.collection }"
+                            class="flex-1 cursor-pointer select-none px-6 py-2 font-bold">
+                            Click & Collect
+                        </div>
+                    </div>
+
                     <div v-show="isCheckingOut" class="block w-full mt-4 select-none transition-all duration-300 ease-in-out">
                         <label :class="{ 'error': errors.telephone }">
-                            <p class="text-sm mb-2 text-gray-700">Please enter your phone number below.<br />We will contact you to confirm delivery of your items.</p>
                             <input ref="telephoneInput" v-model="form.telephone" required type="tel" name="telephone" placeholder="Mobile or home number" class="text-center" />
                             <span v-show="errors.telephone" v-text="errors.telephone"></span>
+                            <p class="text-sm mt-2 text-gray-700">Please enter your phone number above.<br />We will contact you to confirm {{ form.collection ? 'collection' : 'delivery' }} of your items.</p>
                         </label>
                     </div>
 
@@ -132,6 +144,7 @@
                     comment: null,
                     telephone: null,
                     customer_id: null,
+                    collection: false,
                 },
             }
         },
@@ -156,6 +169,8 @@
             },
 
             deliveryFee() {
+                if (this.form.collection) return 0
+
                 if (this.subTotal >= 30 * 100) return 0
 
                 if (this.subTotal >= 20 * 100) return 100

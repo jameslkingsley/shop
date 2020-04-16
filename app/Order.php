@@ -25,6 +25,7 @@ class Order extends Model
 
     protected $casts = [
         'metadata' => 'object',
+        'collection' => 'boolean',
     ];
 
     protected $guarded = [];
@@ -41,6 +42,10 @@ class Order extends Model
 
     public function getDeliveryFeeAttribute()
     {
+        if ($this->collection) {
+            return 0;
+        }
+
         if ($this->subtotal >= 30 * 100) {
             return 0;
         }
