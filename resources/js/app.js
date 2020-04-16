@@ -31,6 +31,10 @@ export default class {
 
                     return (value / 100).toLocaleString(langage, { style: 'currency', currency: 'GBP' })
                 },
+
+                fromNow(value) {
+                    return moment(value).fromNow()
+                }
             },
 
             computed: {

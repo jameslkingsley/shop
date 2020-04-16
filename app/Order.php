@@ -32,7 +32,7 @@ class Order extends Model
 
     public function items()
     {
-        return $this->hasMany(OrderItem::class)->with('product');
+        return $this->hasMany(OrderItem::class);
     }
 
     public function getSubTotalAttribute()
