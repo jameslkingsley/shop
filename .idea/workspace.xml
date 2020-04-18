@@ -6,7 +6,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3fc6fe7-371f-4738-adac-7d41ee738a10" name="Default Changelist" comment="Merge branch 'master' into feature-amazon-paapi-driver&#10;&#10;# Conflicts:&#10;#&#9;app/Http/Requests/LookupRequest.php&#10;#&#9;composer.lock&#10;#&#9;package.json&#10;#&#9;public/vendor/nova/app.css&#10;#&#9;public/vendor/nova/app.js&#10;#&#9;public/vendor/nova/mix-manifest.json&#10;#&#9;public/vendor/nova/vendor.js&#10;#&#9;tests/Unit/DriverTest.php">
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Order.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Order.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/OrderGroupAssigned.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/OrderGroupAssigned.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/OrderPaid.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/OrderPaid.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/OrderPicking.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/OrderPicking.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/OrderPlaced.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/OrderPlaced.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/OrderUpdated.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/OrderUpdated.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/OrdersFulfilled.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/OrdersFulfilled.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -504,7 +510,7 @@
       <workItem from="1587052947433" duration="1518000" />
       <workItem from="1587122040868" duration="5535000" />
       <workItem from="1587219068703" duration="298000" />
-      <workItem from="1587219374731" duration="11620000" />
+      <workItem from="1587219374731" duration="12454000" />
     </task>
     <task id="LOCAL-00002" summary="Merge branch 'stable'&#10;&#10;# Conflicts:&#10;#&#9;app/Console/Commands/SyncPresavesWithScheduler.php&#10;#&#9;app/Jobs/CreateStatistic.php&#10;#&#9;app/Providers/NovaServiceProvider.php&#10;#&#9;package.json">
       <created>1586255299402</created>
@@ -797,7 +803,7 @@
       <screen x="0" y="23" width="2560" height="1347" />
     </state>
     <state x="1277" y="381" key="scopes/-1920.571.1920.1080/-1920.-514.1920.1080/0.23.2560.1347@0.23.2560.1347" timestamp="1583317958678" />
-    <state x="1329" y="330" width="670" height="679" key="search.everywhere.popup" timestamp="1587235033363">
+    <state x="1329" y="330" width="670" height="679" key="search.everywhere.popup" timestamp="1587240876114">
       <screen x="0" y="23" width="2560" height="1350" />
     </state>
     <state x="1329" y="330" width="670" height="676" key="search.everywhere.popup/-1920.178.1920.1080/0.23.2560.1347/2560.-317.2560.1440@0.23.2560.1347" timestamp="1584706377339" />
@@ -805,6 +811,6 @@
     <state x="1329" y="333" width="670" height="684" key="search.everywhere.popup/-1920.178.1920.1080/0.23.2560.1361/2560.-317.2560.1440@0.23.2560.1361" timestamp="1584707691742" />
     <state x="1329" y="330" width="670" height="676" key="search.everywhere.popup/-1920.571.1920.1080/-1920.-514.1920.1080/0.23.2560.1347@0.23.2560.1347" timestamp="1584445921871" />
     <state x="1329" y="330" width="670" height="676" key="search.everywhere.popup/0.23.2560.1347/2560.0.2560.1440@0.23.2560.1347" timestamp="1584531350340" />
-    <state x="1329" y="330" width="670" height="679" key="search.everywhere.popup/0.23.2560.1350/-2560.0.2560.1440/-5120.0.2560.1440@0.23.2560.1350" timestamp="1587235033363" />
+    <state x="1329" y="330" width="670" height="679" key="search.everywhere.popup/0.23.2560.1350/-2560.0.2560.1440/-5120.0.2560.1440@0.23.2560.1350" timestamp="1587240876114" />
   </component>
 </project>
