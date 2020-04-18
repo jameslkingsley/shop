@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Setting;
 use Stripe\Customer;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
@@ -29,6 +30,10 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+        if (Setting::isShutdown()) {
+            return abort(403, 'Online ordering is currently disabled.');
+        }
+
         $request->validate([
             'basket' => 'required',
             'comment' => 'nullable|string',
@@ -77,11 +82,11 @@ class OrderController extends Controller
 
         $session = Session::create([
             'mode' => 'setup',
-            'cancel_url' => url('/'),
             'payment_method_types' => ['card'],
             'client_reference_id' => $order->id,
             'metadata' => ['telephone' => $request->telephone],
             'shipping_address_collection' => ['allowed_countries' => ['GB']],
+            'cancel_url' => url('/checkout/cancel?session_id={CHECKOUT_SESSION_ID}'),
             'success_url' => url('/checkout/complete?session_id={CHECKOUT_SESSION_ID}'),
         ]);
 

@@ -36,3 +36,6 @@ Route::delete('/order/{order}/delivered', 'OrderDeliveredController@destroy');
 Route::get('/orders/group/{group}', 'OrderGroupController@show');
 Route::put('/orders/group/{group}/delivered', 'OrderGroupDeliveredController@store');
 Route::get('/orders/{group}/{page?}', 'OrderGroupController@index');
+
+Route::post('/admin/shutdown', 'ShutdownController@store');
+Route::delete('/admin/shutdown', 'ShutdownController@destroy');

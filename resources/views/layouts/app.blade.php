@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name') }}</title>
+        <title>{{ request()->path() === 'orders' ? 'SLE Orders' : config('app.name') }}</title>
 
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -27,6 +27,8 @@
             window.App = new CreateApp({
                 user: @json(auth()->user()),
                 csrfToken: @json(csrf_token()),
+                isShutdown: @json($isShutdown),
+                adminLoggedIn: @json(auth()->check()),
                 stripeToken: @json(config('services.stripe.key')),
                 imageEndpoint: @json(config('services.image_resize.endpoint')),
             })

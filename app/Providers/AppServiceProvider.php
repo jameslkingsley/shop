@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Setting;
 use Stripe\Stripe;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::share('isShutdown', Setting::isShutdown());
     }
 }

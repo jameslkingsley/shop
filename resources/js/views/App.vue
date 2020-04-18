@@ -34,6 +34,11 @@
         </header>
 
         <main :class="{ 'w-full py-16 sm:py-20': ! adminDashboard }">
+            <div v-if="isShutdown && ! adminDashboard"
+                class="block md:w-1/2 mx-auto mt-8 z-40 sticky border border-red-500 rounded bg-red-100 p-4" style="top: 6rem">
+                Due to a high demand of orders we have temporarily put a hold on new orders. We're sorry for the inconvenience, please try again tomorrow.
+            </div>
+
             <router-view></router-view>
         </main>
 
@@ -86,47 +91,53 @@
                             <span class="flex-shrink-0 text-right font-number text-xl xl:text-2xl font-extrabold">{{ total | currency }}</span>
                         </div>
 
-                        <div class="block w-full mt-4">
-                            <label>
-                                <textarea v-model="form.comment" placeholder="Additional comments, delivery instructions etc." class="w-full text-sm px-2 py-1 max-w-full" />
-                            </label>
+                        <div v-if="isShutdown" class="block w-full mt-4 border border-red-500 rounded bg-red-100 p-4">
+                            Due to a high demand of orders we have temporarily put a hold on new orders. We're sorry for the inconvenience, please try again tomorrow.
                         </div>
 
-                        <div class="flex items-center w-full mt-4 rounded-md overflow-hidden text-center bg-blue-100 text-blue-500">
-                            <div @click="form.collection = false" :class="{ 'bg-blue-500 text-white': ! form.collection }"
-                                class="flex-1 cursor-pointer select-none px-6 py-2 font-bold">
-                                Home Delivery
+                        <template v-else>
+                            <div class="block w-full mt-4">
+                                <label>
+                                    <textarea v-model="form.comment" placeholder="Additional comments, delivery instructions etc." class="w-full text-sm px-2 py-1 max-w-full" />
+                                </label>
                             </div>
 
-                            <div @click="form.collection = true" :class="{ 'bg-blue-500 text-white': form.collection }"
-                                class="flex-1 cursor-pointer select-none px-6 py-2 font-bold">
-                                Click & Collect
+                            <div class="flex items-center w-full mt-4 rounded-md overflow-hidden text-center bg-blue-100 text-blue-500">
+                                <div @click="form.collection = false" :class="{ 'bg-blue-500 text-white': ! form.collection }"
+                                    class="flex-1 cursor-pointer select-none px-6 py-2 font-bold">
+                                    Home Delivery
+                                </div>
+
+                                <div @click="form.collection = true" :class="{ 'bg-blue-500 text-white': form.collection }"
+                                    class="flex-1 cursor-pointer select-none px-6 py-2 font-bold">
+                                    Click & Collect
+                                </div>
                             </div>
-                        </div>
 
-                        <div v-show="isCheckingOut" class="block w-full mt-4 select-none transition-all duration-300 ease-in-out">
-                            <label :class="{ 'error': errors.telephone }">
-                                <input ref="telephoneInput" v-model="form.telephone" required type="tel" name="telephone" placeholder="Mobile or home number" class="text-center" />
-                                <span v-show="errors.telephone" v-text="errors.telephone"></span>
-                                <p class="text-sm mt-2 text-gray-700">Please enter your phone number above.<br />We will contact you to confirm {{ form.collection ? 'collection' : 'delivery' }} of your items.</p>
-                            </label>
-                        </div>
+                            <div v-show="isCheckingOut" class="block w-full mt-4 select-none transition-all duration-300 ease-in-out">
+                                <label :class="{ 'error': errors.telephone }">
+                                    <input ref="telephoneInput" v-model="form.telephone" required type="tel" name="telephone" placeholder="Mobile or home number" class="text-center" />
+                                    <span v-show="errors.telephone" v-text="errors.telephone"></span>
+                                    <p class="text-sm mt-2 text-gray-700">Please enter your phone number above.<br />We will contact you to confirm {{ form.collection ? 'collection' : 'delivery' }} of your items.</p>
+                                </label>
+                            </div>
 
-                        <div v-if="isAdmin && isCheckingOut" class="block w-full p-4 rounded border border-yellow-300 bg-yellow-100 mt-4 select-none transition-all duration-300 ease-in-out">
-                            <p class="text-yellow-800 font-bold pb-2">You are logged in as admin.</p>
-                            <p class="text-sm">You can bypass the checkout process by entering a Stripe customer ID below.</p>
+                            <div v-if="isAdmin && isCheckingOut" class="block w-full p-4 rounded border border-yellow-300 bg-yellow-100 mt-4 select-none transition-all duration-300 ease-in-out">
+                                <p class="text-yellow-800 font-bold pb-2">You are logged in as admin.</p>
+                                <p class="text-sm">You can bypass the checkout process by entering a Stripe customer ID below.</p>
 
-                            <label class="mt-4" :class="{ 'error': errors.customer_id }">
-                                <span>Stripe Customer ID</span>
-                                <input v-model="form.customer_id" placeholder="cus_H52s8qZ2UrqKLt" />
-                                <span v-show="errors.customer_id" v-text="errors.customer_id"></span>
-                            </label>
-                        </div>
+                                <label class="mt-4" :class="{ 'error': errors.customer_id }">
+                                    <span>Stripe Customer ID</span>
+                                    <input v-model="form.customer_id" placeholder="cus_H52s8qZ2UrqKLt" />
+                                    <span v-show="errors.customer_id" v-text="errors.customer_id"></span>
+                                </label>
+                            </div>
+                        </template>
                     </div>
                 </div>
 
                 <button @click="checkout" :disabled="placeOrderDisabled" class="w-full btn-primary py-4 text-lg rounded-none">
-                    {{ isCheckingOut ? 'Place Order &rarr;' : 'Checkout' }}
+                    {{ processing ? 'Please Wait' : isCheckingOut ? 'Place Order &rarr;' : 'Checkout' }}
                 </button>
             </div>
         </template>
@@ -138,8 +149,10 @@
         data() {
             return {
                 errors: {},
+                processing: false,
                 isCheckingOut: false,
                 basketVisible: false,
+                isShutdown: App.isShutdown,
                 isAdmin: App.adminLoggedIn,
                 stripe: Stripe(App.stripeToken),
                 form: {
@@ -157,6 +170,10 @@
             },
 
             placeOrderDisabled() {
+                if (this.isShutdown || this.processing) {
+                    return true
+                }
+
                 if (this.isAdmin) {
                     return ! this.subTotal
                 }
@@ -201,9 +218,13 @@
 
             async placeOrder() {
                 try {
+                    this.processing = true
+
                     const response = await ajax.post('/api/order', {
-                        basket: this.$root.basket, ...this.form
+                        basket: this.$root.basket, ...this.form,
                     })
+
+                    this.processing = false
 
                     if (response.status === 204) {
                         this.isCheckingOut = false
@@ -216,6 +237,7 @@
                     this.stripe.redirectToCheckout({ sessionId: response.data.sessionId })
                 } catch ({ response }) {
                     console.error(response.data.message)
+                    this.processing = false
                     this.errors = _.mapValues(response.data.errors, e => _.first(e))
                 }
             },
@@ -232,8 +254,8 @@
 
             submitSearch(event) {
                 this.$router.push('/search?keyword=' + event.target.value)
-            }
-        }
+            },
+        },
     }
 </script>
 

@@ -41,9 +41,21 @@
                     </div>
 
                     <div v-else class="inline-flex flex-row items-center text-xs 2xl:text-sm text-gray-600">
-                        <span class="inline-block">{{ order.created_at | fromNow }}</span>
+                        <span v-if="order.delivered_at" class="inline-block">
+                            Delivered {{ order.delivered_at | fromNow }}
+                        </span>
+
+                        <span v-else class="inline-block">
+                            {{ order.created_at | fromNow }}
+                        </span>
+
                         <span class="inline-block mx-2">&middot;</span>
-                        <span>{{ order.metadata.shipping.phone }}</span>
+
+                        <span v-if="order.delivered_at">
+                            Order took {{ orderRuntime }}
+                        </span>
+
+                        <span v-else>{{ order.metadata.shipping.phone }}</span>
                     </div>
                 </div>
 
@@ -129,7 +141,7 @@
                                 <span class="text-green-500 mr-4">Paid &checkmark;</span>
                             </template>
 
-                            <template v-else>
+                            <template v-else-if="order.picking_at">
                                 <template v-if="order.payment_method_id">
                                     <button @click="takePayment" :disabled="processing" class="px-4 mr-2 btn-white">
                                         Take Payment
@@ -274,6 +286,13 @@
         computed: {
             chunkedGroups() {
                 return _.chunk(['red', 'green', 'blue', 'orange'], 2)
+            },
+
+            orderRuntime() {
+                const start = moment(this.order.created_at)
+                const end = moment(this.order.delivered_at)
+
+                return start.from(end, true)
             },
         },
 
