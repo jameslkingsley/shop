@@ -47,8 +47,8 @@
                     </div>
                 </div>
 
-                <template v-if="order.picking_at && ! order.delivered_at && ! order.charged_at">
-                    <div class="whitespace-no-wrap inline-flex items-center justify-center mr-2 flex-col ml-4 text-right" style="max-height: 38px">
+                <template v-if="order.picking_at && ! order.delivered_at">
+                    <div v-if="! order.charged_at" class="whitespace-no-wrap inline-flex items-center justify-center mr-2 flex-col ml-4 text-right" style="max-height: 38px">
                         <span @click.stop.prevent="increaseBags" class="transform hover:scale-110 duration-200 ease-in-out cursor-pointer select-none">
                             <icon name="cheveron-up" class="size-5 text-blue-200 hover:text-blue-500" />
                         </span>
