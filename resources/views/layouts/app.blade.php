@@ -9,7 +9,7 @@
         <title>{{ request()->path() === 'orders' ? 'SLE Orders' : config('app.name') }}</title>
 
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <script src="https://js.stripe.com/v3/"></script>
     </head>
@@ -19,9 +19,9 @@
             @yield('content')
         </div>
 
-        <script type="text/javascript" src="{{ asset('js/manifest.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/vendor.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+        <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
+        <script type="text/javascript" src="{{ mix('js/vendor.js') }}"></script>
+        <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 
         <script>
             window.App = new CreateApp({
