@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Stripe\Customer;
-use Stripe\PaymentMethod;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
 use Stripe\Exception\InvalidRequestException;
@@ -14,18 +13,18 @@ class OrderController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('adminLoggedIn')->only('index', 'show');
+        $this->middleware('auth')->only('index', 'show');
     }
 
     public function index()
     {
         return Order::whereNotNull('customer_id')->with('items')->get()
-            ->mapWithKeys(fn($order) => [$order->id => $order]);
+            ->mapWithKeys(fn ($order) => [$order->id => $order]);
     }
 
     public function show(Order $order)
     {
-        return $order->load('items');
+        return $order->fresh()->load('items.product');
     }
 
     public function store(Request $request)
@@ -50,7 +49,7 @@ class OrderController extends Controller
 
         $order = Order::create([
             'comment' => $request->comment,
-            'collection' => $request->collection
+            'collection' => $request->collection,
         ]);
 
         $order->items()->createMany($items);

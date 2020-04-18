@@ -9,7 +9,7 @@ class OrderAmendmentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('adminLoggedIn')->only('destroy');
+        $this->middleware('auth')->only('destroy');
     }
 
     public function destroy(Order $order, OrderItem $orderItem)

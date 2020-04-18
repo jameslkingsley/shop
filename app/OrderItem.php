@@ -13,7 +13,7 @@ class OrderItem extends Model
 
     protected $appends = [
         'total',
-        'product',
+        // 'product',
     ];
 
     public function order()

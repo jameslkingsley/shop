@@ -6,9 +6,10 @@ Route::get('/dispatch/{group}', 'DispatchController@index')->middleware('auth');
 
 Route::get('/checkout/complete', 'OrderCompletionController@store');
 
-// Route::livewire('/login', 'login')->layout('layouts.wire')->name('login');
-//
-// Route::livewire('/orders', 'orders')->layout('layouts.wire')->middleware('auth');
-// Route::livewire('/admin', 'admin')->layout('layouts.wire')->middleware('auth');
+Route::get('/logout', 'LoginController@destroy');
+Route::view('/login', 'login')->name('login');
+Route::post('/login', 'LoginController@store');
+
+Route::view('/orders', 'layouts.app')->middleware('auth');
 
 Route::view('/{any?}', 'layouts.app')->where('any', '^(?!api).*$');

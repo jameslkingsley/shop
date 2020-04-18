@@ -8,19 +8,17 @@
             'fixed lg:relative bottom-0 left-0 right-0 z-40 shadow-lg max-h-order lg:max-h-auto rounded-t-lg lg:rounded overflow-y-auto': expanded,
         }" class="order flex flex-wrap w-full items-center sm:my-4 bg-white shadow sm:rounded">
             <div @click="expanded = ! expanded" :class="expanded ? 'sticky top-0 border-b border-gray-200' : 'relative'"
-                class="bg-white lg:bg-transparent z-10 inline-flex flex-1 items-start p-4 2xl:p-6 cursor-pointer select-none">
+                class="bg-white z-10 inline-flex flex-1 items-start px-3 py-4 2xl:p-6 cursor-pointer select-none">
                 <icon v-if="! order.charged_at && ! order.delivered_at" name="shopping-cart" class="hidden xl:inline-block size-5 text-gray-300 mr-4 mt-1" />
 
-                <div v-if="order.charged_at && ! order.delivered_at" class="absolute left-0 top-0 bottom-0 flex flex-col items-center justify-center pl-3 2xl:pl-5">
-                    <span @click.stop.prevent="increaseOrder" class="transform hover:scale-110 duration-200 ease-in-out cursor-pointer select-none">
-                        <icon name="cheveron-up" class="size-5 text-blue-200 hover:text-blue-500" />
-                    </span>
+                <div v-if="order.charged_at && ! order.delivered_at" class="absolute left-0 top-0 bottom-0 flex flex-col items-center justify-center pl-2 2xl:pl-5">
+                    <icon @click.native.stop.prevent="increaseOrder" name="cheveron-up"
+                        class="size-5 text-blue-200 hover:text-blue-500 cursor-pointer select-none transform hover:scale-110 duration-200 ease-in-out" />
 
                     <span>{{ order.order }}</span>
 
-                    <span @click.stop.prevent="decreaseOrder" class="transform hover:scale-110 duration-200 ease-in-out cursor-pointer select-none">
-                        <icon name="cheveron-down" class="size-5 text-blue-200 hover:text-blue-500" />
-                    </span>
+                    <icon @click.native.stop.prevent="decreaseOrder" name="cheveron-down"
+                        class="size-5 text-blue-200 hover:text-blue-500 transform hover:scale-110 duration-200 ease-in-out cursor-pointer select-none" />
                 </div>
 
                 <div :class="(order.charged_at && ! order.delivered_at) ? 'ml-6 2xl:ml-8' : ''" class="flex-1 inline-flex flex-col text-sm 2xl:text-base">
@@ -49,8 +47,8 @@
                     </div>
                 </div>
 
-                <template v-if="order.picking_at && ! order.delivered_at">
-                    <div class="whitespace-no-wrap inline-flex items-center justify-center mt-1 mr-2 flex-col ml-4 text-right">
+                <template v-if="order.picking_at && ! order.delivered_at && ! order.charged_at">
+                    <div class="whitespace-no-wrap inline-flex items-center justify-center mr-2 flex-col ml-4 text-right" style="max-height: 38px">
                         <span @click.stop.prevent="increaseBags" class="transform hover:scale-110 duration-200 ease-in-out cursor-pointer select-none">
                             <icon name="cheveron-up" class="size-5 text-blue-200 hover:text-blue-500" />
                         </span>
@@ -150,7 +148,7 @@
                                                 </a>
                                             </button>
 
-                                            <span class="flex-1 px-4 font-bold">then confirm the payment &rarr;</span>
+                                            <span class="flex-1 px-4 font-bold text-right">then confirm &rarr;</span>
 
                                             <button @click="confirmPayment" :disabled="processing" class="px-2 btn-white text-2xs py-1">
                                                 Confirm
@@ -179,14 +177,35 @@
                 <div class="block w-full p-4 2xl:p-6 text-xs 2xl:text-sm overflow-x-auto">
                     <span class="block w-full font-bold mb-2">Order Items</span>
 
-                    TODO Order Items
+                    <div v-for="item in order.items" class="flex w-full items-center text-xs 2xl:text-sm mb-1 whitespace-no-wrap overflow-visible">
+                        <span class="inline-block text-left min-w-1/2 mr-2">{{ item.product.prodTitle }}</span>
+                        <span class="inline-block text-left w-12">{{ item.product.prodUnitSize }}</span>
+
+                        <div class="flex-1 inline-flex items-center justify-end">
+                            <input v-if="! order.charged_at" v-model.number="item.quantity" @input="updateItemQuantity(item)"
+                                placeholder="Quantity" class="font-number text-right border rounded px-1 w-8" />
+
+                            <span v-else class="font-number text-right w-8">{{ item.quantity }}</span>
+
+                            <span class="font-number text-right ml-1 mr-2">&times;</span>
+                            <span class="font-number text-right mr-1">&pound;</span>
+
+                            <input v-if="! order.charged_at" :value="item.amount / 100" @input="updateItemAmount(item, $event.target.value)"
+                                placeholder="Amount" class="font-number text-right border rounded px-1 w-12" />
+
+                            <span v-else class="font-number text-right w-12">{{ item.amount | currency }}</span>
+                        </div>
+                    </div>
 
                     <div v-if="! order.charged_at" class="flex flex-wrap w-full items-center text-sm mt-3">
                         <input v-model="searchQuery" placeholder="Search for a product to add (title or id)"
                             class="border rounded px-1 focus:border-gray-400 w-full mb-2" />
 
-                        <div v-for="product in searchResults" class="inline-flex w-full items-center mb-1">
-                            <span @click="addProductToOrder(product.id)" class="flex-1 text-left mr-4 underline">{{ product.title }}</span>
+                        <div v-for="product in searchResults" :class="{ 'opacity-50 pointer-events-none select-none': processing }"
+                            class="inline-flex w-full items-center mb-1">
+                            <span @click.stop.prevent="addProductToOrder(product.id)" class="flex-1 text-left mr-4 underline cursor-pointer">
+                                {{ product.title }}
+                            </span>
 
                             <div class="inline-flex items-center justify-end">
                                 <span class="inline-block text-left w-12 mr-4">{{ product.unit_size }}</span>
@@ -223,23 +242,101 @@
 
         data() {
             return {
+                socket: null,
                 expanded: false,
-                searchQuery: null,
                 searchResults: [],
+                searchQuery: null,
                 processing: false,
                 order: this.resource,
+
+                submitSearch: _.debounce(async keyword => {
+                    const { data } = await ajax.post('/api/search?limit=15', { keyword })
+
+                    this.searchResults = this.searchQuery ? data : []
+                }, 150),
             }
         },
 
         watch: {
             resource(value) {
                 this.order = value
-            }
+            },
+
+            searchQuery(query) {
+                if (! query) {
+                    return this.searchResults = []
+                }
+
+                this.submitSearch(query)
+            },
+        },
+
+        computed: {
+            chunkedGroups() {
+                return _.chunk(['red', 'green', 'blue', 'orange'], 2)
+            },
         },
 
         methods: {
+            async fetch(fields = []) {
+                const { data } = await ajax.get(`/api/order/${this.order.id}`)
+
+                if (! fields.length) {
+                    return this.order = data
+                }
+
+                for (let field of fields) {
+                    this.$set(this.order, field, _.get(data, field))
+                }
+            },
+
             endpoint(uri) {
                 return `/api/order/${this.order.id}/${uri}`
+            },
+
+            async addProductToOrder(productId) {
+                if (this.processing) return
+
+                this.processing = true
+
+                await ajax.post(this.endpoint('items'), { productId })
+
+                this.searchResults = []
+                this.searchQuery = null
+
+                await this.fetch()
+
+                this.processing = false
+            },
+
+            async updateItemAmount(item, amount) {
+                item.amount = amount ? Number(amount) * 100 : 0
+
+                await ajax.post(`/api/item/${item.id}/amount`, {
+                    amount: item.amount,
+                })
+
+                this.fetch(['total', 'subTotal', 'deliveryFee'])
+            },
+
+            async updateItemQuantity(item) {
+                await ajax.post(`/api/item/${item.id}/quantity`, {
+                    quantity: item.quantity || 0,
+                })
+
+                this.fetch(['total', 'subTotal', 'deliveryFee'])
+            },
+
+            async confirmPayment() {
+                await ajax.put(this.endpoint('confirm-payment'))
+
+                this.fetch(['charged_at'])
+            },
+
+            assignToGroup(group) {
+                ajax.post(this.endpoint('group'), { group })
+
+                this.order.group = group
             },
 
             async startPicking() {
@@ -249,12 +346,60 @@
             },
 
             async takePayment() {
-                //
+                this.processing = true
+
+                await ajax.post(this.endpoint('charge'))
+
+                this.processing = false
             },
 
             async markAsDelivered() {
-                //
-            }
+                const { data: { delivered_at } } = await ajax.put(this.endpoint('delivered'))
+
+                this.order.delivered_at = delivered_at
+            },
+
+            async markAsUndelivered() {
+                await ajax.delete(this.endpoint('delivered'))
+
+                this.order.delivered_at = null
+            },
+
+            increaseBags() {
+                ajax.put(this.endpoint('bags'))
+
+                this.order.bags++
+            },
+
+            decreaseBags() {
+                if (this.order.bags === 0) {
+                    return
+                }
+
+                ajax.delete(this.endpoint('bags'))
+
+                this.order.bags--
+            },
+
+            increaseOrder() {
+                ajax.put(this.endpoint('order'))
+
+                this.order.order++
+
+                this.$emit('reordered')
+            },
+
+            decreaseOrder() {
+                if (this.order.order === 0) {
+                    return
+                }
+
+                ajax.delete(this.endpoint('order'))
+
+                this.order.order--
+
+                this.$emit('reordered')
+            },
         },
     }
 </script>

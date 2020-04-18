@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,12 +11,25 @@ class LoginController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate(['secret' => 'required|string']);
+        $request->validate(['password' => 'required|string']);
 
-        if (Hash::check($request->secret, bcrypt(config('auth.admin_secret')))) {
-            return session(['admin_logged_in' => true]);
+        $user = User::first();
+
+        if (Hash::check($request->password, $user->password)) {
+            auth()->login($user, true);
+
+            return redirect('/orders');
         }
 
         throw new Exception('Wrong password given.');
+    }
+
+    public function destroy()
+    {
+        auth()->logout();
+
+        session()->invalidate();
+
+        return redirect('/');
     }
 }

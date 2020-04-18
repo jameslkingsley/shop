@@ -9,20 +9,23 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class OrderPlaced implements ShouldBroadcast
+class OrderGroupAssigned implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public Order $order;
+    public ?string $previousGroup;
 
     /**
      * Create a new event instance.
      *
      * @param \App\Order $order
+     * @param string|null $previousGroup
      */
-    public function __construct(Order $order)
+    public function __construct(Order $order, ?string $previousGroup)
     {
         $this->order = $order->load('items.product');
+        $this->previousGroup = $previousGroup;
     }
 
     /**

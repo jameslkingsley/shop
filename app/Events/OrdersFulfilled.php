@@ -2,27 +2,27 @@
 
 namespace App\Events;
 
-use App\Order;
+use Illuminate\Support\Collection;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class OrderPlaced implements ShouldBroadcast
+class OrdersFulfilled implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Order $order;
+    public array $orders;
 
     /**
      * Create a new event instance.
      *
-     * @param \App\Order $order
+     * @param \Illuminate\Support\Collection $orders
      */
-    public function __construct(Order $order)
+    public function __construct(Collection $orders)
     {
-        $this->order = $order->load('items.product');
+        $this->orders = $orders->map(fn ($order) => $order->load('items.product'))->all();
     }
 
     /**
