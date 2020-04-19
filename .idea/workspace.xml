@@ -6,7 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3fc6fe7-371f-4738-adac-7d41ee738a10" name="Default Changelist" comment="Merge branch 'master' into feature-amazon-paapi-driver&#10;&#10;# Conflicts:&#10;#&#9;app/Http/Requests/LookupRequest.php&#10;#&#9;composer.lock&#10;#&#9;package.json&#10;#&#9;public/vendor/nova/app.css&#10;#&#9;public/vendor/nova/app.js&#10;#&#9;public/vendor/nova/mix-manifest.json&#10;#&#9;public/vendor/nova/vendor.js&#10;#&#9;tests/Unit/DriverTest.php">
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -504,7 +505,8 @@
       <workItem from="1587122040868" duration="5535000" />
       <workItem from="1587219068703" duration="298000" />
       <workItem from="1587219374731" duration="12565000" />
-      <workItem from="1587244181376" duration="4327000" />
+      <workItem from="1587244181376" duration="4369000" />
+      <workItem from="1587329472884" duration="157000" />
     </task>
     <task id="LOCAL-00002" summary="Merge branch 'stable'&#10;&#10;# Conflicts:&#10;#&#9;app/Console/Commands/SyncPresavesWithScheduler.php&#10;#&#9;app/Jobs/CreateStatistic.php&#10;#&#9;app/Providers/NovaServiceProvider.php&#10;#&#9;package.json">
       <created>1586255299402</created>
