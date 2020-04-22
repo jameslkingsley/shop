@@ -58,6 +58,11 @@ class FetchBookerImages extends Command
         $bar->start();
 
         foreach ($products as $product) {
+            if (Storage::exists($path = 'images/' . $product->prodRef . '.jpg') && ! $product->prodImg) {
+                Product::findOrFail($product->prodID)
+                    ->update(['prodImg' => Storage::url($path)]);
+            }
+
             $response = Http::withHeaders([
                 'User-Agent' => request()->userAgent(),
                 'Accept-Encoding' => 'deflate;q=0',
