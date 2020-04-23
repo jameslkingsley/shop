@@ -46,7 +46,7 @@ class FetchBookerImages extends Command
     {
         $products = DB::connection('sle')
             ->table('tblProducts')
-            ->select(['prodID', 'prodRef', 'prodTitle'])
+            ->select(['prodID', 'prodRef', 'prodTitle', 'prodImg'])
             ->where('prodRef', '!=', '')
             ->whereRaw('length(prodRef) >= 5')
             ->whereNull('prodImg')
@@ -58,9 +58,13 @@ class FetchBookerImages extends Command
         $bar->start();
 
         foreach ($products as $product) {
-            if (Storage::exists($path = 'images/' . $product->prodRef . '.jpg') && ! $product->prodImg) {
+            if (Storage::exists($path = "images/{$product->prodRef}.jpg") && ! $product->prodImg) {
                 Product::findOrFail($product->prodID)
                     ->update(['prodImg' => Storage::url($path)]);
+
+                $bar->advance();
+
+                continue;
             }
 
             $response = Http::withHeaders([
@@ -76,7 +80,7 @@ class FetchBookerImages extends Command
             if ($image = $document->getElementById('imgImage')) {
                 $imageUrl = static::BOOKER_URL . $image->getAttribute('src');
 
-                if (! Storage::exists($path = 'images/' . $product->prodRef . '.jpg')) {
+                if (! Storage::exists($path = "images/{$product->prodRef}.jpg")) {
                     Storage::put($path, fopen($imageUrl, 'r'));
                 }
 
