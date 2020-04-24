@@ -29,6 +29,12 @@
                 this.orders = data
             },
 
+            async fetchOrder(orderId) {
+                const { data } = await ajax.get(`/api/order/${orderId}`)
+
+                return data
+            },
+
             async loadMoreOrders() {
                 this.page++
 
@@ -42,9 +48,9 @@
             this.fetch()
 
             Echo.channel('orders')
-                .listen('OrderPlaced', event => this.orders.unshift(event.order))
+                .listen('OrderPlaced', async event => this.orders.unshift(await this.fetchOrder(event.orderId)))
                 .listen('OrderPicking', event => {
-                    this.$delete(this.orders, _.findIndex(this.orders, ({ id }) => id === event.order.id))
+                    this.$delete(this.orders, _.findIndex(this.orders, ({ id }) => id === event.orderId))
                 })
         },
     }

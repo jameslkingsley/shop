@@ -13,16 +13,14 @@ class OrderUpdated implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Order $order;
+    public int $orderId;
 
     /**
      * Create a new event instance.
-     *
-     * @param \App\Order $order
      */
     public function __construct(Order $order)
     {
-        $this->order = $order->load('items.product');
+        $this->orderId = $order->id;
     }
 
     /**
@@ -32,6 +30,6 @@ class OrderUpdated implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel("order.{$this->order->id}");
+        return new Channel("order.{$this->orderId}");
     }
 }

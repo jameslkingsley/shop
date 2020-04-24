@@ -13,16 +13,14 @@ class OrderPicking implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Order $order;
+    public int $orderId;
 
     /**
      * Create a new event instance.
-     *
-     * @param \App\Order $order
      */
     public function __construct(Order $order)
     {
-        $this->order = $order->load('items.product');
+        $this->orderId = $order->id;
     }
 
     /**

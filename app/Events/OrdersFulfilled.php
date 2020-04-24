@@ -22,7 +22,7 @@ class OrdersFulfilled implements ShouldBroadcastNow
      */
     public function __construct(Collection $orders)
     {
-        $this->orders = $orders->map(fn ($order) => $order->load('items.product'))->all();
+        $this->orders = $orders->pluck('id')->all();
     }
 
     /**

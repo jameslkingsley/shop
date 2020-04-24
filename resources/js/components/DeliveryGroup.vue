@@ -49,19 +49,29 @@
 
                 this.orders = data
             },
+
+            async fetchOrder(orderId) {
+                const { data } = await ajax.get(`/api/order/${orderId}`)
+
+                return data
+            },
         },
 
         created() {
             this.fetch()
 
             Echo.channel('orders')
-                .listen('OrderPaid', event => {
-                    if (this.group === event.order.group && ! event.order.collection) {
-                        this.orders.unshift(event.order)
+                .listen('OrderPaid', async ({ orderId }) => {
+                    let order = await this.fetchOrder(orderId)
+
+                    if (this.group === order.group && ! order.collection) {
+                        this.orders.unshift(order)
                         this.reorderOrders()
                     }
                 })
-                .listen('OrderGroupAssigned', ({ order, previousGroup }) => {
+                .listen('OrderGroupAssigned', async ({ orderId, previousGroup }) => {
+                    const order = await this.fetchOrder(orderId)
+
                     if (previousGroup === this.group && order.group !== this.group) {
                         this.$delete(this.orders, _.findIndex(this.orders, ({ id }) => id === order.id))
                         return this.reorderOrders()
@@ -73,8 +83,8 @@
                     }
                 })
                 .listen('OrdersFulfilled', ({ orders }) => {
-                    for (let order of orders) {
-                        this.$delete(this.orders, _.findIndex(this.orders, ({ id }) => id === order.id))
+                    for (let orderId of orders) {
+                        this.$delete(this.orders, _.findIndex(this.orders, ({ id }) => id === orderId))
                     }
 
                     this.reorderOrders()

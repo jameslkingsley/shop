@@ -36,18 +36,30 @@
 
                 this.orders = this.orders.concat(data)
             },
+
+            async fetchOrder(orderId) {
+                const { data } = await ajax.get(`/api/order/${orderId}`)
+
+                return data
+            },
+
+            async appendOrder(orderId) {
+                let order = await this.fetchOrder(orderId)
+
+                this.orders.unshift(order)
+            },
         },
 
         created() {
             this.fetch()
 
             Echo.channel('orders')
-                .listen('OrderPaid', ({ order }) => {
-                    this.$delete(this.orders, _.findIndex(this.orders, ({ id }) => id === order.id))
+                .listen('OrderPaid', ({ orderId }) => {
+                    this.$delete(this.orders, _.findIndex(this.orders, ({ id }) => id === orderId))
                 })
-                .listen('OrdersFulfilled', ({ orders }) => {
-                    for (let order of orders) {
-                        this.orders.unshift(order)
+                .listen('OrdersFulfilled', async ({ orders }) => {
+                    for (let orderId of orders) {
+                        this.appendOrder(orderId)
                     }
                 })
         },

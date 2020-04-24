@@ -13,18 +13,15 @@ class OrderGroupAssigned implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Order $order;
+    public int $orderId;
     public ?string $previousGroup;
 
     /**
      * Create a new event instance.
-     *
-     * @param \App\Order $order
-     * @param string|null $previousGroup
      */
     public function __construct(Order $order, ?string $previousGroup)
     {
-        $this->order = $order->load('items.product');
+        $this->orderId = $order->id;
         $this->previousGroup = $previousGroup;
     }
 
