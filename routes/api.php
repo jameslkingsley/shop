@@ -16,6 +16,8 @@ Route::get('/basket', 'BasketController@index');
 Route::put('/basket/{product}', 'BasketController@store');
 Route::delete('/basket/{product}', 'BasketController@destroy');
 
+Route::put('/item/{orderItem}/picked', 'OrderItemPickedController@update');
+Route::delete('/item/{orderItem}/picked', 'OrderItemPickedController@destroy');
 Route::post('/item/{orderItem}/amount', 'OrderItemAmountController@update');
 Route::post('/item/{orderItem}/quantity', 'OrderItemQuantityController@update');
 

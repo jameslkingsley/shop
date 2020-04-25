@@ -6,14 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
-    protected $connection= 'sle';
+    protected $connection = 'sle';
     protected $table = 'shop_order_items';
-
     protected $guarded = [];
+
+    protected $dates = [
+        'picked_at',
+        'created_at',
+        'updated_at',
+    ];
 
     protected $appends = [
         'total',
-        // 'product',
     ];
 
     public function order()

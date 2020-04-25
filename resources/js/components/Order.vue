@@ -190,11 +190,14 @@
                     <span class="block w-full font-bold mb-2">Order Items</span>
 
                     <div v-for="item in order.items" class="flex w-full items-center text-xs 2xl:text-sm mb-1 whitespace-no-wrap overflow-visible">
+                        <input type="checkbox" :checked="!! item.picked_at" @input="markAsPicked(item)" class="inline-block w-6 h-6 mr-2" />
+
                         <span class="inline-block text-left min-w-1/2 mr-2">{{ item.product.prodTitle }}</span>
                         <span class="inline-block text-left w-12">{{ item.product.prodUnitSize }}</span>
 
                         <div class="flex-1 inline-flex items-center justify-end">
-                            <input v-if="! order.charged_at" v-model.number="item.quantity" @input="updateItemQuantity(item)"
+                            <input v-if="! order.charged_at" v-model.number="item.quantity" @focus="highlightInput"
+                                @input="updateItemQuantity(item)"
                                 placeholder="Quantity" class="font-number text-right border rounded px-1 w-8" />
 
                             <span v-else class="font-number text-right w-8">{{ item.quantity }}</span>
@@ -202,7 +205,8 @@
                             <span class="font-number text-right ml-1 mr-2">&times;</span>
                             <span class="font-number text-right mr-1">&pound;</span>
 
-                            <input v-if="! order.charged_at" :value="item.amount / 100" @input="updateItemAmount(item, $event.target.value)"
+                            <input v-if="! order.charged_at" :value="item.amount / 100" @focus="highlightInput"
+                                @input="updateItemAmount(item, $event.target.value)"
                                 placeholder="Amount" class="font-number text-right border rounded px-1 w-12" />
 
                             <span v-else class="font-number text-right w-12">{{ item.amount | currency }}</span>
@@ -297,6 +301,20 @@
         },
 
         methods: {
+            highlightInput(event) {
+                event.target.setSelectionRange(0, event.target.value.length)
+            },
+
+            async markAsPicked(item) {
+                if (item.picked_at) {
+                    ajax.delete(`/api/item/${item.id}/picked`)
+                    item.picked_at = null
+                } else {
+                    ajax.put(`/api/item/${item.id}/picked`)
+                    item.picked_at = moment().format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+
             async fetch(fields = []) {
                 const { data } = await ajax.get(`/api/order/${this.order.id}`)
 
