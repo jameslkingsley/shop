@@ -5,8 +5,8 @@
         <div :class="{
             'my-4': ! expanded,
             [`border-t-2 border-${order.group}-400`]: order.group,
-            'fixed lg:relative bottom-0 left-0 right-0 z-40 shadow-lg max-h-order lg:max-h-auto rounded-t-lg lg:rounded overflow-y-auto': expanded,
-        }" class="order flex flex-wrap w-full items-center sm:my-4 bg-white shadow sm:rounded">
+            'fixed lg:relative bottom-0 left-0 right-0 z-40 shadow-lg max-h-order lg:max-h-auto rounded-t-lg lg:rounded': expanded,
+        }" class="order flex flex-wrap w-full items-center sm:my-4 bg-white shadow sm:rounded overflow-hidden">
             <div @click="expanded = ! expanded" :class="expanded ? 'sticky top-0 border-b border-gray-200' : 'relative'"
                 class="bg-white z-10 inline-flex flex-1 items-start px-3 py-4 2xl:p-6 cursor-pointer select-none">
                 <icon v-if="! order.charged_at && ! order.delivered_at" name="shopping-cart" class="hidden xl:inline-block size-5 text-gray-300 mr-4 mt-1" />
@@ -96,9 +96,17 @@
                 </div>
 
                 <template v-if="! order.charged_at">
-                    <div v-if="order.picking_at" class="bg-blue-200 text-white rounded-full w-10 h-10 ml-4 inline-flex flex-wrap items-center justify-center">
-                        <icon name="three-dots" class="size-5 fill-current" />
-                    </div>
+                    <template v-if="order.picking_at">
+                        <div v-if="! pickingFinished"
+                            class="bg-blue-200 text-white rounded-full w-10 h-10 ml-4 inline-flex flex-wrap items-center justify-center">
+                            <icon name="three-dots" class="size-5 fill-current" />
+                        </div>
+
+                        <div v-if="pickingFinished"
+                            class="bg-green-400 text-white rounded-full w-10 h-10 ml-4 inline-flex flex-wrap items-center justify-center">
+                            <icon name="checkmark" class="size-5 fill-current" />
+                        </div>
+                    </template>
 
                     <div v-else @click.stop.prevent="startPicking" class="cursor-pointer select-none bg-blue-500 text-white rounded-full w-10 h-10 ml-4 inline-flex flex-wrap items-center justify-center">
                         <icon name="hand-pointer" class="size-5 fill-current" />
@@ -146,6 +154,10 @@
                                     <button @click="takePayment" :disabled="processing" class="px-4 mr-2 btn-white">
                                         Take Payment
                                     </button>
+
+                                    <button @click="toggleDeliveryFee" :disabled="processing" class="px-4 mr-2 btn-white">
+                                        {{ order.free_delivery ? 'Add Delivery Charge' : 'Free Delivery' }}
+                                    </button>
                                 </template>
 
                                 <template v-else>
@@ -187,17 +199,28 @@
                 </div>
 
                 <div class="block w-full p-4 2xl:p-6 text-xs 2xl:text-sm overflow-x-auto">
-                    <span class="block w-full font-bold mb-2">Order Items</span>
+                    <div class="flex items-center w-full mb-2">
+                        <span class="flex-1 font-bold">Order Items</span>
+                        <span @click="editable = ! editable" class="cursor-pointer select-none text-blue-500">
+                            {{ editable ? 'Done' : 'Remove Items...' }}
+                        </span>
+                    </div>
 
                     <div v-for="item in order.items" class="flex w-full items-center text-xs 2xl:text-sm mb-1 whitespace-no-wrap overflow-visible">
-                        <input type="checkbox" :checked="!! item.picked_at" @input="markAsPicked(item)" class="inline-block w-6 h-6 mr-2" />
+                        <input type="checkbox" :checked="!! item.picked_at" @input="markAsPicked(item)" class="inline-block mr-2" />
 
-                        <span class="inline-block text-left min-w-1/2 mr-2">{{ item.product.prodTitle }}</span>
+                        <span class="inline-block text-left min-w-1/2 mr-2 truncate">{{ item.product.prodTitle }}</span>
                         <span class="inline-block text-left w-12">{{ item.product.prodUnitSize }}</span>
 
-                        <div class="flex-1 inline-flex items-center justify-end">
+                        <div v-show="editable" class="flex-1 inline-flex items-center justify-end">
+                            <span @click="removeItem(item)" class="text-blue-500 cursor-pointer select-none">
+                                Remove
+                            </span>
+                        </div>
+
+                        <div v-show="! editable" class="flex-1 inline-flex items-center justify-end">
                             <input v-if="! order.charged_at" v-model.number="item.quantity" @focus="highlightInput"
-                                @input="updateItemQuantity(item)"
+                                @input="updateItemQuantity(item)" type="number"
                                 placeholder="Quantity" class="font-number text-right border rounded px-1 w-8" />
 
                             <span v-else class="font-number text-right w-8">{{ item.quantity }}</span>
@@ -206,7 +229,7 @@
                             <span class="font-number text-right mr-1">&pound;</span>
 
                             <input v-if="! order.charged_at" :value="item.amount / 100" @focus="highlightInput"
-                                @input="updateItemAmount(item, $event.target.value)"
+                                @input="updateItemAmount(item, $event.target.value)" type="number"
                                 placeholder="Amount" class="font-number text-right border rounded px-1 w-12" />
 
                             <span v-else class="font-number text-right w-12">{{ item.amount | currency }}</span>
@@ -259,6 +282,7 @@
         data() {
             return {
                 socket: null,
+                editable: false,
                 expanded: false,
                 searchResults: [],
                 searchQuery: null,
@@ -288,6 +312,13 @@
         },
 
         computed: {
+            pickingFinished() {
+                const picked = _.filter(this.order.items, item => !! item.picked_at)
+
+                return picked.length === this.order.items.length
+            },
+
+
             chunkedGroups() {
                 return _.chunk(['red', 'green', 'blue', 'orange'], 2)
             },
@@ -301,8 +332,32 @@
         },
 
         methods: {
+            async toggleDeliveryFee() {
+                if (this.order.free_delivery) {
+                    await ajax.put(this.endpoint('delivery-fee'))
+                    this.fetch(['total', 'subTotal', 'deliveryFee'])
+                    this.order.free_delivery = false
+                } else {
+                    await ajax.delete(this.endpoint('delivery-fee'))
+                    this.fetch(['total', 'subTotal', 'deliveryFee'])
+                    this.order.free_delivery = true
+                }
+            },
+
             highlightInput(event) {
                 event.target.setSelectionRange(0, event.target.value.length)
+            },
+
+            sortItems() {
+                this.order.items = _.sortBy(this.order.items, item => item.product.prodCatID)
+            },
+
+            async removeItem(item) {
+                await ajax.delete(`/api/item/${item.id}`)
+
+                this.$delete(this.order.items, _.findIndex(this.order.items, ({ id }) => item.id === id))
+
+                this.fetch(['total', 'subTotal', 'deliveryFee'])
             },
 
             async markAsPicked(item) {
@@ -319,12 +374,15 @@
                 const { data } = await ajax.get(`/api/order/${this.order.id}`)
 
                 if (! fields.length) {
-                    return this.order = data
+                    this.order = data
+                    return this.sortItems()
                 }
 
                 for (let field of fields) {
                     this.$set(this.order, field, _.get(data, field))
                 }
+
+                this.sortItems()
             },
 
             endpoint(uri) {
@@ -437,6 +495,10 @@
 
                 this.$emit('reordered')
             },
+        },
+
+        created() {
+            this.sortItems()
         },
     }
 </script>

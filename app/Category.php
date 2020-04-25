@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $connection= 'sle';
+    protected $connection = 'sle';
     protected $primaryKey = 'pcatID';
     protected $table = 'tblproductcats';
-
-    /**
-     * The attributes that are guarded.
-     *
-     * @var array
-     */
+    public $timestamps = false;
     protected $guarded = [];
 
     public function products()

@@ -68,9 +68,10 @@
                     <div class="block w-full p-6 text-base overflow-x-auto">
                         <span class="block w-full font-bold mb-2">Order Items</span>
 
-                        @forelse ($order->items as $item)
+                        @forelse ($order->items->where('quantity') as $item)
                             <div class="flex w-full items-center text-base mb-1 whitespace-no-wrap overflow-visible">
-                                <span class="inline-block text-left min-w-1/2 mr-2">{{ $item->product->prodTitle }}</span>
+                                <span
+                                    class="inline-block text-left min-w-1/2 mr-2">{{ $item->product->prodTitle }}</span>
                                 <span class="inline-block text-left w-12">{{ $item->product->prodUnitSize }}</span>
 
                                 <div class="flex-1 inline-flex items-center justify-end">
@@ -81,13 +82,37 @@
                                     </span>
 
                                     <span class="font-number text-right w-12">
-                                        &pound;{{ $item->amount / 100 }}
+                                        &pound;{{ number_format($item->amount / 100, 2) }}
                                     </span>
                                 </div>
                             </div>
                         @empty
                             <span>No items in order.</span>
                         @endforelse
+
+                        @if ($order->items->where('quantity', 0)->isNotEmpty())
+                            <span class="block w-full font-bold mb-2 mt-6">Items out of stock</span>
+                        @endif
+
+                        @foreach ($order->items->where('quantity', 0) as $item)
+                            <div class="flex w-full items-center text-base mb-1 whitespace-no-wrap overflow-visible">
+                                <span
+                                    class="inline-block text-left min-w-1/2 mr-2">{{ $item->product->prodTitle }}</span>
+                                <span class="inline-block text-left w-12">{{ $item->product->prodUnitSize }}</span>
+
+                                <div class="flex-1 inline-flex items-center justify-end">
+                                    <span class="font-number text-right w-8">{{ $item->quantity }}</span>
+
+                                    <span class="font-number text-right ml-1 mr-2">
+                                        &times;
+                                    </span>
+
+                                    <span class="font-number text-right w-12">
+                                        &pound;{{ number_format($item->amount / 100, 2) }}
+                                    </span>
+                                </div>
+                            </div>
+                        @endforeach
 
                         <div class="flex w-full items-center text-base mb-1 mt-6 justify-end">
                             <span class="font-bold">Sub-total</span>
@@ -117,7 +142,7 @@
         @endforelse
 
         <script>
-            window.print()
+            // window.print()
         </script>
     </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Product;
+use App\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderItemController extends Controller
@@ -19,5 +20,10 @@ class OrderItemController extends Controller
                 'amount' => $product->prodOurPrice * 100,
             ]);
         }
+    }
+
+    public function destroy(OrderItem $orderItem)
+    {
+        $orderItem->delete();
     }
 }

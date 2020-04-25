@@ -15,6 +15,14 @@
             <router-link to="/" class="hover:underline inline-block w-full py-1 text-black opacity-50">
                 &larr; Back to categories
             </router-link>
+
+            <div class="block w-full text-2xl font-bold mt-2">
+                {{ group.pgTitle }}
+            </div>
+
+            <div v-if="group.pgDescription" class="mt-2 text-lg">
+                <div v-html="group.pgDescription"></div>
+            </div>
         </div>
 
         <div class="flex flex-wrap flex-1 p-4">
@@ -33,24 +41,26 @@
 
         data() {
             return {
+                group: {},
                 categories: [],
             }
         },
 
         async beforeRouteEnter(to, from, next) {
-            const categories = await ajax.get(`/api/group/${to.params.group}`)
+            const { data } = await ajax.get(`/api/group/${to.params.group}`)
 
-            next(vm => vm.fill(categories.data))
+            next(vm => vm.fill(data))
         },
 
         methods: {
-            fill(categories) {
+            fill({ group, categories }) {
+                this.group = group
                 this.categories = categories
             },
         },
 
         created() {
             this.$root.menuVisible = false
-        }
+        },
     }
 </script>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $connection= 'sle';
+    protected $connection = 'sle';
     protected $table = 'shop_orders';
 
     protected $dates = [
@@ -26,6 +26,7 @@ class Order extends Model
     protected $casts = [
         'metadata' => 'object',
         'collection' => 'boolean',
+        'free_delivery' => 'boolean',
     ];
 
     protected $guarded = [];
@@ -37,12 +38,12 @@ class Order extends Model
 
     public function getSubTotalAttribute()
     {
-        return $this->items->map(fn($item) => $item->quantity * $item->amount)->sum();
+        return $this->items->map(fn ($item) => $item->quantity * $item->amount)->sum();
     }
 
     public function getDeliveryFeeAttribute()
     {
-        if ($this->collection) {
+        if ($this->collection || $this->free_delivery) {
             return 0;
         }
 

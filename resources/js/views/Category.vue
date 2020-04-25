@@ -8,8 +8,16 @@
 
         <div class="w-full p-6">
             <router-link :to="`/group/${$route.params.group}`" class="hover:underline inline-block w-full py-1 text-black opacity-50">
-                &larr; Back to categories
+                &larr; {{ group.pgTitle }}
             </router-link>
+
+            <div class="block w-full text-2xl font-bold mt-2">
+                {{ category.pcatTitle }}
+            </div>
+
+            <div v-if="category.pcatDescription" class="mt-2 text-lg">
+                <div v-html="category.pcatDescription"></div>
+            </div>
         </div>
 
         <div class="flex flex-wrap flex-1 p-4">
@@ -27,6 +35,8 @@
 
         data() {
             return {
+                group: {},
+                category: {},
                 products: [],
             }
         },
@@ -38,13 +48,15 @@
         },
 
         methods: {
-            fill(data) {
-                this.products = data
+            fill({ products, category, group }) {
+                this.products = products
+                this.category = category
+                this.group = group
             },
         },
 
         created() {
             this.$root.menuVisible = false
-        }
+        },
     }
 </script>

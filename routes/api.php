@@ -16,6 +16,7 @@ Route::get('/basket', 'BasketController@index');
 Route::put('/basket/{product}', 'BasketController@store');
 Route::delete('/basket/{product}', 'BasketController@destroy');
 
+Route::delete('/item/{orderItem}', 'OrderItemController@destroy');
 Route::put('/item/{orderItem}/picked', 'OrderItemPickedController@update');
 Route::delete('/item/{orderItem}/picked', 'OrderItemPickedController@destroy');
 Route::post('/item/{orderItem}/amount', 'OrderItemAmountController@update');
@@ -34,6 +35,9 @@ Route::post('/order/{order}/charge', 'OrderPaymentController@store');
 Route::post('/order/{order}/group', 'OrderGroupController@update');
 Route::put('/order/{order}/delivered', 'OrderDeliveredController@update');
 Route::delete('/order/{order}/delivered', 'OrderDeliveredController@destroy');
+
+Route::put('/order/{order}/delivery-fee', 'OrderDeliveryFeeController@update');
+Route::delete('/order/{order}/delivery-fee', 'OrderDeliveryFeeController@destroy');
 
 Route::get('/orders/group/{group}', 'OrderGroupController@show');
 Route::put('/orders/group/{group}/delivered', 'OrderGroupDeliveredController@store');
