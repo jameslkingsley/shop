@@ -9,10 +9,12 @@ class DispatchController extends Controller
 {
     public function index(Request $request, string $group)
     {
+        $collection = $group === 'collection';
+
         $orders = Order::whereNotNull('customer_id')
             ->whereNotNull('charged_at')
             ->whereNull('delivered_at')
-            ->where('group', $group)
+            ->where($collection ? 'collection' : 'group', $collection ? true : $group)
             ->orderBy('order')
             ->with('items.product')
             ->get();
