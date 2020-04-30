@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dispatch/{group}', 'DispatchController@index')->middleware('auth');
+Route::get('/print/{order}', 'OrderPrintController@show')->middleware('auth');
 
 Route::get('/checkout/cancel', 'OrderCancelController@store');
 Route::get('/checkout/complete', 'OrderCompletionController@store');

@@ -193,7 +193,8 @@
 
                         <div class="inline-flex text-xs justify-start text-gray-500 mt-2">
                             <span class="pr-4">Order ID: {{ order.id }}</span>
-                            <span>{{ order.customer_id }}</span>
+                            <span class="pr-4">{{ order.customer_id }}</span>
+                            <a :href="`/print/${order.id}`" target="_blank" class="text-blue-500">Print this order</a>
                         </div>
                     </div>
                 </div>
