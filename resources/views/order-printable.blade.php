@@ -14,20 +14,20 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
 
-    <body class="text-gray-900 leading-normal text-base">
+    <body class="text-gray-900 leading-normal text-sm">
         <div class="order flex flex-wrap w-full items-center border-b-2 border-black" style="break-before: page;">
             <div class="z-10 inline-flex flex-1 items-start p-6 cursor-pointer select-none">
-                <div class="flex-1 inline-flex flex-col text-lg">
+                <div class="flex-1 inline-flex flex-col">
                     <span class="font-bold truncate">{{ $order->metadata->shipping->name }}</span>
 
-                    <div class="inline-flex flex-row items-center text-base text-gray-600">
+                    <div class="inline-flex flex-row items-center text-gray-600">
                         <span>{{ $order->metadata->shipping->phone }}</span>
                     </div>
                 </div>
 
                 <div class="whitespace-no-wrap inline-flex flex-col text-right font-number">
                     <span class="text-sm text-gray-600"># of bags</span>
-                    <span class="font-bold text-lg">{{ $order->bags }} bags</span>
+                    <span class="font-bold">{{ $order->bags }} bags</span>
                 </div>
 
                 <div class="whitespace-no-wrap inline-flex flex-col text-right font-number ml-4">
@@ -35,7 +35,7 @@
                         {{ $order->charged_at ? 'Total paid' : 'Total to pay' }}
                     </span>
 
-                    <span class="font-bold text-lg">
+                    <span class="font-bold">
                         &pound;{{ number_format($order->total / 100, 2) }}
                     </span>
                 </div>
@@ -43,7 +43,7 @@
 
             <div class="block w-full">
                 <div class="flex flex-wrap justify-between items-start w-full p-6 border-b border-gray-200">
-                    <div class="inline-flex w-1/2 flex-col text-base">
+                    <div class="inline-flex w-1/2 flex-col">
                         <span class="font-bold">Address</span>
                         <span>{{ $order->metadata->shipping->address->line1 }}</span>
                         <span>{{ $order->metadata->shipping->address->line2 }}</span>
@@ -51,7 +51,7 @@
                         <span>{{ $order->metadata->shipping->address->postal_code }}</span>
                     </div>
 
-                    <div class="inline-flex w-1/2 flex-col text-base">
+                    <div class="inline-flex w-1/2 flex-col">
                         <span class="font-bold">Contact Info</span>
                         <span>{{ $order->metadata->shipping->name }}</span>
                         <span>{{ $order->metadata->shipping->phone }}</span>
@@ -59,18 +59,18 @@
                     </div>
 
                     @if ($order->comment)
-                        <div class="inline-flex w-full flex-col text-base mt-4">
+                        <div class="inline-flex w-full flex-col mt-4">
                             <span class="font-bold">Additional Comments</span>
                             <span>{{ $order->comment }}</span>
                         </div>
                     @endif
                 </div>
 
-                <div class="block w-full p-6 text-base overflow-x-auto">
+                <div class="block w-full p-6 overflow-x-auto">
                     <span class="block w-full font-bold mb-2">Order Items</span>
 
                     @forelse ($order->items->where('quantity') as $item)
-                        <div class="flex w-full items-center text-base mb-1 whitespace-no-wrap overflow-visible">
+                        <div class="flex w-full items-center mb-1 whitespace-no-wrap overflow-visible">
                             <span
                                 class="inline-block text-left min-w-1/2 mr-2">{{ $item->product->prodTitle }}</span>
                             <span class="inline-block text-left w-12">{{ $item->product->prodUnitSize }}</span>
@@ -96,7 +96,7 @@
                     @endif
 
                     @foreach ($order->items->where('quantity', 0) as $item)
-                        <div class="flex w-full items-center text-base mb-1 whitespace-no-wrap overflow-visible">
+                        <div class="flex w-full items-center mb-1 whitespace-no-wrap overflow-visible">
                             <span
                                 class="inline-block text-left min-w-1/2 mr-2">{{ $item->product->prodTitle }}</span>
                             <span class="inline-block text-left w-12">{{ $item->product->prodUnitSize }}</span>
@@ -115,21 +115,21 @@
                         </div>
                     @endforeach
 
-                    <div class="flex w-full items-center text-base mb-1 mt-6 justify-end">
+                    <div class="flex w-full items-center mb-1 mt-6 justify-end">
                         <span class="font-bold">Sub-total</span>
                         <span class="w-12 ml-4 text-right font-number">
                             &pound;{{ number_format($order->subTotal / 100, 2) }}
                         </span>
                     </div>
 
-                    <div class="flex w-full items-center text-base mb-1 justify-end">
+                    <div class="flex w-full items-center mb-1 justify-end">
                         <span class="font-bold">Delivery fee</span>
                         <span class="w-12 ml-4 text-right font-number">
                             &pound;{{ number_format($order->deliveryFee / 100, 2) }}
                         </span>
                     </div>
 
-                    <div class="flex w-full items-center text-base justify-end">
+                    <div class="flex w-full items-center justify-end">
                         <span class="font-bold">Total</span>
                         <span class="w-12 ml-4 text-right font-number">
                             &pound;{{ number_format($order->total / 100, 2) }}

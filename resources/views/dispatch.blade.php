@@ -12,7 +12,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
 
-    <body class="text-gray-900 leading-normal text-base">
+    <body class="text-gray-900 leading-normal text-sm">
         @forelse($orders as $order)
             @include('order-printable', compact('order'))
         @empty
