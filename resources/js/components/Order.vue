@@ -6,7 +6,7 @@
             'my-4': ! expanded,
             [`border-t-2 border-${order.group}-400`]: order.group,
             'fixed lg:relative bottom-0 left-0 right-0 z-40 shadow-lg max-h-order lg:max-h-auto rounded-t-lg lg:rounded': expanded,
-        }" class="order flex flex-wrap w-full items-center sm:my-4 bg-white shadow sm:rounded overflow-hidden">
+        }" class="order flex flex-wrap w-full items-center sm:my-4 bg-white shadow sm:rounded overflow-auto">
             <div @click="expanded = ! expanded" :class="expanded ? 'sticky top-0 border-b border-gray-200' : 'relative'"
                 class="bg-white z-10 inline-flex flex-1 items-start px-3 py-4 2xl:p-6 cursor-pointer select-none">
                 <icon v-if="! order.charged_at && ! order.delivered_at" name="shopping-cart" class="hidden xl:inline-block size-5 text-gray-300 mr-4 mt-1" />
