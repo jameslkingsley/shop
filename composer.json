@@ -11,6 +11,7 @@
         "php": "^7.4",
         "ext-dom": "*",
         "ext-json": "*",
+        "bugsnag/bugsnag-laravel": "^2.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",

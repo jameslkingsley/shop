@@ -230,7 +230,7 @@
                             <span class="font-number text-right mr-1">&pound;</span>
 
                             <input v-if="! order.charged_at" :value="item.amount / 100" @focus="highlightInput"
-                                @input="updateItemAmount(item, $event.target.value)" type="number"
+                                @input="updateItemAmount(item, $event.target.value)"
                                 placeholder="Amount" class="font-number text-right border rounded px-1 w-12" />
 
                             <span v-else class="font-number text-right w-12">{{ item.amount | currency }}</span>
