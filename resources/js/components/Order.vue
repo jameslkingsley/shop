@@ -229,8 +229,8 @@
                             <span class="font-number text-right ml-1 mr-2">&times;</span>
                             <span class="font-number text-right mr-1">&pound;</span>
 
-                            <input v-if="! order.charged_at" :value="item.amount / 100" @focus="highlightInput"
-                                @input="updateItemAmount(item, $event.target.value)"
+                            <input v-if="! order.charged_at" v-model="item.amount_float" @focus="highlightInput"
+                                @input="updateItemAmount(item)"
                                 placeholder="Amount" class="font-number text-right border rounded px-1 w-12" />
 
                             <span v-else class="font-number text-right w-12">{{ item.amount | currency }}</span>
@@ -376,6 +376,7 @@
 
                 if (! fields.length) {
                     this.order = data
+
                     return this.sortItems()
                 }
 
@@ -405,11 +406,9 @@
                 this.processing = false
             },
 
-            async updateItemAmount(item, amount) {
-                item.amount = amount ? Number(amount) * 100 : 0
-
+            async updateItemAmount(item) {
                 await ajax.post(`/api/item/${item.id}/amount`, {
-                    amount: item.amount,
+                    amount: parseFloat(item.amount_float) * 100,
                 })
 
                 this.fetch(['total', 'subTotal', 'deliveryFee'])

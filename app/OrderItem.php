@@ -18,6 +18,7 @@ class OrderItem extends Model
 
     protected $appends = [
         'total',
+        'amount_float',
     ];
 
     public function order()
@@ -33,5 +34,10 @@ class OrderItem extends Model
     public function getTotalAttribute()
     {
         return $this->amount * $this->quantity;
+    }
+
+    public function getAmountFloatAttribute()
+    {
+        return $this->amount / 100;
     }
 }
