@@ -3,7 +3,7 @@ const _ = require('lodash')
 module.exports = {
     theme: {
         fontFamily: {
-            sans: '"Nunito", sans-serif',
+            sans: '"Inter", sans-serif',
         },
 
         extend: {
@@ -35,6 +35,7 @@ module.exports = {
             height: {
                 product: '4rem',
                 header: '5rem',
+                26: '6.5rem',
             },
 
             maxHeight: {
@@ -46,6 +47,7 @@ module.exports = {
             },
         },
     },
+
     variants: {
         accessibility: ['responsive', 'focus'],
         alignContent: ['responsive'],
@@ -62,7 +64,7 @@ module.exports = {
         borderRadius: ['responsive'],
         borderStyle: ['responsive'],
         borderWidth: ['responsive'],
-        boxShadow: ['responsive', 'hover', 'focus'],
+        boxShadow: ['responsive', 'hover', 'focus', 'active'],
         boxSizing: ['responsive'],
         clear: ['responsive'],
         cursor: ['responsive'],
@@ -136,7 +138,10 @@ module.exports = {
         wordBreak: ['responsive'],
         zIndex: ['responsive'],
     },
+
     plugins: [
+        require('@tailwindcss/ui'),
+
         function ({ addUtilities, e, config }) {
             _.map(config('theme.width', []), (value, name) => {
                 addUtilities({

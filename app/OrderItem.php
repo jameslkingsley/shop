@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
-    protected $connection = 'sle';
     protected $table = 'shop_order_items';
     protected $guarded = [];
 

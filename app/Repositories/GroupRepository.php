@@ -8,7 +8,7 @@ class GroupRepository extends Repository
 {
     public function all()
     {
-        return DB::connection('sle')->select('
+        return DB::select('
             SELECT pgID as id, pgTitle as title, (
                 SELECT prodImg
                 FROM tblProducts

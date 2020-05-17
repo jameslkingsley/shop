@@ -8,7 +8,7 @@ class CategoryRepository extends Repository
 {
     public function all(int $groupId)
     {
-        return DB::connection('sle')->select('
+        return DB::select('
             SELECT pcatID as id, pcatTitle as title, (
                 SELECT prodImg
                 FROM tblProducts

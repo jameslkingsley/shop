@@ -14,4 +14,10 @@ Route::post('/login', 'LoginController@store');
 
 Route::view('/orders', 'layouts.app')->middleware('auth');
 
-Route::view('/{any?}', 'layouts.app')->where('any', '^(?!api).*$');
+Route::get('/basket', 'BasketController@index');
+
+Route::get('/', 'HomeController@index');
+Route::get('/group/{group}', 'HomeController@group');
+Route::get('/group/{group}/{category}', 'HomeController@category');
+
+// Route::view('/{any?}', 'layouts.app')->where('any', '^(?!api).*$');

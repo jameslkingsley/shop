@@ -1,37 +1,39 @@
 <template>
     <div>
-        <header v-if="! adminDashboard" class="fixed py-4 top-0 left-0 right-0 block bg-blue-500 text-white px-6 md:px-8 text-lg z-40">
-            <nav class="flex items-center justify-between w-full h-full">
-                <span @click="toggleMenu" class="inline-flex items-center mr-6 cursor-pointer select-none">
-                    <icon name="menu" width="20" height="20" class="text-white" />
-                </span>
+        <!--<header v-if="! adminDashboard" class="fixed py-4 top-0 left-0 right-0 block bg-blue-500 text-white px-6 md:px-8 text-lg z-40">-->
+        <!--    <nav class="flex items-center justify-between w-full h-full">-->
+        <!--        <span @click="toggleMenu" class="inline-flex items-center mr-6 cursor-pointer select-none">-->
+        <!--            <icon name="menu" width="20" height="20" class="text-white" />-->
+        <!--        </span>-->
 
-                <router-link to="/" class="inline-flex items-center mr-4 sm:mr-6 cursor-pointer select-none">
-                    <icon name="home" width="20" height="20" class="text-white" />
-                </router-link>
+        <!--        <router-link to="/" class="inline-flex items-center mr-4 sm:mr-6 cursor-pointer select-none">-->
+        <!--            <icon name="home" width="20" height="20" class="text-white" />-->
+        <!--        </router-link>-->
 
-                <div class="hidden sm:flex flex-col">
-                    <router-link to="/" class="text-xl font-bold tracking-wide">
-                        Shortlanesend Store
-                    </router-link>
+        <!--        <div class="hidden sm:flex flex-col">-->
+        <!--            <router-link to="/" class="text-xl font-bold tracking-wide">-->
+        <!--                Shortlanesend Store-->
+        <!--            </router-link>-->
 
-                    <span class="text-blue-200 text-sm">
-                        Call us on <strong class="text-white">01872 275102</strong>
-                    </span>
-                </div>
+        <!--            <span class="text-blue-200 text-sm">-->
+        <!--                Call us on <strong class="text-white">01872 275102</strong>-->
+        <!--            </span>-->
+        <!--        </div>-->
 
-                <div class="flex-1 inline-flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-24 xl:px-32">
-                    <input @keyup.enter="submitSearch" placeholder="Search" class="px-4 py-2 text-sm sm:text-base rounded bg-white text-black shadow focus:shadow-md w-full" />
-                </div>
+        <!--        <div class="flex-1 inline-flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-24 xl:px-32">-->
+        <!--            <input @keyup.enter="submitSearch" placeholder="Search" class="px-4 py-2 text-sm sm:text-base rounded bg-white text-black shadow focus:shadow-md w-full" />-->
+        <!--        </div>-->
 
-                <div class="inline-flex items-center justify-end xl:flex-1">
-                    <span @click="basketVisible = ! basketVisible" class="inline-flex items-center text-lg font-bold cursor-pointer select-none">
-                        <icon name="shopping-cart" width="20" height="20" class="text-white mr-2" />
-                        <span>{{ subTotal | currency }}</span>
-                    </span>
-                </div>
-            </nav>
-        </header>
+        <!--        <div class="inline-flex items-center justify-end xl:flex-1">-->
+        <!--            <span @click="basketVisible = ! basketVisible" class="inline-flex items-center text-lg font-bold cursor-pointer select-none">-->
+        <!--                <icon name="shopping-cart" width="20" height="20" class="text-white mr-2" />-->
+        <!--                <span>{{ subTotal | currency }}</span>-->
+        <!--            </span>-->
+        <!--        </div>-->
+        <!--    </nav>-->
+        <!--</header>-->
+
+        <!--<layout-nav />-->
 
         <main :class="{ 'w-full py-16 sm:py-20': ! adminDashboard }">
             <div v-if="isShutdown && ! adminDashboard"
@@ -145,7 +147,11 @@
 </template>
 
 <script>
+    import LayoutNav from './Layout/Nav'
+
     export default {
+        components: { LayoutNav },
+
         data() {
             return {
                 errors: {},

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
-    protected $connection = 'sle';
     protected $table = 'shop_settings';
     public $timestamps = false;
     protected $guarded = [];

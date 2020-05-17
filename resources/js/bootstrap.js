@@ -1,18 +1,29 @@
+import 'alpinejs'
+
+const Turbolinks = require('turbolinks')
+Turbolinks.start()
+
 window._ = require('lodash')
 window.moment = require('moment')
 
 window.ajax = require('axios')
 window.ajax.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
-import Vue from 'vue'
+window.toCurrency = value => {
+    let langage = (navigator.language || navigator.browserLanguage).split('-')[0]
 
-window.Vue = Vue
-window.Vue.config.productionTip = false
+    return (value / 100).toLocaleString(langage, { style: 'currency', currency: 'GBP' })
+}
 
-import VueRouter from 'vue-router'
+// import Vue from 'vue'
 
-window.VueRouter = VueRouter
-Vue.use(VueRouter)
+// window.Vue = Vue
+// window.Vue.config.productionTip = false
+
+// import VueRouter from 'vue-router'
+
+// window.VueRouter = VueRouter
+// Vue.use(VueRouter)
 
 window.Pusher = require('pusher-js')
 import Echo from 'laravel-echo'

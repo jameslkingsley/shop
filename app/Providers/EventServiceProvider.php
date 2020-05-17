@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\OrderPaid;
+use App\Events\OrderPlaced;
+use App\Listeners\OrderPaidListener;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\OrderPlacedListener;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +21,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        OrderPlaced::class => [
+            OrderPlacedListener::class,
+        ],
+
+        OrderPaid::class => [
+            OrderPaidListener::class,
+        ],
     ];
 
     /**
@@ -28,7 +39,5 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }

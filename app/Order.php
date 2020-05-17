@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $connection = 'sle';
     protected $table = 'shop_orders';
 
     protected $dates = [

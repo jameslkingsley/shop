@@ -8,7 +8,7 @@ class ProductRepository extends Repository
 {
     public function all(int $categoryId)
     {
-        return DB::connection('sle')->select('
+        return DB::select('
             SELECT prodID AS id, prodRef as ref, prodTitle AS title, prodUnitSize AS unit_size, CAST((prodOurPrice * 100) AS SIGNED) AS price
             FROM tblProducts
             WHERE prodStatus = "active"

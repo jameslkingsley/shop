@@ -1,7 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
+
+[x-cloak] {
+    display: none;
+}
 
 * {
     outline: 0 !important;
@@ -11,95 +15,95 @@ header {
     top: -6px;
 }
 
-button {
-    @apply rounded py-2 uppercase font-bold text-sm tracking-wide transition-all duration-200 ease-in-out;
-
-    &.btn-primary {
-        @apply bg-blue-500 text-white;
-
-        &[disabled] {
-            @apply text-blue-300 pointer-events-none select-none cursor-default;
-        }
-
-        &:hover {
-            @apply bg-blue-500 text-white shadow-md;
-        }
-
-        &:active {
-            @apply bg-blue-600 shadow-none text-white;
-        }
-    }
-
-    &.btn-white {
-        @apply shadow bg-white text-black text-xs border;
-
-        &[disabled] {
-            @apply text-gray-400 pointer-events-none select-none cursor-default;
-        }
-
-        &:hover {
-            @apply shadow-md;
-        }
-
-        &:active {
-            @apply shadow-none text-gray-600;
-        }
-    }
-
-    &:not(.btn-white):not(.btn-primary) {
-        @apply bg-blue-200 text-blue-800;
-
-        &[disabled] {
-            @apply text-blue-300 pointer-events-none select-none cursor-default;
-        }
-
-        &:hover {
-            @apply bg-blue-500 text-white shadow-md;
-        }
-
-        &:active {
-            @apply bg-blue-600 shadow-none text-white;
-        }
-    }
-
-    &.btn-sm {
-        @apply bg-transparent border border-gray-300 text-gray-500 leading-none px-2 font-normal py-1;
-
-        &:hover {
-            @apply bg-transparent text-blue-500 border-blue-500;
-        }
-
-        &:active {
-            @apply bg-transparent shadow-none text-blue-500;
-        }
-    }
-}
-
-label {
-    @apply inline-block w-full;
-
-    span:first-of-type {
-        @apply block w-full font-semibold text-xs mb-1 text-gray-800;
-    }
-
-    input, textarea {
-        @apply w-full rounded border bg-gray-100 px-4 py-3 text-base transition-all duration-200 ease-in-out;
-
-        &:focus {
-            @apply bg-gray-100 shadow-input;
-        }
-    }
-
-    span:last-of-type {
-        @apply block w-full font-normal text-sm mt-1 text-gray-700;
-    }
-
-    &.error {
-        span:last-of-type {
-            @apply text-red-600 font-semibold;
-        }
-    }
-}
+//button {
+//    @apply rounded py-2 uppercase font-bold text-sm tracking-wide transition-all duration-200 ease-in-out;
+//
+//    &.btn-primary {
+//        @apply bg-blue-500 text-white;
+//
+//        &[disabled] {
+//            @apply text-blue-300 pointer-events-none select-none cursor-default;
+//        }
+//
+//        &:hover {
+//            @apply bg-blue-500 text-white shadow-md;
+//        }
+//
+//        &:active {
+//            @apply bg-blue-600 shadow-none text-white;
+//        }
+//    }
+//
+//    &.btn-white {
+//        @apply shadow bg-white text-black text-xs border;
+//
+//        &[disabled] {
+//            @apply text-gray-400 pointer-events-none select-none cursor-default;
+//        }
+//
+//        &:hover {
+//            @apply shadow-md;
+//        }
+//
+//        &:active {
+//            @apply shadow-none text-gray-600;
+//        }
+//    }
+//
+//    &:not(.btn-white):not(.btn-primary) {
+//        @apply bg-blue-200 text-blue-800;
+//
+//        &[disabled] {
+//            @apply text-blue-300 pointer-events-none select-none cursor-default;
+//        }
+//
+//        &:hover {
+//            @apply bg-blue-500 text-white shadow-md;
+//        }
+//
+//        &:active {
+//            @apply bg-blue-600 shadow-none text-white;
+//        }
+//    }
+//
+//    &.btn-sm {
+//        @apply bg-transparent border border-gray-300 text-gray-500 leading-none px-2 font-normal py-1;
+//
+//        &:hover {
+//            @apply bg-transparent text-blue-500 border-blue-500;
+//        }
+//
+//        &:active {
+//            @apply bg-transparent shadow-none text-blue-500;
+//        }
+//    }
+//}
+//
+//label {
+//    @apply inline-block w-full;
+//
+//    span:first-of-type {
+//        @apply block w-full font-semibold text-xs mb-1 text-gray-800;
+//    }
+//
+//    input, textarea {
+//        @apply w-full rounded border bg-gray-100 px-4 py-3 text-base transition-all duration-200 ease-in-out;
+//
+//        &:focus {
+//            @apply bg-gray-100 shadow-input;
+//        }
+//    }
+//
+//    span:last-of-type {
+//        @apply block w-full font-normal text-sm mt-1 text-gray-700;
+//    }
+//
+//    &.error {
+//        span:last-of-type {
+//            @apply text-red-600 font-semibold;
+//        }
+//    }
+//}
 
 .font-number {
     font-feature-settings: "tnum" 1;
@@ -136,24 +140,6 @@ label {
 
     @screen xl {
         width: calc(16.66% - 1rem);
-    }
-}
-
-.orders-pending {
-    .order {
-        //
-    }
-}
-
-.orders-out-for-delivery {
-    .order {
-        //
-    }
-}
-
-.orders-fulfilled {
-    .order {
-        //
     }
 }
 
