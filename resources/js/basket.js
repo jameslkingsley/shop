@@ -5,6 +5,7 @@ export default {
 
     items: {},
     collection: false,
+    paymentMethod: 'online',
 
     itemsArray() {
         return _.values(this.items)

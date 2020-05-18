@@ -346,6 +346,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   items: {},
   collection: false,
+  paymentMethod: 'online',
   itemsArray: function itemsArray() {
     return _.values(this.items);
   },

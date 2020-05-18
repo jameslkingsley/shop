@@ -1,4 +1,4 @@
-<nav class="bg-blue-500">
+<nav class="sticky top-0 z-50 bg-blue-500 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between md:space-x-8 h-16">
             <div class="hidden md:flex items-center text-white">
