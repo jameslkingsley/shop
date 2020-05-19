@@ -559,7 +559,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /**
@@ -9003,6 +9003,14 @@ header {
   font-family: "Inter", sans-serif;
 }
 
+.font-serif{
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.font-mono{
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
 .font-hairline{
   font-weight: 100;
 }
@@ -13752,6 +13760,26 @@ header {
 }
 
 .focus\:opacity-100:focus{
+  opacity: 1;
+}
+
+.group:hover .group-hover\:opacity-0{
+  opacity: 0;
+}
+
+.group:hover .group-hover\:opacity-25{
+  opacity: 0.25;
+}
+
+.group:hover .group-hover\:opacity-50{
+  opacity: 0.5;
+}
+
+.group:hover .group-hover\:opacity-75{
+  opacity: 0.75;
+}
+
+.group:hover .group-hover\:opacity-100{
   opacity: 1;
 }
 
@@ -42083,6 +42111,14 @@ header {
     font-family: "Inter", sans-serif;
   }
 
+  .sm\:font-serif{
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .sm\:font-mono{
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
   .sm\:font-hairline{
     font-weight: 100;
   }
@@ -46832,6 +46868,26 @@ header {
   }
 
   .sm\:focus\:opacity-100:focus{
+    opacity: 1;
+  }
+
+  .group:hover .sm\:group-hover\:opacity-0{
+    opacity: 0;
+  }
+
+  .group:hover .sm\:group-hover\:opacity-25{
+    opacity: 0.25;
+  }
+
+  .group:hover .sm\:group-hover\:opacity-50{
+    opacity: 0.5;
+  }
+
+  .group:hover .sm\:group-hover\:opacity-75{
+    opacity: 0.75;
+  }
+
+  .group:hover .sm\:group-hover\:opacity-100{
     opacity: 1;
   }
 
@@ -75164,6 +75220,14 @@ header {
     font-family: "Inter", sans-serif;
   }
 
+  .md\:font-serif{
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .md\:font-mono{
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
   .md\:font-hairline{
     font-weight: 100;
   }
@@ -79913,6 +79977,26 @@ header {
   }
 
   .md\:focus\:opacity-100:focus{
+    opacity: 1;
+  }
+
+  .group:hover .md\:group-hover\:opacity-0{
+    opacity: 0;
+  }
+
+  .group:hover .md\:group-hover\:opacity-25{
+    opacity: 0.25;
+  }
+
+  .group:hover .md\:group-hover\:opacity-50{
+    opacity: 0.5;
+  }
+
+  .group:hover .md\:group-hover\:opacity-75{
+    opacity: 0.75;
+  }
+
+  .group:hover .md\:group-hover\:opacity-100{
     opacity: 1;
   }
 
@@ -108245,6 +108329,14 @@ header {
     font-family: "Inter", sans-serif;
   }
 
+  .lg\:font-serif{
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .lg\:font-mono{
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
   .lg\:font-hairline{
     font-weight: 100;
   }
@@ -112994,6 +113086,26 @@ header {
   }
 
   .lg\:focus\:opacity-100:focus{
+    opacity: 1;
+  }
+
+  .group:hover .lg\:group-hover\:opacity-0{
+    opacity: 0;
+  }
+
+  .group:hover .lg\:group-hover\:opacity-25{
+    opacity: 0.25;
+  }
+
+  .group:hover .lg\:group-hover\:opacity-50{
+    opacity: 0.5;
+  }
+
+  .group:hover .lg\:group-hover\:opacity-75{
+    opacity: 0.75;
+  }
+
+  .group:hover .lg\:group-hover\:opacity-100{
     opacity: 1;
   }
 
@@ -141326,6 +141438,14 @@ header {
     font-family: "Inter", sans-serif;
   }
 
+  .xl\:font-serif{
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .xl\:font-mono{
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
   .xl\:font-hairline{
     font-weight: 100;
   }
@@ -146075,6 +146195,26 @@ header {
   }
 
   .xl\:focus\:opacity-100:focus{
+    opacity: 1;
+  }
+
+  .group:hover .xl\:group-hover\:opacity-0{
+    opacity: 0;
+  }
+
+  .group:hover .xl\:group-hover\:opacity-25{
+    opacity: 0.25;
+  }
+
+  .group:hover .xl\:group-hover\:opacity-50{
+    opacity: 0.5;
+  }
+
+  .group:hover .xl\:group-hover\:opacity-75{
+    opacity: 0.75;
+  }
+
+  .group:hover .xl\:group-hover\:opacity-100{
     opacity: 1;
   }
 
@@ -174407,6 +174547,14 @@ header {
     font-family: "Inter", sans-serif;
   }
 
+  .\32xl\:font-serif{
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .\32xl\:font-mono{
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
   .\32xl\:font-hairline{
     font-weight: 100;
   }
@@ -179156,6 +179304,26 @@ header {
   }
 
   .\32xl\:focus\:opacity-100:focus{
+    opacity: 1;
+  }
+
+  .group:hover .\32xl\:group-hover\:opacity-0{
+    opacity: 0;
+  }
+
+  .group:hover .\32xl\:group-hover\:opacity-25{
+    opacity: 0.25;
+  }
+
+  .group:hover .\32xl\:group-hover\:opacity-50{
+    opacity: 0.5;
+  }
+
+  .group:hover .\32xl\:group-hover\:opacity-75{
+    opacity: 0.75;
+  }
+
+  .group:hover .\32xl\:group-hover\:opacity-100{
     opacity: 1;
   }
 

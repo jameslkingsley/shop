@@ -2,11 +2,11 @@ const _ = require('lodash')
 
 module.exports = {
     theme: {
-        fontFamily: {
-            sans: '"Inter", sans-serif',
-        },
-
         extend: {
+            fontFamily: {
+                sans: '"Inter", sans-serif',
+            },
+
             fontSize: {
                 '2xs': '0.66rem'
             },
@@ -105,7 +105,7 @@ module.exports = {
         minWidth: ['responsive'],
         objectFit: ['responsive'],
         objectPosition: ['responsive'],
-        opacity: ['responsive', 'hover', 'focus'],
+        opacity: ['responsive', 'hover', 'focus', 'group-hover'],
         order: ['responsive'],
         outline: ['responsive', 'focus'],
         overflow: ['responsive'],

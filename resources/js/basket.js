@@ -4,6 +4,7 @@ export default {
     },
 
     items: {},
+    cardId: null,
     collection: false,
     paymentMethod: 'online',
 

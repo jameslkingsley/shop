@@ -345,6 +345,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     maximumProductQuantity: 10
   },
   items: {},
+  cardId: null,
   collection: false,
   paymentMethod: 'online',
   itemsArray: function itemsArray() {
