@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
-    protected $table = 'shop_settings';
-    public $timestamps = false;
     protected $guarded = [];
 
     public static function isShutdown()
     {
-        return ! (bool) static::where('key', 'enabled')->first()->value ?? false;
+        return (bool) static::where('key', 'online_shop_disabled')->first()->value ?? false;
     }
 }

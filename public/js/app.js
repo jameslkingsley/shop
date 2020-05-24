@@ -310,11 +310,12 @@ __webpack_require__.r(__webpack_exports__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
+window.Basket = new _basket__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  maximumProductQuantity: 10
+});
 
 var _default = function _default(data) {
   _classCallCheck(this, _default);
-
-  this.basket = _basket__WEBPACK_IMPORTED_MODULE_0__["default"];
 
   for (var key in data) {
     this[key] = data[key];
@@ -334,81 +335,131 @@ var _default = function _default(data) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  config: {
-    maximumProductQuantity: 10
-  },
-  items: {},
-  cardId: null,
-  collection: false,
-  paymentMethod: 'online',
-  itemsArray: function itemsArray() {
-    return _.values(this.items);
-  },
-  total: function total() {
-    return _.sum(_.values(_.mapValues(this.items, function (_ref) {
-      var qty = _ref.qty,
-          price = _ref.price;
-      return qty * price;
-    })));
-  },
-  itemCount: function itemCount() {
-    return _.keys(this.items).length;
-  },
-  has: function has(productId) {
-    return this.items.hasOwnProperty(productId);
-  },
-  clear: function clear() {
-    this.items = {};
-    this.save();
-  },
-  find: function find(productId) {
-    return _.get(this.items, productId, {});
-  },
-  add: function add(product) {
-    var existing = _.get(this.items, product.id, _objectSpread(_objectSpread({}, product), {}, {
-      qty: 0
-    }));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    if (existing.qty >= this.config.maximumProductQuantity) {
-      return false;
-    }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-    _.set(existing, 'qty', existing.qty + 1);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-    _.set(this.items, product.id, existing);
+var _default = /*#__PURE__*/function () {
+  function _default() {
+    var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    return this.save();
-  },
-  remove: function remove(product) {
-    var existing = _.get(this.items, product.id, _objectSpread(_objectSpread({}, product), {}, {
-      qty: 1
-    }));
+    _classCallCheck(this, _default);
 
-    _.set(existing, 'qty', existing.qty - 1);
-
-    if (existing.qty <= 0) {
-      _.unset(this.items, product.id);
-    } else {
-      _.set(this.items, product.id, existing);
-    }
-
-    return this.save();
-  },
-  restore: function restore() {
-    this.items = JSON.parse(localStorage.getItem('basket') || '{}');
-  },
-  save: function save() {
-    localStorage.setItem('basket', JSON.stringify(this.items));
-    return true;
+    this.config = config;
+    this.store = Spruce.store('basket', this.defaultState());
+    this.restore();
   }
-});
+
+  _createClass(_default, [{
+    key: "defaultState",
+    value: function defaultState() {
+      return {
+        items: {},
+        cardId: null,
+        addressId: null,
+        collection: false
+      };
+    }
+  }, {
+    key: "applyDefaults",
+    value: function applyDefaults(defaults) {
+      for (var key in defaults) {
+        this.store[key] = defaults[key];
+      }
+    }
+  }, {
+    key: "total",
+    value: function total() {
+      return _.sum(_.values(_.mapValues(this.store.items, function (_ref) {
+        var qty = _ref.qty,
+            price = _ref.price;
+        return qty * price;
+      })));
+    }
+  }, {
+    key: "itemCount",
+    value: function itemCount() {
+      return _.keys(this.store.items).length;
+    }
+  }, {
+    key: "has",
+    value: function has(productId) {
+      return this.store.items.hasOwnProperty(productId) && this.store.items[productId].qty > 0;
+    }
+  }, {
+    key: "clear",
+    value: function clear() {
+      Spruce.reset('basket', this.defaultState());
+      this.save();
+    }
+  }, {
+    key: "find",
+    value: function find(productId) {
+      return _.get(this.store.items, productId, {});
+    }
+  }, {
+    key: "add",
+    value: function add(product) {
+      console.log(this, product);
+
+      var existing = _.get(this.store.items, product.id, _objectSpread(_objectSpread({}, product), {}, {
+        qty: 0
+      }));
+
+      if (existing.qty >= this.config.maximumProductQuantity) {
+        return false;
+      }
+
+      _.set(existing, 'qty', existing.qty + 1);
+
+      _.set(this.store.items, product.id, existing);
+
+      return this.save();
+    }
+  }, {
+    key: "remove",
+    value: function remove(product) {
+      var existing = _.get(this.store.items, product.id, _objectSpread(_objectSpread({}, product), {}, {
+        qty: 1
+      }));
+
+      _.set(existing, 'qty', existing.qty - 1);
+
+      if (existing.qty <= 0) {
+        _.unset(this.store.items, product.id);
+      } else {
+        _.set(this.store.items, product.id, existing);
+      }
+
+      return this.save();
+    }
+  }, {
+    key: "restore",
+    value: function restore() {
+      this.store.items = JSON.parse(localStorage.getItem('basket') || '{}');
+      console.log('Basket contents restored.');
+    }
+  }, {
+    key: "save",
+    value: function save() {
+      localStorage.setItem('basket', JSON.stringify(this.store.items));
+      return true;
+    }
+  }]);
+
+  return _default;
+}();
+
+
 
 /***/ }),
 
@@ -421,10 +472,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
+/* harmony import */ var _ryangjchandler_spruce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ryangjchandler/spruce */ "./node_modules/@ryangjchandler/spruce/dist/spruce.js");
+/* harmony import */ var _ryangjchandler_spruce__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ryangjchandler_spruce__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
+
+window.Spruce = _ryangjchandler_spruce__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 
 var Turbolinks = __webpack_require__(/*! turbolinks */ "./node_modules/turbolinks/dist/turbolinks.js");
@@ -451,7 +506,7 @@ window.toCurrency = function (value) {
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_1__["default"]({
+window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   forceTLS: true,
   broadcaster: 'pusher',
   key: "3e1017ab0bb9f034a416",
@@ -460,7 +515,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
 (function () {
   this.CreateApp = function (config) {
-    return new _app__WEBPACK_IMPORTED_MODULE_2__["default"](config);
+    return new _app__WEBPACK_IMPORTED_MODULE_3__["default"](config);
   };
 }).call(window);
 

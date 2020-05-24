@@ -1,3 +1,6 @@
+import Spruce from '@ryangjchandler/spruce'
+window.Spruce = Spruce
+
 import 'alpinejs'
 
 const Turbolinks = require('turbolinks')

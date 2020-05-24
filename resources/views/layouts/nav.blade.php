@@ -41,34 +41,42 @@
 
                     <a href="{{ url('/basket') }}" class="inline-flex items-center text-white font-bold">
                         @svg('bag', 'w-5 h-5 mr-2 fill-current')
-                        <span x-text="toCurrency(total())" class="font-number"></span>
+                        <span x-text="toCurrency(Basket.total())" class="font-number"></span>
                     </a>
 
-                    <div x-data="{ open: false }" class="ml-6 relative">
-                        <div>
-                            <button @click="open = ! open" x-bind:class="{ 'bg-blue-700': open }" class="max-w-xs bg-blue-600 inline-flex items-center text-base font-medium px-4 py-1 rounded-full text-white focus:outline-none transition-all duration-200 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                                James
-                                @svg('cheveron-down', 'w-4 h-4 fill-current', ['x-show' => '! open'])
-                                @svg('cheveron-up', 'w-4 h-4 fill-current', ['x-show' => 'open'])
-                            </button>
-                        </div>
+                    @auth
+                        <div x-data="{ open: false }" class="ml-6 relative">
+                            <div>
+                                <button @click="open = ! open" x-bind:class="{ 'bg-blue-700': open }" class="max-w-xs bg-blue-600 inline-flex items-center text-base font-medium px-4 py-1 rounded-full text-white focus:outline-none transition-all duration-200 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
+                                    {{ auth()->user()->first_name }}
+                                    @svg('cheveron-down', 'w-4 h-4 fill-current', ['x-show' => '! open'])
+                                    @svg('cheveron-up', 'w-4 h-4 fill-current', ['x-show' => 'open'])
+                                </button>
+                            </div>
 
-                        <div x-show="open" @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-100"
-                            x-transition:enter-start="transform opacity-0 scale-95"
-                            x-transition:enter-end="transform opacity-100 scale-100"
-                            x-transition:leave="transition ease-in duration-75"
-                            x-transition:leave-start="transform opacity-100 scale-100"
-                            x-transition:leave-end="transform opacity-0 scale-95"
-                            class="origin-top-right absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg">
+                            <div x-show="open" @click.away="open = false"
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="transform opacity-0 scale-95"
+                                x-transition:enter-end="transform opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="transform opacity-100 scale-100"
+                                x-transition:leave-end="transform opacity-0 scale-95"
+                                class="origin-top-right absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg">
 
-                            <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Orders</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+                                <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                                    <a href="{{ route('orders') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Orders</a>
+                                    <a href="{{ route('settings') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+                                    <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endauth
+
+                    @guest
+                        <a href="{{ route('login') }}" class="max-w-xs ml-6 bg-blue-600 inline-flex items-center text-base font-medium px-4 py-1 rounded-full text-white focus:outline-none transition-all duration-200 ease-in-out">
+                            Login
+                        </a>
+                    @endguest
                 </div>
             </div>
         </div>

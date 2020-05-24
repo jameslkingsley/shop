@@ -3,6 +3,9 @@
 @tailwind base;
 @tailwind components;
 
+@import 'button';
+@import 'radio';
+
 [x-cloak] {
     display: none;
 }

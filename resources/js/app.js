@@ -1,9 +1,11 @@
-import basket from './basket'
+import Basket from './basket'
+
+window.Basket = new Basket({
+    maximumProductQuantity: 10
+})
 
 export default class {
     constructor(data) {
-        this.basket = basket
-
         for (let key in data) {
             this[key] = data[key]
         }

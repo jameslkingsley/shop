@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table = 'shop_orders';
-
     protected $dates = [
         'created_at',
         'updated_at',
