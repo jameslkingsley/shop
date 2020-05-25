@@ -1,0 +1,15 @@
+.form-switch {
+    @apply inline-flex cursor-pointer select-none items-center w-auto bg-gray-100 rounded-full;
+
+    > span {
+        @apply px-6 py-2 text-sm border-2 rounded-full font-semibold text-center transition-all duration-150 ease-in-out;
+
+        &:not([active]) {
+            @apply text-gray-500 border-gray-100 bg-gray-100;
+        }
+
+        &[active] {
+            @apply border-blue-500 bg-white text-blue-500;
+        }
+    }
+}

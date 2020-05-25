@@ -10,9 +10,13 @@ export default class {
     defaultState() {
         return {
             items: {},
-            cardId: null,
-            addressId: null,
+            card: null,
+            address: null,
             collection: false,
+            deliveryDate: null,
+            editPayment: false,
+            editDelivery: false,
+            deliveryDateWeekIndex: 0,
         }
     }
 
@@ -20,6 +24,42 @@ export default class {
         for (let key in defaults) {
             this.store[key] = defaults[key]
         }
+
+        this.store.deliveryDate = this.nearestDeliveryDate().format('YYYY-MM-DD')
+    }
+
+    nearestDeliveryDate() {
+        let date = moment()
+
+        if (date.hour() >= this.config.deliveryCutOffTime) {
+            return date.add(1, 'day')
+        }
+
+        return date
+    }
+
+    currentDeliveryWeek() {
+        let date = moment().startOf('week').add(this.store.deliveryDateWeekIndex, 'week')
+        let prefix = _.get(['This Week, ', 'Next Week, '], this.store.deliveryDateWeekIndex, '')
+        let format = prefix ? 'Do MMM' : 'Do MMM YYYY'
+        return `${prefix} ${date.format(format)}`
+    }
+
+    availableDeliveryDates() {
+        let date = moment().startOf('week').add(this.store.deliveryDateWeekIndex, 'week')
+
+        return _.map(_.range(0, 6), i => {
+            let day = date.clone().add(i, 'day').hour(moment().hour())
+
+            return _.merge(day, {
+                disabled: day.isBefore(moment(), 'day')
+                    || (day.isSame(moment(), 'day') && moment().hour() >= this.config.deliveryCutOffTime)
+            })
+        })
+    }
+
+    items() {
+        return _.filter(_.values(this.store.items), ({ qty }) => qty > 0)
     }
 
     total() {
@@ -31,7 +71,7 @@ export default class {
     }
 
     has(productId) {
-        return this.store.items.hasOwnProperty(productId)
+        return productId in this.store.items
             && this.store.items[productId].qty > 0
     }
 
@@ -46,7 +86,6 @@ export default class {
     }
 
     add(product) {
-        console.log(this, product)
         let existing = _.get(this.store.items, product.id, { ...product, qty: 0 })
 
         if (existing.qty >= this.config.maximumProductQuantity) {
@@ -65,7 +104,7 @@ export default class {
         _.set(existing, 'qty', existing.qty - 1)
 
         if (existing.qty <= 0) {
-            _.unset(this.store.items, product.id)
+            delete this.store.items[product.id]
         } else {
             _.set(this.store.items, product.id, existing)
         }
@@ -75,8 +114,6 @@ export default class {
 
     restore() {
         this.store.items = JSON.parse(localStorage.getItem('basket') || '{}')
-
-        console.log('Basket contents restored.')
     }
 
     save() {

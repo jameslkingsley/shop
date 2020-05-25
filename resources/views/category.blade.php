@@ -8,9 +8,9 @@
         'parent_url' => url('/group/' . $group->getKey()),
     ])
 
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        @foreach($products as $product)
-            @include('components.product', ['product' => $product])
-        @endforeach
+    <div x-data="{{ json_encode(compact('products')) }}" x-subscribe class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <template x-for="item in products">
+            @include('components.product')
+        </template>
     </div>
 @endsection

@@ -17,6 +17,7 @@ class CreateCardsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('stripe_id')->index();
+            $table->string('name');
             $table->boolean('primary')->nullable();
             $table->string('brand', 30);
             $table->string('last_four', 4);

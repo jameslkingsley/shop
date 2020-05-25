@@ -9,20 +9,15 @@
 
             <h1 class="w-full text-xl sm:text-2xl font-bold">Your Basket</h1>
         </div>
-
-        <div class="inline-flex flex-col text-right mr-6">
-            <span class="text-sm text-gray-500">Total to pay</span>
-            <span x-text="toCurrency(Basket.total())" class="text-xl font-semibold"></span>
-        </div>
-
-        <a href="{{ route('checkout') }}" class="btn btn-lg">
-            Checkout &rarr;
-        </a>
     </div>
 
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <template x-for="item in _.values($store.basket.items)">
-            @include('components.product', ['alpine' => 'item'])
-        </template>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div x-data="{}" x-subscribe class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:col-span-2">
+            <template x-for="item in Basket.items()">
+                @include('components.product')
+            </template>
+        </div>
+
+        @include('checkout')
     </div>
 @endsection

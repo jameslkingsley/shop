@@ -1,6 +1,7 @@
 import Basket from './basket'
 
 window.Basket = new Basket({
+    deliveryCutOffTime: 14,
     maximumProductQuantity: 10
 })
 

@@ -867,6 +867,18 @@
   optionalDependencies:
     prettier "^1.18.2"
 
+"@vue/reactivity@^3.0.0-beta.14":
+  version "3.0.0-beta.14"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.0.0-beta.14.tgz#a041ec24ce2e545583a6a1a42774311c16870a91"
+  integrity sha512-csqLljnM+8OBBAyzeUXGIYJhhph0DLOsHQwJGmz7uc342taW6XSi4MXaLk5MRiigunfmXxEswJGziwsh+4YP3g==
+  dependencies:
+    "@vue/shared" "3.0.0-beta.14"
+
+"@vue/shared@3.0.0-beta.14":
+  version "3.0.0-beta.14"
+  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.0.0-beta.14.tgz#886afe5c233a5b255c186142324c40f114958af5"
+  integrity sha512-mnK5teJMLzsBE56Kys+uiyR/jAl1kbokHZ++MnlP7ls9icPqZ/QQE/VTDl3QJ7IHteS2VR6ytAz/Aa/4Dpv/ew==
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"

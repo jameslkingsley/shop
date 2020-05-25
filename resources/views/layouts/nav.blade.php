@@ -39,7 +39,7 @@
                 <div class="ml-4 flex items-center md:ml-6">
                     <span class="hidden lg:block text-white text-sm text-blue-100 mr-4">Click to checkout &rarr;</span>
 
-                    <a href="{{ url('/basket') }}" class="inline-flex items-center text-white font-bold">
+                    <a href="{{ url('/basket') }}" x-data="{}" x-subscribe class="inline-flex items-center text-white font-bold">
                         @svg('bag', 'w-5 h-5 mr-2 fill-current')
                         <span x-text="toCurrency(Basket.total())" class="font-number"></span>
                     </a>

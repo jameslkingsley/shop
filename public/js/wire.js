@@ -5,21 +5,9 @@
   !*** ./resources/js/wire.js ***!
   \******************************/
 /*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-
-(function () {
-  this.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
-    forceTLS: true,
-    broadcaster: 'pusher',
-    key: "3e1017ab0bb9f034a416",
-    cluster: "eu"
-  });
-}).call(window);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/james/Documents/Code/shop/resources/js/wire.js'");
 
 /***/ }),
 
@@ -35,4 +23,4 @@ module.exports = __webpack_require__(/*! /Users/james/Documents/Code/shop/resour
 
 /***/ })
 
-},[[1,"/js/manifest","/js/vendor"]]]);
+},[[1,"/js/manifest"]]]);

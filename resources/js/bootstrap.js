@@ -1,13 +1,14 @@
-import Spruce from '@ryangjchandler/spruce'
+const Turbolinks = require('turbolinks')
+Turbolinks.start()
+
+import Spruce from './spruce'
 window.Spruce = Spruce
 
 import 'alpinejs'
 
-const Turbolinks = require('turbolinks')
-Turbolinks.start()
-
 window._ = require('lodash')
 window.moment = require('moment')
+window.moment.updateLocale('en', { week: { dow: 1 } })
 
 window.ajax = require('axios')
 window.ajax.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
