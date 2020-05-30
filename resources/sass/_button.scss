@@ -24,4 +24,8 @@
     &.btn-sm {
         @apply text-sm py-1 px-3;
     }
+
+    &[loading] {
+        @apply opacity-50 pointer-events-none select-none;
+    }
 }

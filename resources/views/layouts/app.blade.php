@@ -11,7 +11,8 @@
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-        <script src="https://js.stripe.com/v3/" async></script>
+        @yield('head')
+        @livewireStyles
 
         <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
         <script type="text/javascript" src="{{ mix('js/vendor.js') }}"></script>
@@ -28,6 +29,8 @@
 
             @yield('content')
         </main>
+
+        @livewireScripts
 
         <script>
             window.App = new CreateApp({

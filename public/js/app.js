@@ -307,13 +307,18 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 /* harmony import */ var _basket__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./basket */ "./resources/js/basket.js");
+/* harmony import */ var _livewire_Stripe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./livewire/Stripe */ "./resources/js/livewire/Stripe.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 window.Basket = new _basket__WEBPACK_IMPORTED_MODULE_0__["default"]({
   deliveryCutOffTime: 14,
   maximumProductQuantity: 10
 });
+window.Wire = {
+  Stripe: _livewire_Stripe__WEBPACK_IMPORTED_MODULE_1__["default"]
+};
 
 var _default = function _default(data) {
   _classCallCheck(this, _default);
@@ -567,6 +572,108 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
     return new _app__WEBPACK_IMPORTED_MODULE_3__["default"](config);
   };
 }).call(window);
+
+/***/ }),
+
+/***/ "./resources/js/livewire/Stripe.js":
+/*!*****************************************!*\
+  !*** ./resources/js/livewire/Stripe.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
+  var apiKey = _ref.apiKey,
+      intent = _ref.intent;
+  return {
+    name: null,
+    card: null,
+    error: null,
+    stripe: null,
+    processing: false,
+    setup: function setup() {
+      var _this = this;
+
+      this.stripe = Stripe(apiKey);
+      var elements = this.stripe.elements();
+      var style = {
+        base: {
+          color: '#161e2e',
+          fontFamily: '"Inter", sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '14px',
+          '::placeholder': {
+            color: '#9fa6b2'
+          }
+        },
+        invalid: {
+          color: '#e53e3e',
+          iconColor: '#e53e3e'
+        }
+      };
+      this.card = elements.create('card', {
+        style: style
+      });
+      this.card.mount(this.$refs.card);
+      this.card.on('change', function (event) {
+        _this.error = event.error ? event.error.message : null;
+      });
+    },
+    submit: function submit(component) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var result;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this2.processing = true;
+                _context.next = 3;
+                return _this2.stripe.confirmCardSetup(intent.client_secret, {
+                  payment_method: {
+                    card: _this2.card,
+                    billing_details: {
+                      name: _this2.name
+                    }
+                  }
+                });
+
+              case 3:
+                result = _context.sent;
+
+                if (!result.error) {
+                  _context.next = 7;
+                  break;
+                }
+
+                _this2.processing = false;
+                return _context.abrupt("return", _this2.error = result.error.message);
+
+              case 7:
+                component.call('store', _this2.name, result.setupIntent.payment_method);
+                _this2.processing = false;
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  };
+});
 
 /***/ }),
 

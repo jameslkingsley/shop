@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Stripe;
 use Illuminate\Support\Arr;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -15,6 +16,25 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime'];
     protected $appends = ['first_name'];
+
+    /**
+     * Get the user's Stripe customer ID,
+     * or create a customer if one doesn't exist.
+     *
+     * @return string
+     */
+    public function stripeId()
+    {
+        if (! $this->stripe_id) {
+            $customer = Stripe\Customer::create([
+                'name' => $this->name, 'email' => $this->email,
+            ]);
+
+            $this->update(['stripe_id' => $customer->id]);
+        }
+
+        return $this->stripe_id;
+    }
 
     public function orders()
     {

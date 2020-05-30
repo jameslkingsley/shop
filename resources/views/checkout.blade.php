@@ -18,7 +18,7 @@
                     </template>
 
                     <template x-if="! $store.basket.card">
-                        <span>Click to add payment method</span>
+                        <span x-show="! $store.basket.editPayment">Click to add payment method</span>
                     </template>
                 </div>
 
@@ -28,31 +28,39 @@
                 </button>
             </div>
 
+            {{-- TODO Show card form on toggle, reload cards after adding one,
+                 smooth transitions for moving between states. --}}
             <div x-show="$store.basket.editPayment" class="px-4 pb-4 md:pb-6 md:px-6 -mt-2">
-                <div class="flex flex-col space-y-4 w-full">
-                    <template x-for="card in cards">
-                        <div @click="$store.basket.card = card; $store.basket.editPayment = false"
-                            class="group flex w-full items-start cursor-pointer select-none p-4 rounded-md transition-all duration-150 ease-in-out"
-                            x-bind:class="{
-                                'border-2 border-gray-100 text-gray-500': $store.basket.card.id !== card.id,
-                                'border-2 border-blue-500': $store.basket.card.id === card.id,
-                            }">
-                            <span class="form-radio mr-2 flex-shrink-0" x-bind:checked="$store.basket.card.id === card.id">
-                                <i></i>
-                            </span>
+                <template x-if="! cards.length">
+                    <livewire:card-form />
+                </template>
 
-                            <div class="flex-1 inline-flex flex-col">
-                                <span class="font-medium text-base leading-none" x-text="card.name"></span>
-
-                                <span class="text-sm leading-none mt-2">
-                                    <span x-text="card.brand"></span>
-                                    ending in
-                                    <span x-text="card.last_four"></span>
+                <template x-if="cards.length">
+                    <div class="flex flex-col space-y-4 w-full">
+                        <template x-for="card in cards">
+                            <div @click="$store.basket.card = card; $store.basket.editPayment = false"
+                                class="group flex w-full items-start cursor-pointer select-none p-4 rounded-md transition-all duration-150 ease-in-out"
+                                x-bind:class="{
+                                    'border-2 border-gray-100 text-gray-500': $store.basket.card.id !== card.id,
+                                    'border-2 border-blue-500': $store.basket.card.id === card.id,
+                                }">
+                                <span class="form-radio mr-2 flex-shrink-0" x-bind:checked="$store.basket.card.id === card.id">
+                                    <i></i>
                                 </span>
+
+                                <div class="flex-1 inline-flex flex-col">
+                                    <span class="font-medium text-base leading-none" x-text="card.name"></span>
+
+                                    <span class="text-sm leading-none mt-2">
+                                        <span x-text="card.brand"></span>
+                                        ending in
+                                        <span x-text="card.last_four"></span>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </template>
-                </div>
+                        </template>
+                    </div>
+                </template>
             </div>
         </div>
 

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head')
+    <script src="https://js.stripe.com/v3" async></script>
+@endsection
+
 @section('content')
     <div class="flex items-center w-full mb-8">
         <div class="flex-1">
