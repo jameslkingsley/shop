@@ -11,16 +11,6 @@ class BasketController extends Controller
 
     public function index()
     {
-        $cards = auth()->user()->cards;
-        $addresses = auth()->user()->addresses;
-
-        return view('basket', [
-            'cards' => $cards,
-            'addresses' => $addresses,
-            'basketDefaults' => [
-                'card' => $cards->firstWhere('primary', true) ?? null,
-                'address' => $addresses->firstWhere('primary', true) ?? null,
-            ],
-        ]);
+        return view('basket');
     }
 }

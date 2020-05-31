@@ -308,7 +308,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 /* harmony import */ var _basket__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./basket */ "./resources/js/basket.js");
 /* harmony import */ var _livewire_Stripe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./livewire/Stripe */ "./resources/js/livewire/Stripe.js");
+/* harmony import */ var _livewire_Checkout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./livewire/Checkout */ "./resources/js/livewire/Checkout.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -317,7 +319,8 @@ window.Basket = new _basket__WEBPACK_IMPORTED_MODULE_0__["default"]({
   maximumProductQuantity: 10
 });
 window.Wire = {
-  Stripe: _livewire_Stripe__WEBPACK_IMPORTED_MODULE_1__["default"]
+  Stripe: _livewire_Stripe__WEBPACK_IMPORTED_MODULE_1__["default"],
+  Checkout: _livewire_Checkout__WEBPACK_IMPORTED_MODULE_2__["default"]
 };
 
 var _default = function _default(data) {
@@ -369,14 +372,7 @@ var _default = /*#__PURE__*/function () {
     key: "defaultState",
     value: function defaultState() {
       return {
-        items: {},
-        card: null,
-        address: null,
-        collection: false,
-        deliveryDate: null,
-        editPayment: false,
-        editDelivery: false,
-        deliveryDateWeekIndex: 0
+        items: {}
       };
     }
   }, {
@@ -385,42 +381,6 @@ var _default = /*#__PURE__*/function () {
       for (var key in defaults) {
         this.store[key] = defaults[key];
       }
-
-      this.store.deliveryDate = this.nearestDeliveryDate().format('YYYY-MM-DD');
-    }
-  }, {
-    key: "nearestDeliveryDate",
-    value: function nearestDeliveryDate() {
-      var date = moment();
-
-      if (date.hour() >= this.config.deliveryCutOffTime) {
-        return date.add(1, 'day');
-      }
-
-      return date;
-    }
-  }, {
-    key: "currentDeliveryWeek",
-    value: function currentDeliveryWeek() {
-      var date = moment().startOf('week').add(this.store.deliveryDateWeekIndex, 'week');
-
-      var prefix = _.get(['This Week, ', 'Next Week, '], this.store.deliveryDateWeekIndex, '');
-
-      var format = prefix ? 'Do MMM' : 'Do MMM YYYY';
-      return "".concat(prefix, " ").concat(date.format(format));
-    }
-  }, {
-    key: "availableDeliveryDates",
-    value: function availableDeliveryDates() {
-      var _this = this;
-
-      var date = moment().startOf('week').add(this.store.deliveryDateWeekIndex, 'week');
-      return _.map(_.range(0, 6), function (i) {
-        var day = date.clone().add(i, 'day').hour(moment().hour());
-        return _.merge(day, {
-          disabled: day.isBefore(moment(), 'day') || day.isSame(moment(), 'day') && moment().hour() >= _this.config.deliveryCutOffTime
-        });
-      });
     }
   }, {
     key: "items",
@@ -572,6 +532,71 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
     return new _app__WEBPACK_IMPORTED_MODULE_3__["default"](config);
   };
 }).call(window);
+
+/***/ }),
+
+/***/ "./resources/js/livewire/Checkout.js":
+/*!*******************************************!*\
+  !*** ./resources/js/livewire/Checkout.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
+  var deliveryCutOffTime = _ref.deliveryCutOffTime;
+  return {
+    processing: false,
+    editPayment: false,
+    editDelivery: false,
+    deliveryDateWeekIndex: function () {
+      if (moment().weekday() === 6 || moment().weekday() === 5 && moment().hour() >= deliveryCutOffTime) {
+        return 1;
+      }
+
+      return 0;
+    }(),
+    placeOrder: function placeOrder(component) {
+      this.processing = true;
+      component.call('placeOrder', Basket.items());
+      this.processing = false;
+    },
+    selectCard: function selectCard(component, cardId) {
+      component.set('cardId', cardId);
+      this.editPayment = false;
+    },
+    selectAddress: function selectAddress(component, addressId) {
+      component.set('addressId', addressId);
+    },
+    nearestDeliveryDate: function nearestDeliveryDate() {
+      var date = moment();
+
+      if (date.hour() >= deliveryCutOffTime) {
+        return date.add(1, 'day');
+      }
+
+      return date;
+    },
+    currentDeliveryWeek: function currentDeliveryWeek() {
+      var date = moment().startOf('week').add(this.deliveryDateWeekIndex, 'week');
+
+      var prefix = _.get(['This Week, ', 'Next Week, '], this.deliveryDateWeekIndex, '');
+
+      var format = prefix ? 'Do MMM' : 'Do MMM YYYY';
+      return "".concat(prefix, " ").concat(date.format(format));
+    },
+    availableDeliveryDates: function availableDeliveryDates() {
+      var date = moment().startOf('week').add(this.deliveryDateWeekIndex, 'week');
+      return _.map(_.range(0, 6), function (i) {
+        var day = date.clone().add(i, 'day').hour(moment().hour());
+        return _.merge(day, {
+          disabled: day.isBefore(moment(), 'day') || day.isSame(moment(), 'day') && moment().hour() >= deliveryCutOffTime
+        });
+      });
+    }
+  };
+});
 
 /***/ }),
 

@@ -10,13 +10,6 @@ export default class {
     defaultState() {
         return {
             items: {},
-            card: null,
-            address: null,
-            collection: false,
-            deliveryDate: null,
-            editPayment: false,
-            editDelivery: false,
-            deliveryDateWeekIndex: 0,
         }
     }
 
@@ -24,38 +17,6 @@ export default class {
         for (let key in defaults) {
             this.store[key] = defaults[key]
         }
-
-        this.store.deliveryDate = this.nearestDeliveryDate().format('YYYY-MM-DD')
-    }
-
-    nearestDeliveryDate() {
-        let date = moment()
-
-        if (date.hour() >= this.config.deliveryCutOffTime) {
-            return date.add(1, 'day')
-        }
-
-        return date
-    }
-
-    currentDeliveryWeek() {
-        let date = moment().startOf('week').add(this.store.deliveryDateWeekIndex, 'week')
-        let prefix = _.get(['This Week, ', 'Next Week, '], this.store.deliveryDateWeekIndex, '')
-        let format = prefix ? 'Do MMM' : 'Do MMM YYYY'
-        return `${prefix} ${date.format(format)}`
-    }
-
-    availableDeliveryDates() {
-        let date = moment().startOf('week').add(this.store.deliveryDateWeekIndex, 'week')
-
-        return _.map(_.range(0, 6), i => {
-            let day = date.clone().add(i, 'day').hour(moment().hour())
-
-            return _.merge(day, {
-                disabled: day.isBefore(moment(), 'day')
-                    || (day.isSame(moment(), 'day') && moment().hour() >= this.config.deliveryCutOffTime)
-            })
-        })
     }
 
     items() {

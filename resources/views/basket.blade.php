@@ -16,12 +16,12 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div x-data="{}" x-subscribe class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:col-span-2">
+        <div x-data x-subscribe class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:col-span-2">
             <template x-for="item in Basket.items()">
                 @include('components.product')
             </template>
         </div>
 
-        @include('checkout')
+        <livewire:checkout />
     </div>
 @endsection

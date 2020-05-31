@@ -1,5 +1,6 @@
 import Basket from './basket'
 import Stripe from './livewire/Stripe'
+import Checkout from './livewire/Checkout'
 
 window.Basket = new Basket({
     deliveryCutOffTime: 14,
@@ -7,7 +8,8 @@ window.Basket = new Basket({
 })
 
 window.Wire = {
-    Stripe
+    Stripe,
+    Checkout,
 }
 
 export default class {
