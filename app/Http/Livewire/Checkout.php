@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Order;
 use Livewire\Component;
-use App\Rules\AvailableDeliveryDate;
+use App\Actions\OrderCreateAction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Checkout extends Component
@@ -47,10 +47,18 @@ class Checkout extends Component
     public ?string $deliveryDate;
 
     /**
+     * Any additional order comments.
+     */
+    public ?string $comment;
+
+    /**
      * Whether to allow substitutions.
      */
     public ?bool $substitutions;
 
+    /**
+     * Mount the checkout component.
+     */
     public function mount()
     {
         $this->cards = auth()->user()->cards;
@@ -59,46 +67,71 @@ class Checkout extends Component
         $this->cardId = session('checkout.cardId', auth()->user()->primaryCard()->id ?? null);
         $this->addressId = session('checkout.addressId', auth()->user()->primaryAddress()->id ?? null);
 
+        $this->comment = session('checkout.comment', null);
         $this->collection = session('checkout.collection', false);
         $this->substitutions = session('checkout.substitutions', true);
 
         $this->deliveryDate = session('checkout.deliveryDate', $this->nearestDeliveryDate());
     }
 
-    public function placeOrder(array $basket)
+    /**
+     * Place the customer's order.
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function placeOrder(OrderCreateAction $createOrder, array $basket)
     {
         $this->authorize('create', Order::class);
 
-        $attributes = $this->validate([
-            'cardId' => ['required', 'exists:cards,id'],
-            'addressId' => ['required', 'exists:addresses,id'],
-            'collection' => ['required', 'boolean'],
-            'substitutions' => ['required', 'boolean'],
-            'deliveryDate' => ['required', 'string', new AvailableDeliveryDate],
-        ]);
+        $order = $createOrder->execute($basket, $this->orderAttributes());
 
-        $items = [];
+        $this->forgetState();
 
-        foreach ($basket as $item) {
-            $items[] = [
-                'product_id' => $item['id'],
-                'amount' => $item['price'],
-                'quantity' => $item['qty'],
-            ];
-        }
-
-        // Attributes is wrong here, need to use snake case,
-        // and also missing the comments field.
-        $order = Order::create($attributes);
-        $order->items()->createMany($items);
+        return redirect("/orders/{$order->id}");
     }
 
+    /**
+     * Forget the checkout session state.
+     */
+    public function forgetState()
+    {
+        session()->forget([
+            'checkout.cardId',
+            'checkout.addressId',
+            'checkout.comment',
+            'checkout.collection',
+            'checkout.substitutions',
+            'checkout.deliveryDate',
+        ]);
+    }
+
+    /**
+     * Get the order creation attributes.
+     */
+    public function orderAttributes(): array
+    {
+        return [
+            'card_id' => $this->cardId,
+            'comment' => $this->comment,
+            'collection' => $this->collection,
+            'substitutions' => $this->substitutions,
+            'address_id' => $this->collection ? null : $this->addressId,
+            'delivery_date' => now()->parse($this->deliveryDate)->toDateString(),
+        ];
+    }
+
+    /**
+     * Persist the checkout state to the session whenever it changes.
+     */
     public function updated($name, $value)
     {
         session(["checkout.{$name}" => $value]);
     }
 
-    protected function nearestDeliveryDate()
+    /**
+     * Determine the nearest available delivery date.
+     */
+    protected function nearestDeliveryDate(): string
     {
         $date = now();
 
@@ -109,16 +142,25 @@ class Checkout extends Component
         return $date->toDateString();
     }
 
+    /**
+     * Get the card model instance.
+     */
     public function getCardProperty()
     {
         return auth()->user()->cards()->find($this->cardId);
     }
 
+    /**
+     * Get the address model instance.
+     */
     public function getAddressProperty()
     {
         return auth()->user()->addresses()->find($this->addressId);
     }
 
+    /**
+     * Render the Livewire component.
+     */
     public function render()
     {
         return view('livewire.checkout');

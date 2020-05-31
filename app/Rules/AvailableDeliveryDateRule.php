@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class AvailableDeliveryDate implements Rule
+class AvailableDeliveryDateRule implements Rule
 {
     /**
      * Determine if the validation rule passes.

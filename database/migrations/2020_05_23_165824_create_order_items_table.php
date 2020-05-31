@@ -20,7 +20,7 @@ class CreateOrderItemsTable extends Migration
             $table->string('name')->nullable();
             $table->bigInteger('amount');
             $table->integer('quantity')->default(1);
-            $table->timestamp('picked_at');
+            $table->timestamp('picked_at')->nullable();
             $table->timestamps();
         });
     }

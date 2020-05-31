@@ -547,7 +547,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
   var deliveryCutOffTime = _ref.deliveryCutOffTime;
   return {
-    processing: false,
     editPayment: false,
     editDelivery: false,
     deliveryDateWeekIndex: function () {
@@ -558,9 +557,7 @@ __webpack_require__.r(__webpack_exports__);
       return 0;
     }(),
     placeOrder: function placeOrder(component) {
-      this.processing = true;
       component.call('placeOrder', Basket.items());
-      this.processing = false;
     },
     selectCard: function selectCard(component, cardId) {
       component.set('cardId', cardId);

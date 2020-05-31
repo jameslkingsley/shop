@@ -192,7 +192,7 @@
                 </div>
 
                 <div class="flex-1 text-right">
-                    <button x-on:click="placeOrder(@this)" x-bind:disabled="processing" class="inline-flex items-center justify-center btn btn-lg">
+                    <button x-on:click="placeOrder(@this)" wire:loading.attr="disabled" class="inline-flex items-center justify-center btn btn-lg">
                         @svg('lock-closed', 'w-4 h-4 fill-current mr-2')
                         <span>Place Order</span>
                     </button>

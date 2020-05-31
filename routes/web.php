@@ -22,6 +22,7 @@ Route::get('/checkout/complete', 'OrderCompletionController@store');
 Route::get('/basket', 'BasketController@index')->name('basket');
 Route::get('/checkout', 'CheckoutController@index')->name('checkout');
 Route::get('/orders', fn () => 'orders')->name('orders');
+Route::get('/orders/{order}', fn () => 'order');
 Route::get('/settings', fn () => 'settings')->name('settings');
 
 Route::get('/', 'HomeController@index')->name('home');

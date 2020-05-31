@@ -1,5 +1,4 @@
 export default ({ deliveryCutOffTime }) => ({
-    processing: false,
     editPayment: false,
     editDelivery: false,
 
@@ -14,11 +13,7 @@ export default ({ deliveryCutOffTime }) => ({
     })(),
 
     placeOrder(component) {
-        this.processing = true
-
         component.call('placeOrder', Basket.items())
-
-        this.processing = false
     },
 
     selectCard(component, cardId) {
