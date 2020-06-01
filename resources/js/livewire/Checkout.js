@@ -12,9 +12,9 @@ export default ({ deliveryCutOffTime }) => ({
         return 0
     })(),
 
-    placeOrder(component) {
-        component.call('placeOrder', Basket.items())
-    },
+    // placeOrder(component) {
+    //     component.call('placeOrder', Basket.items())
+    // },
 
     selectCard(component, cardId) {
         component.set('cardId', cardId)

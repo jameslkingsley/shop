@@ -41,5 +41,7 @@
                 stripeToken: @json(config('services.stripe.key')),
             })
         </script>
+
+        @yield('scripts')
     </body>
 </html>

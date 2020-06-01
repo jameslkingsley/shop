@@ -70,9 +70,12 @@
 
                         <span class="text-sm">
                             {{ now()->parse($deliveryDate)->format('jS M') }}
-                            &middot;
-                            {{ $collection ? 'Church Road' : $this->address->line1 }},
-                            {{ $collection ? 'Shortlanesend' : $this->address->line2 }}
+
+                            @if (! $collection && $this->address)
+                            &middot; {{ $this->address->line1 }}, {{ $this->address->line2 }}
+                            @elseif ($collection)
+                            &middot; Church Road, Shortlanesend
+                            @endif
                         </span>
                     </div>
                 </div>
@@ -192,7 +195,7 @@
                 </div>
 
                 <div class="flex-1 text-right">
-                    <button x-on:click="placeOrder(@this)" wire:loading.attr="disabled" class="inline-flex items-center justify-center btn btn-lg">
+                    <button wire:click="placeOrder(Basket.items())" wire:loading.attr="disabled" class="inline-flex items-center justify-center btn btn-lg">
                         @svg('lock-closed', 'w-4 h-4 fill-current mr-2')
                         <span>Place Order</span>
                     </button>

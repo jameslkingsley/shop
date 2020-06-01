@@ -37,7 +37,11 @@ export default class {
     }
 
     clear() {
-        Spruce.reset('basket', this.defaultState())
+        for (let key in this.store.items) {
+            delete this.store.items[key]
+        }
+
+        Spruce.updateSubscribers()
 
         this.save()
     }

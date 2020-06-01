@@ -23,9 +23,11 @@ class OrderController extends Controller
             ->mapWithKeys(fn ($order) => [$order->id => $order]);
     }
 
-    public function show(Order $order)
+    public function show(Request $request, Order $order)
     {
-        return $order->fresh()->load('items.product');
+        return view('order', [
+            'order' => $order->load('items.product'),
+        ]);
     }
 
     public function store(Request $request)

@@ -412,7 +412,11 @@ var _default = /*#__PURE__*/function () {
   }, {
     key: "clear",
     value: function clear() {
-      Spruce.reset('basket', this.defaultState());
+      for (var key in this.store.items) {
+        delete this.store.items[key];
+      }
+
+      Spruce.updateSubscribers();
       this.save();
     }
   }, {
@@ -556,9 +560,9 @@ __webpack_require__.r(__webpack_exports__);
 
       return 0;
     }(),
-    placeOrder: function placeOrder(component) {
-      component.call('placeOrder', Basket.items());
-    },
+    // placeOrder(component) {
+    //     component.call('placeOrder', Basket.items())
+    // },
     selectCard: function selectCard(component, cardId) {
       component.set('cardId', cardId);
       this.editPayment = false;

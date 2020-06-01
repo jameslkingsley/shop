@@ -7,25 +7,26 @@ use Illuminate\Contracts\Validation\Rule;
 class SufficientBasketRule implements Rule
 {
     /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
     {
-        //
+        $items = collect($value)
+            ->filter(fn ($item) => $item['qty'] > 0);
+
+        if ($items->isEmpty()) {
+            return false;
+        }
+
+        if ($items->map(fn ($item) => $item['qty'] * $item['price'])->sum() <= 500) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -35,6 +36,6 @@ class SufficientBasketRule implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'The basket items are insufficient.';
     }
 }

@@ -4,6 +4,15 @@
     <script src="https://js.stripe.com/v3" async></script>
 @endsection
 
+@section('scripts')
+    <script>
+        window.livewire.on('order-placed', orderId => {
+            Basket.clear()
+            Turbolinks.visit('/orders/' + orderId)
+        })
+    </script>
+@endsection
+
 @section('content')
     <div class="flex items-center w-full mb-8">
         <div class="flex-1">

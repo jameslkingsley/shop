@@ -87,7 +87,7 @@ class Checkout extends Component
 
         $this->forgetState();
 
-        return redirect("/orders/{$order->id}");
+        $this->emit('order-placed', $order->id);
     }
 
     /**

@@ -15,7 +15,7 @@ class OrderCreateAction extends Action
      */
     public function execute(array $basket, array $attributes): Order
     {
-        $this->validate($attributes);
+        $this->validate(array_merge($attributes, ['items' => $basket]));
 
         $order = $this->user()->orders()->create($attributes);
 
