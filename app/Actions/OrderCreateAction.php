@@ -29,12 +29,12 @@ class OrderCreateAction extends Action
     /**
      * Get the action validation rules.
      */
-    protected function rules(): array
+    public function rules(): array
     {
         return [
             'items' => ['required', 'array', new SufficientBasketRule],
             'card_id' => ['required', 'exists:cards,id'],
-            'address_id' => ['required_if:collection,false', 'exists:addresses,id'],
+            'address_id' => ['exclude_if:collection,true', 'exists:addresses,id'],
             'collection' => ['required', 'boolean'],
             'substitutions' => ['required', 'boolean'],
             'comment' => ['nullable', 'string'],

@@ -5,6 +5,10 @@
         @apply text-gray-500;
     }
 
+    &[disabled] {
+        @apply bg-gray-100 pointer-events-none select-none cursor-default;
+    }
+
     &:focus, &.StripeElement--focus {
         @apply outline-none shadow-outline-blue border-blue-300 z-10;
     }

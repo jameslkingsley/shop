@@ -316,6 +316,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 window.Basket = new _basket__WEBPACK_IMPORTED_MODULE_0__["default"]({
   deliveryCutOffTime: 14,
+  minimumBasketValue: 500,
   maximumProductQuantity: 10
 });
 window.Wire = {
@@ -383,19 +384,49 @@ var _default = /*#__PURE__*/function () {
       }
     }
   }, {
+    key: "canPlaceOrder",
+    value: function canPlaceOrder(higherOrderState) {
+      // Prevent order if the Livewire state
+      // deems the order invalid.
+      if (!higherOrderState) {
+        return false;
+      }
+
+      return this.isSufficient();
+    }
+  }, {
+    key: "isSufficient",
+    value: function isSufficient() {
+      var items = this.items();
+
+      if (!items.length) {
+        return false;
+      }
+
+      if (_.sum(_.map(items, function (_ref) {
+        var qty = _ref.qty,
+            price = _ref.price;
+        return qty * price;
+      })) <= this.config.minimumBasketValue) {
+        return false;
+      }
+
+      return true;
+    }
+  }, {
     key: "items",
     value: function items() {
-      return _.filter(_.values(this.store.items), function (_ref) {
-        var qty = _ref.qty;
+      return _.filter(_.values(this.store.items), function (_ref2) {
+        var qty = _ref2.qty;
         return qty > 0;
       });
     }
   }, {
     key: "total",
     value: function total() {
-      return _.sum(_.values(_.mapValues(this.store.items, function (_ref2) {
-        var qty = _ref2.qty,
-            price = _ref2.price;
+      return _.sum(_.values(_.mapValues(this.store.items, function (_ref3) {
+        var qty = _ref3.qty,
+            price = _ref3.price;
         return qty * price;
       })));
     }

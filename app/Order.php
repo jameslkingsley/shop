@@ -12,10 +12,12 @@ class Order extends Model
         'updated_at',
         'charged_at',
         'delivered_at',
+        'delivery_date',
     ];
 
     protected $appends = [
         'total',
+        'status',
         'subTotal',
         'deliveryFee',
     ];
@@ -31,6 +33,35 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function getStatusAttribute()
+    {
+        if ($this->delivered_at) {
+            return [
+                'message' => 'Delivered',
+                'style' => 'green',
+            ];
+        }
+
+        if ($this->charged_at) {
+            return [
+                'message' => 'Out for Delivery',
+                'style' => 'blue',
+            ];
+        }
+
+        if ($this->picking_at) {
+            return [
+                'message' => 'Being Picked',
+                'style' => 'blue',
+            ];
+        }
+
+        return [
+            'message' => 'Pending',
+            'style' => 'gray',
+        ];
     }
 
     public function getSubTotalAttribute()

@@ -17,7 +17,7 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('primary')->nullable();
-            $table->string('full_name');
+            $table->string('name');
             $table->string('line1');
             $table->string('line2')->nullable();
             $table->string('city');

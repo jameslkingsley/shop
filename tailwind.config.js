@@ -62,6 +62,7 @@ module.exports = {
         boxShadow: [...defaultConfig.variants.boxShadow, 'active'],
         opacity: [...defaultConfig.variants.opacity, 'group-hover'],
         textColor: [...defaultConfig.variants.textColor, 'group-hover'],
+        translate: [...defaultConfig.variants.translate, 'group-hover'],
     },
 
     plugins: [

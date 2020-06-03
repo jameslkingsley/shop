@@ -5,11 +5,12 @@ namespace App\Http\Livewire;
 use App\Order;
 use Livewire\Component;
 use App\Actions\OrderCreateAction;
+use App\Http\Livewire\Concerns\ActionValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Checkout extends Component
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, ActionValidation;
 
     /**
      * 24-hour time when the delivery day gets cutoff.
@@ -56,6 +57,8 @@ class Checkout extends Component
      */
     public ?bool $substitutions;
 
+    protected $listeners = ['addressAdded'];
+
     /**
      * Mount the checkout component.
      */
@@ -74,6 +77,13 @@ class Checkout extends Component
         $this->deliveryDate = session('checkout.deliveryDate', $this->nearestDeliveryDate());
     }
 
+    public function addressAdded($addressId)
+    {
+        $this->addresses = auth()->user()->addresses()->get();
+
+        session(['checkout.addressId' => $this->addressId = $addressId]);
+    }
+
     /**
      * Place the customer's order.
      *
@@ -87,7 +97,7 @@ class Checkout extends Component
 
         $this->forgetState();
 
-        $this->emit('order-placed', $order->id);
+        $this->emit('orderPlaced', $order->id);
     }
 
     /**
@@ -120,12 +130,29 @@ class Checkout extends Component
         ];
     }
 
-    /**
-     * Persist the checkout state to the session whenever it changes.
-     */
-    public function updated($name, $value)
+    public function getCanPlaceOrderProperty()
     {
-        session(["checkout.{$name}" => $value]);
+        return $this->canRunAction(
+            new OrderCreateAction,
+            $this->orderAttributes(),
+            ['items']
+        );
+    }
+
+    /**
+     * Get the card model instance.
+     */
+    public function getCardProperty()
+    {
+        return auth()->user()->cards()->find($this->cardId);
+    }
+
+    /**
+     * Get the address model instance.
+     */
+    public function getAddressProperty()
+    {
+        return auth()->user()->addresses()->find($this->addressId);
     }
 
     /**
@@ -143,19 +170,11 @@ class Checkout extends Component
     }
 
     /**
-     * Get the card model instance.
+     * Persist the checkout state to the session whenever it changes.
      */
-    public function getCardProperty()
+    public function updated($name, $value)
     {
-        return auth()->user()->cards()->find($this->cardId);
-    }
-
-    /**
-     * Get the address model instance.
-     */
-    public function getAddressProperty()
-    {
-        return auth()->user()->addresses()->find($this->addressId);
+        session(["checkout.{$name}" => $value]);
     }
 
     /**

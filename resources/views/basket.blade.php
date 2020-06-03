@@ -6,7 +6,8 @@
 
 @section('scripts')
     <script>
-        window.livewire.on('order-placed', orderId => {
+        window.livewire.on('orderPlaced', orderId => {
+            console.log('Order placed', orderId)
             Basket.clear()
             Turbolinks.visit('/orders/' + orderId)
         })
@@ -25,10 +26,12 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div x-data x-subscribe class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:col-span-2">
-            <template x-for="item in Basket.items()">
-                @include('components.product')
-            </template>
+        <div class="lg:col-span-2">
+            <div x-data x-subscribe class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <template x-for="item in Basket.items()">
+                    @include('components.product')
+                </template>
+            </div>
         </div>
 
         <livewire:checkout />

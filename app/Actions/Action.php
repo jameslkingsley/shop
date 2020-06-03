@@ -11,9 +11,9 @@ abstract class Action
      *
      * @return array
      */
-    protected function validate(array $attributes = [])
+    public function validate(array $attributes = [], ?array $rules = null)
     {
-        return Validator::make($attributes, $this->rules())
+        return Validator::make($attributes, $rules ?: $this->rules())
             ->validate();
     }
 

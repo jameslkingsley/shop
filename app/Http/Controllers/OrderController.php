@@ -19,8 +19,9 @@ class OrderController extends Controller
 
     public function index()
     {
-        return Order::whereNotNull('customer_id')->with('items')->get()
-            ->mapWithKeys(fn ($order) => [$order->id => $order]);
+        return view('orders', [
+            'orders' => auth()->user()->orders()->with('items.product')->get(),
+        ]);
     }
 
     public function show(Request $request, Order $order)

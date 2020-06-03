@@ -25,7 +25,7 @@
         @apply text-sm py-1 px-3;
     }
 
-    &[loading] {
+    &[loading], &[disabled] {
         @apply opacity-50 pointer-events-none select-none;
     }
 }

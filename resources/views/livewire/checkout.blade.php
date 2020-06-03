@@ -111,30 +111,33 @@
                 </div>
 
                 <div class="{{ ! $collection ? 'flex' : 'hidden' }} flex flex-col space-y-4 w-full">
-                    Addresses
-                    @foreach ($addresses as $address)
-                        <div x-on:click="selectAddress(@this, {{ $address->id }})" class="{{ $addressId === $address->id ? 'border-2 border-blue-500' : 'border-2 border-gray-100 text-gray-500' }} group flex w-full items-start cursor-pointer select-none p-4 rounded-md transition-all duration-150 ease-in-out">
-                            <span class="form-radio mr-2 flex-shrink-0" @if ($addressId === $address->id) checked @endif>
-                                <i></i>
-                            </span>
-
-                            <div class="flex-1 inline-flex flex-col">
-                                <span class="font-medium text-base leading-none">
-                                    {{ $address->full_name }}
+                    @if ($addresses->isNotEmpty())
+                        @foreach ($addresses as $address)
+                            <div x-on:click="selectAddress(@this, {{ $address->id }})" class="{{ $addressId === $address->id ? 'border-2 border-blue-500' : 'border-2 border-gray-100 text-gray-500' }} group flex w-full items-start cursor-pointer select-none p-4 rounded-md transition-all duration-150 ease-in-out">
+                                <span class="form-radio mr-2 flex-shrink-0" @if ($addressId === $address->id) checked @endif>
+                                    <i></i>
                                 </span>
 
-                                <span class="text-sm leading-normal mt-2">
-                                    {{ $address->line1 }},
-                                    {{ $address->line2 }}
-                                    <br />
-                                    {{ $address->city }},
-                                    {{ $address->postcode }}
-                                    <br />
-                                    {{ $address->telephone }}
-                                </span>
+                                <div class="flex-1 inline-flex flex-col">
+                                    <span class="font-medium text-base leading-none">
+                                        {{ $address->name }}
+                                    </span>
+
+                                    <span class="text-sm leading-normal mt-2">
+                                        {{ $address->line1 }},
+                                        {{ $address->line2 }}
+                                        <br />
+                                        {{ $address->city }},
+                                        {{ $address->postcode }}
+                                        <br />
+                                        {{ $address->telephone }}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        <livewire:address-form />
+                    @endif
                 </div>
 
                 <span class="block w-full mt-6 mb-4 uppercase text-gray-400 text-xs font-semibold tracking-wide">Delivery Date</span>
@@ -187,7 +190,17 @@
             </div>
         </div>
 
-        <div class="flex items-start p-4 md:p-6 select-none transition-all duration-150 ease-in-out">
+        <div class="flex flex-wrap items-start p-4 md:p-6 select-none transition-all duration-150 ease-in-out">
+            @if ($errors->isNotEmpty())
+                <div class="flex w-full flex-wrap mb-4 items-start text-xs text-red-600">
+                    <span class="block w-full">
+                        @foreach ($errors->all() as $message)
+                            {{ $message }}
+                        @endforeach
+                    </span>
+                </div>
+            @endif
+
             <div class="inline-flex items-end space-x-4 flex-1">
                 <div class="inline-flex flex-col">
                     <span class="text-gray-400 text-sm font-semibold leading-none mb-2">Total to pay</span>
@@ -195,7 +208,8 @@
                 </div>
 
                 <div class="flex-1 text-right">
-                    <button wire:click="placeOrder(Basket.items())" wire:loading.attr="disabled" class="inline-flex items-center justify-center btn btn-lg">
+                    <button x-bind:disabled="! Basket.canPlaceOrder({{ json_encode($this->canPlaceOrder) }})" wire:click="placeOrder(Basket.items())" wire:loading.attr="disabled"
+                        class="inline-flex items-center justify-center btn btn-lg">
                         @svg('lock-closed', 'w-4 h-4 fill-current mr-2')
                         <span>Place Order</span>
                     </button>

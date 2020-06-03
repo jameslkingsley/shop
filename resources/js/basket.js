@@ -19,6 +19,30 @@ export default class {
         }
     }
 
+    canPlaceOrder(higherOrderState) {
+        // Prevent order if the Livewire state
+        // deems the order invalid.
+        if (! higherOrderState) {
+            return false
+        }
+
+        return this.isSufficient()
+    }
+
+    isSufficient() {
+        let items = this.items()
+
+        if (! items.length) {
+            return false
+        }
+
+        if (_.sum(_.map(items, ({ qty, price }) => qty * price)) <= this.config.minimumBasketValue) {
+            return false
+        }
+
+        return true
+    }
+
     items() {
         return _.filter(_.values(this.store.items), ({ qty }) => qty > 0)
     }

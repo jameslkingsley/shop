@@ -12,17 +12,17 @@ use App\Http\Controllers\OrderPrintController;
 
 Auth::routes();
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/dispatch/{group}', [DispatchController::class, 'index'])->middleware('auth');
-Route::get('/print/{order}', [OrderPrintController::class, 'show'])->middleware('auth');
+Route::get('dispatch/{group}', [DispatchController::class, 'index'])->middleware('auth');
+Route::get('print/{order}', [OrderPrintController::class, 'show'])->middleware('auth');
 
-Route::get('/basket', [BasketController::class, 'index'])->name('basket');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::get('/orders', fn () => 'orders')->name('orders');
-Route::get('/orders/{order}', [OrderController::class, 'show']);
-Route::get('/settings', fn () => 'settings')->name('settings');
+Route::get('basket', [BasketController::class, 'index'])->name('basket');
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::get('orders', [OrderController::class, 'index'])->name('orders');
+Route::get('orders/{order}', [OrderController::class, 'show'])->name('order');
+Route::get('settings', fn () => 'settings')->name('settings');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/group/{group}', [HomeController::class, 'group']);
-Route::get('/group/{group}/{category}', [HomeController::class, 'category']);
+Route::get('group/{group}', [HomeController::class, 'group']);
+Route::get('group/{group}/{category}', [HomeController::class, 'category']);

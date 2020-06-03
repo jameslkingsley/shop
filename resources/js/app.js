@@ -4,6 +4,7 @@ import Checkout from './livewire/Checkout'
 
 window.Basket = new Basket({
     deliveryCutOffTime: 14,
+    minimumBasketValue: 500,
     maximumProductQuantity: 10
 })
 
