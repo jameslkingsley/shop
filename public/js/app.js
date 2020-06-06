@@ -352,6 +352,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -373,7 +379,8 @@ var _default = /*#__PURE__*/function () {
     key: "defaultState",
     value: function defaultState() {
       return {
-        items: {}
+        items: {},
+        orderId: null
       };
     }
   }, {
@@ -382,6 +389,46 @@ var _default = /*#__PURE__*/function () {
       for (var key in defaults) {
         this.store[key] = defaults[key];
       }
+    }
+  }, {
+    key: "isEditingOrder",
+    value: function isEditingOrder() {
+      return !!this.store.orderId;
+    }
+  }, {
+    key: "cancelEditing",
+    value: function cancelEditing() {
+      var orderId = this.store.orderId;
+      this.clear();
+      Turbolinks.visit("/orders/".concat(orderId));
+    }
+  }, {
+    key: "editOrder",
+    value: function editOrder(order) {
+      this.store.orderId = order.id;
+
+      var _iterator = _createForOfIteratorHelper(order.items),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var item = _step.value;
+          this.store.items[item.product.prodID] = {
+            id: item.product.prodID,
+            price: Number(item.product.prodOurPrice) * 100,
+            qty: item.quantity,
+            ref: item.product.prodRef,
+            unit_size: item.product.prodUnitSize
+          };
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      this.save();
+      Turbolinks.visit('/basket');
     }
   }, {
     key: "canPlaceOrder",
@@ -414,6 +461,11 @@ var _default = /*#__PURE__*/function () {
       return true;
     }
   }, {
+    key: "orderId",
+    value: function orderId() {
+      return this.store.orderId;
+    }
+  }, {
     key: "items",
     value: function items() {
       return _.filter(_.values(this.store.items), function (_ref2) {
@@ -443,6 +495,8 @@ var _default = /*#__PURE__*/function () {
   }, {
     key: "clear",
     value: function clear() {
+      this.store.orderId = null;
+
       for (var key in this.store.items) {
         delete this.store.items[key];
       }
@@ -492,11 +546,13 @@ var _default = /*#__PURE__*/function () {
   }, {
     key: "restore",
     value: function restore() {
+      this.store.orderId = Number(localStorage.getItem('orderId'));
       this.store.items = JSON.parse(localStorage.getItem('basket') || '{}');
     }
   }, {
     key: "save",
     value: function save() {
+      localStorage.setItem('orderId', this.store.orderId);
       localStorage.setItem('basket', JSON.stringify(this.store.items));
       return true;
     }
@@ -535,9 +591,8 @@ window.moment.updateLocale('en', {
   week: {
     dow: 1
   }
-});
-window.ajax = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.ajax.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+}); // window.ajax = require('axios')
+// window.ajax.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 window.toCurrency = function (value) {
   var langage = (navigator.language || navigator.browserLanguage).split('-')[0];
@@ -545,13 +600,7 @@ window.toCurrency = function (value) {
     style: 'currency',
     currency: 'GBP'
   });
-}; // import Vue from 'vue'
-// window.Vue = Vue
-// window.Vue.config.productionTip = false
-// import VueRouter from 'vue-router'
-// window.VueRouter = VueRouter
-// Vue.use(VueRouter)
-
+};
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 

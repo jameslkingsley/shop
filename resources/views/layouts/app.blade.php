@@ -22,7 +22,7 @@
     <body class="text-gray-900 leading-normal text-base">
         @include('layouts.nav')
 
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-16">
+        <main x-data x-subscribe x-bind:class="{ 'mt-10': Basket.isEditingOrder() }" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-16">
             <div class="block md:hidden mb-8">
                 @include('layouts.search')
             </div>

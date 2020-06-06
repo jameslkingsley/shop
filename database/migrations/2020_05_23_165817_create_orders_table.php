@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->timestamp('picking_at')->nullable()->index();
             $table->timestamp('charged_at')->nullable()->index();
             $table->timestamp('delivered_at')->nullable()->index();
+            $table->timestamp('cancelled_at')->nullable()->index();
             $table->timestamps();
         });
     }

@@ -77,7 +77,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span class="text-sm bg-{{ $order->status['style'] }}-100 text-{{ $order->status['style'] }}-500 rounded-full px-3 py-1 font-medium">
+                                    <span class="text-sm bg-{{ $order->status['color'] }}-100 text-{{ $order->status['color'] }}-500 rounded-full px-3 py-1 font-medium">
                                         {{ $order->status['message'] }}
                                     </span>
                                 </td>

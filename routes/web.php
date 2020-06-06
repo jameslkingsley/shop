@@ -19,9 +19,16 @@ Route::get('print/{order}', [OrderPrintController::class, 'show'])->middleware('
 
 Route::get('basket', [BasketController::class, 'index'])->name('basket');
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
+
 Route::get('orders', [OrderController::class, 'index'])->name('orders');
-Route::get('orders/{order}', [OrderController::class, 'show'])->name('order');
-Route::get('settings', fn () => 'settings')->name('settings');
+Route::livewire('orders/{order}', 'order')->name('order');
+Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('order.delete');
+
+Route::group(['layout' => 'layouts.settings', 'section' => 'body'], function () {
+    Route::livewire('settings', 'settings.cards')->name('settings');
+    Route::livewire('settings/cards', 'settings.cards')->name('settings.cards');
+    Route::livewire('settings/addresses', 'settings.cards')->name('settings.addresses');
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('group/{group}', [HomeController::class, 'group']);

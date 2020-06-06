@@ -201,6 +201,12 @@
                 </div>
             @endif
 
+            @if ($errorMessage)
+                <div class="flex w-full flex-wrap mb-4 items-start text-xs text-red-600">
+                    <span class="block w-full">{{ $errorMessage }}</span>
+                </div>
+            @endif
+
             <div class="inline-flex items-end space-x-4 flex-1">
                 <div class="inline-flex flex-col">
                     <span class="text-gray-400 text-sm font-semibold leading-none mb-2">Total to pay</span>
@@ -208,10 +214,11 @@
                 </div>
 
                 <div class="flex-1 text-right">
-                    <button x-bind:disabled="! Basket.canPlaceOrder({{ json_encode($this->canPlaceOrder) }})" wire:click="placeOrder(Basket.items())" wire:loading.attr="disabled"
+                    <button x-bind:disabled="! Basket.canPlaceOrder({{ json_encode($this->canPlaceOrder) }})" wire:click="placeOrder(Basket.items(), Basket.orderId())" wire:loading.attr="disabled"
                         class="inline-flex items-center justify-center btn btn-lg">
                         @svg('lock-closed', 'w-4 h-4 fill-current mr-2')
-                        <span>Place Order</span>
+                        <span x-show="! Basket.isEditingOrder()">Place Order</span>
+                        <span x-show="Basket.isEditingOrder()">Update Order</span>
                     </button>
                 </div>
             </div>

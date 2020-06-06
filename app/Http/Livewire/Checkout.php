@@ -4,8 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Order;
 use Livewire\Component;
-use App\Actions\OrderCreateAction;
+use App\Actions\CreateOrderAction;
 use App\Http\Livewire\Concerns\ActionValidation;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Checkout extends Component
@@ -57,6 +58,11 @@ class Checkout extends Component
      */
     public ?bool $substitutions;
 
+    /**
+     * The error preventing the order to proceed.
+     */
+    public ?string $errorMessage;
+
     protected $listeners = ['addressAdded'];
 
     /**
@@ -89,11 +95,19 @@ class Checkout extends Component
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function placeOrder(OrderCreateAction $createOrder, array $basket)
+    public function placeOrder(CreateOrderAction $createOrder, array $basket, ?int $orderId = null)
     {
-        $this->authorize('create', Order::class);
+        try {
+            $this->authorize('create', Order::class);
 
-        $order = $createOrder->execute($basket, $this->orderAttributes());
+            if ($order = auth()->user()->orders()->find($orderId)) {
+                $this->authorize('update', $order);
+            }
+        } catch (AuthorizationException $exception) {
+            return $this->errorMessage = $exception->getMessage();
+        }
+
+        $order = $createOrder->execute($basket, $this->orderAttributes(), $order);
 
         $this->forgetState();
 
@@ -133,7 +147,7 @@ class Checkout extends Component
     public function getCanPlaceOrderProperty()
     {
         return $this->canRunAction(
-            new OrderCreateAction,
+            new CreateOrderAction,
             $this->orderAttributes(),
             ['items']
         );

@@ -3,7 +3,7 @@
         <img x-bind:src="`https://sle-shop.s3.eu-west-2.amazonaws.com/images/${item.ref}.jpg`" alt="No image available" class="h-32" />
     </div>
 
-    <span class="w-full text-sm" x-text="item.title"></span>
+    <span class="w-full text-base" x-text="item.title"></span>
 
     <span class="w-full mb-4 text-2xs text-gray-500" x-text="`#${item.id}`"></span>
 

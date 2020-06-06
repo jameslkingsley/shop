@@ -42,7 +42,11 @@ class OrderPolicy
      */
     public function create(User $user)
     {
-        return ! Setting::isShutdown();
+        if (Setting::isShutdown()) {
+            return $this->deny(__('order.shutdown'));
+        }
+
+        return true;
     }
 
     /**
@@ -54,7 +58,15 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        //
+        if (Setting::isShutdown()) {
+            return $this->deny(__('order.shutdown'));
+        }
+
+        if ($order->picking_at) {
+            return $this->deny(__('order.picking_started'));
+        }
+
+        return $user->is($order->user);
     }
 
     /**
@@ -66,7 +78,11 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order)
     {
-        //
+        if ($order->picking_at) {
+            return $this->deny(__('order.picking_started'));
+        }
+
+        return $user->is($order->user);
     }
 
     /**

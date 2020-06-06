@@ -11,8 +11,10 @@ class Order extends Model
         'created_at',
         'updated_at',
         'charged_at',
+        'picking_at',
         'delivered_at',
         'delivery_date',
+        'cancelled_at',
     ];
 
     protected $appends = [
@@ -20,6 +22,7 @@ class Order extends Model
         'status',
         'subTotal',
         'deliveryFee',
+        'total_formatted',
     ];
 
     protected $casts = [
@@ -30,6 +33,11 @@ class Order extends Model
 
     protected $guarded = [];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function items()
     {
         return $this->hasMany(OrderItem::class);
@@ -37,30 +45,37 @@ class Order extends Model
 
     public function getStatusAttribute()
     {
+        if ($this->cancelled_at) {
+            return [
+                'message' => 'Cancelled',
+                'color' => 'gray',
+            ];
+        }
+
         if ($this->delivered_at) {
             return [
                 'message' => 'Delivered',
-                'style' => 'green',
+                'color' => 'green',
             ];
         }
 
         if ($this->charged_at) {
             return [
                 'message' => 'Out for Delivery',
-                'style' => 'blue',
+                'color' => 'blue',
             ];
         }
 
         if ($this->picking_at) {
             return [
                 'message' => 'Being Picked',
-                'style' => 'blue',
+                'color' => 'blue',
             ];
         }
 
         return [
-            'message' => 'Pending',
-            'style' => 'gray',
+            'message' => 'Order Placed',
+            'color' => 'blue',
         ];
     }
 
@@ -71,19 +86,12 @@ class Order extends Model
 
     public function getDeliveryFeeAttribute()
     {
-        if ($this->collection || $this->free_delivery) {
-            return 0;
-        }
+        return 0;
+    }
 
-        if ($this->subtotal >= 30 * 100) {
-            return 0;
-        }
-
-        if ($this->subtotal >= 20 * 100) {
-            return 100;
-        }
-
-        return 200;
+    public function getTotalFormattedAttribute()
+    {
+        return '£' . number_format($this->total / 100, 2);
     }
 
     public function getTotalAttribute()

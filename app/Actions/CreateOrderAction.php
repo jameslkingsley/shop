@@ -7,23 +7,42 @@ use App\Product;
 use Illuminate\Support\Collection;
 use App\Rules\SufficientBasketRule;
 use App\Rules\AvailableDeliveryDateRule;
+use App\Notifications\OrderPlacedNotification;
+use App\Notifications\OrderUpdatedNotification;
 
-class OrderCreateAction extends Action
+class CreateOrderAction extends Action
 {
     /**
-     * Execute the action.
+     * Create or update the order.
      */
-    public function execute(array $basket, array $attributes): Order
+    public function execute(array $basket, array $attributes, ?Order $order = null): Order
     {
+        $isUpdatingOrder = $order !== null;
+
         $this->validate(array_merge($attributes, ['items' => $basket]));
 
-        $order = $this->user()->orders()->create($attributes);
+        $order = $order === null
+            ? $this->user()->orders()->create($attributes)
+            : tap($order)->update($attributes);
+
+        $order->items()->delete();
 
         $order->items()->createMany(
             $this->mapToOrderItems(collect($basket))
         );
 
+        $this->dispatchEvents($order, $isUpdatingOrder);
+
         return $order;
+    }
+
+    protected function dispatchEvents(Order $order, bool $isUpdatingOrder)
+    {
+        if ($isUpdatingOrder) {
+            return $this->user()->notify(new OrderUpdatedNotification($order));
+        }
+
+        $this->user()->notify(new OrderPlacedNotification($order));
     }
 
     /**

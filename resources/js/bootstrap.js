@@ -10,24 +10,14 @@ window._ = require('lodash')
 window.moment = require('moment')
 window.moment.updateLocale('en', { week: { dow: 1 } })
 
-window.ajax = require('axios')
-window.ajax.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+// window.ajax = require('axios')
+// window.ajax.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 window.toCurrency = value => {
     let langage = (navigator.language || navigator.browserLanguage).split('-')[0]
 
     return (value / 100).toLocaleString(langage, { style: 'currency', currency: 'GBP' })
 }
-
-// import Vue from 'vue'
-
-// window.Vue = Vue
-// window.Vue.config.productionTip = false
-
-// import VueRouter from 'vue-router'
-
-// window.VueRouter = VueRouter
-// Vue.use(VueRouter)
 
 window.Pusher = require('pusher-js')
 import Echo from 'laravel-echo'

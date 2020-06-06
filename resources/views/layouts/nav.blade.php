@@ -65,7 +65,7 @@
 
                                 <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                                     <a href="{{ route('orders') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Orders</a>
-                                    <a href="{{ route('settings') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+                                    <a href="{{ route('settings.cards') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
                                     <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
                                 </div>
                             </div>
@@ -109,6 +109,24 @@
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your Profile</a>
                 <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Settings</a>
                 <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Sign out</a>
+            </div>
+        </div>
+    </div>
+
+    <div x-show="Basket.isEditingOrder()" x-data x-subscribe class="absolute w-full bg-yellow-100 shadow-md">
+        <div class="flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex-1">
+                <button x-on:click="Basket.cancelEditing()" class="py-3 cursor-pointer select-none group inline-flex items-center justify-center text-yellow-600 hover:text-yellow-500 font-semibold text-sm transition-all duration-200 ease-in-out leading-none">
+                    <span>Cancel</span>
+                    @svg('close', 'w-3 h-3 ml-2 fill-current')
+                </button>
+            </div>
+
+            <div class="flex-1 text-right">
+                <a href="{{ route('basket') }}" class="py-3 cursor-pointer select-none group inline-flex items-center justify-center text-yellow-600 hover:text-yellow-500 font-semibold text-sm transition-all duration-200 ease-in-out leading-none">
+                    <span>Checkout to finish editing your order</span>
+                    @svg('arrow-right', 'w-3 h-3 ml-2 fill-current transform transition-all group-hover:translate-x-1 duration-200 ease-in-out')
+                </a>
             </div>
         </div>
     </div>

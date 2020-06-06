@@ -7,7 +7,6 @@
 @section('scripts')
     <script>
         window.livewire.on('orderPlaced', orderId => {
-            console.log('Order placed', orderId)
             Basket.clear()
             Turbolinks.visit('/orders/' + orderId)
         })

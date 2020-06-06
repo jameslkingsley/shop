@@ -24,13 +24,6 @@ class OrderController extends Controller
         ]);
     }
 
-    public function show(Request $request, Order $order)
-    {
-        return view('order', [
-            'order' => $order->load('items.product'),
-        ]);
-    }
-
     public function store(Request $request)
     {
         if (Setting::isShutdown()) {

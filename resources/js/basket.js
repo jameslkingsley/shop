@@ -10,6 +10,7 @@ export default class {
     defaultState() {
         return {
             items: {},
+            orderId: null,
         }
     }
 
@@ -17,6 +18,36 @@ export default class {
         for (let key in defaults) {
             this.store[key] = defaults[key]
         }
+    }
+
+    isEditingOrder() {
+        return !! this.store.orderId
+    }
+
+    cancelEditing() {
+        let orderId = this.store.orderId
+
+        this.clear()
+
+        Turbolinks.visit(`/orders/${orderId}`)
+    }
+
+    editOrder(order) {
+        this.store.orderId = order.id
+
+        for (let item of order.items) {
+            this.store.items[item.product.prodID] = {
+                id: item.product.prodID,
+                price: Number(item.product.prodOurPrice) * 100,
+                qty: item.quantity,
+                ref: item.product.prodRef,
+                unit_size: item.product.prodUnitSize,
+            }
+        }
+
+        this.save()
+
+        Turbolinks.visit('/basket')
     }
 
     canPlaceOrder(higherOrderState) {
@@ -43,6 +74,10 @@ export default class {
         return true
     }
 
+    orderId() {
+        return this.store.orderId
+    }
+
     items() {
         return _.filter(_.values(this.store.items), ({ qty }) => qty > 0)
     }
@@ -61,6 +96,8 @@ export default class {
     }
 
     clear() {
+        this.store.orderId = null
+
         for (let key in this.store.items) {
             delete this.store.items[key]
         }
@@ -102,10 +139,12 @@ export default class {
     }
 
     restore() {
+        this.store.orderId = Number(localStorage.getItem('orderId'))
         this.store.items = JSON.parse(localStorage.getItem('basket') || '{}')
     }
 
     save() {
+        localStorage.setItem('orderId', this.store.orderId)
         localStorage.setItem('basket', JSON.stringify(this.store.items))
 
         return true
