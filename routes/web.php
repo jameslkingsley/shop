@@ -33,3 +33,12 @@ Route::group(['layout' => 'layouts.settings', 'section' => 'body'], function () 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('group/{group}', [HomeController::class, 'group']);
 Route::get('group/{group}/{category}', [HomeController::class, 'category']);
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::view('', 'admin.index');
+    Route::livewire('orders/pending/{order?}', 'admin.category')->name('admin.pending')->layout('admin.index');
+    Route::livewire('orders/picking/{order?}', 'admin.category')->name('admin.picking')->layout('admin.index');
+    Route::livewire('orders/out/{order?}', 'admin.category')->name('admin.out')->layout('admin.index');
+    Route::livewire('orders/delivered/{order?}', 'admin.category')->name('admin.delivered')->layout('admin.index');
+    Route::view('settings', 'admin.index')->name('admin.settings');
+});

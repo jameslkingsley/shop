@@ -33,6 +33,7 @@ module.exports = {
             },
 
             width: {
+                84: '21rem',
                 sidebar: '16rem',
             },
 
@@ -63,6 +64,7 @@ module.exports = {
         opacity: [...defaultConfig.variants.opacity, 'group-hover'],
         textColor: [...defaultConfig.variants.textColor, 'group-hover'],
         translate: [...defaultConfig.variants.translate, 'group-hover'],
+        scale: [...defaultConfig.variants.scale, 'group-hover'],
     },
 
     plugins: [

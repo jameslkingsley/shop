@@ -23,7 +23,7 @@
             @endforeach
         </div>
 
-        <div class="span-3 p-6">
+        <div class="col-span-3 p-6">
             @yield('body')
         </div>
     </div>
