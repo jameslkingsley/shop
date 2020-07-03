@@ -1,4 +1,10 @@
 <div>
+    @if ($order->picking_at)
+        <button wire:click="stopPicking" class="btn btn-primary">Stop Picking</button>
+    @else
+        <button wire:click="startPicking" class="btn btn-primary">Start Picking</button>
+    @endif
+
     <div class="block w-full">
         <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
             <div class="align-middle inline-block min-w-full shadow-md overflow-hidden sm:rounded-lg">

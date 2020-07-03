@@ -14,6 +14,20 @@ class Order extends Component
         $this->order = App\Order::find($orderId);
     }
 
+    public function startPicking()
+    {
+        $this->order->update([
+            'picking_at' => now(),
+        ]);
+    }
+
+    public function stopPicking()
+    {
+        $this->order->update([
+            'picking_at' => null,
+        ]);
+    }
+
     public function render()
     {
         if ($this->order) {
