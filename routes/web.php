@@ -40,5 +40,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::livewire('orders/picking/{order?}', 'admin.category')->name('admin.picking')->layout('admin.index');
     Route::livewire('orders/out/{order?}', 'admin.category')->name('admin.out')->layout('admin.index');
     Route::livewire('orders/delivered/{order?}', 'admin.category')->name('admin.delivered')->layout('admin.index');
+    Route::livewire('orders/cancelled/{order?}', 'admin.category')->name('admin.cancelled')->layout('admin.index');
     Route::view('settings', 'admin.index')->name('admin.settings');
 });

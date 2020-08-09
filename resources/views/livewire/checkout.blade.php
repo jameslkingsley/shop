@@ -22,8 +22,8 @@
                 </div>
 
                 <button class="text-gray-500 group-hover:text-blue-500">
-                    @svg('cheveron-down', 'w-5 h-5 fill-current', ['x-show' => '! editPayment'])
-                    @svg('cheveron-up', 'w-5 h-5 fill-current', ['x-show' => 'editPayment'])
+                    <x:icon-cheveron-down class="w-5 h-5 fill-current" x-show="! editPayment" />
+                    <x:icon-cheveron-up class="w-5 h-5 fill-current" x-show="editPayment" />
                 </button>
             </div>
 
@@ -81,8 +81,8 @@
                 </div>
 
                 <button class="text-gray-500 group-hover:text-blue-500">
-                    @svg('cheveron-down', 'w-5 h-5 fill-current', ['x-show' => '! editDelivery'])
-                    @svg('cheveron-up', 'w-5 h-5 fill-current', ['x-show' => 'editDelivery'])
+                    <x:icon-cheveron-down class="w-5 h-5 fill-current" x-show="! editDelivery" />
+                    <x:icon-cheveron-up class="w-5 h-5 fill-current" x-show="editDelivery" />
                 </button>
             </div>
 
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="{{ $collection ? 'flex' : 'hidden' }} group w-full items-start select-none p-4 rounded-md border-2 border-blue-500 transition-all duration-150 ease-in-out">
-                    @svg('home', 'w-4 h-4 mr-2 flex-shrink-0 fill-current text-blue-500')
+                    <x:icon-home class="w-4 h-4 mr-2 flex-shrink-0 fill-current text-blue-500" />
 
                     <div class="flex-1 inline-flex flex-col">
                         <span class="font-medium text-base leading-none">
@@ -146,7 +146,7 @@
                     <button x-on:click="deliveryDateWeekIndex = Math.max(0, deliveryDateWeekIndex - 1)"
                         x-bind:class="{ 'opacity-50 pointer-events-none': deliveryDateWeekIndex === 0 }"
                         class="btn btn-sm btn-gray flex-shrink-0">
-                        @svg('arrow-left', 'w-8 h-3 my-1 fill-current')
+                        <x:icon-arrow-left class="w-8 h-3 my-1 fill-current" />
                     </button>
 
                     <span x-text="currentDeliveryWeek()"
@@ -156,7 +156,7 @@
                     <button x-on:click="deliveryDateWeekIndex = Math.min(4, deliveryDateWeekIndex + 1)"
                         x-bind:class="{ 'opacity-50 pointer-events-none': deliveryDateWeekIndex === 4 }"
                         class="btn btn-sm btn-gray flex-shrink-0">
-                        @svg('arrow-right', 'w-8 h-3 my-1 fill-current')
+                        <x:icon-arrow-right class="w-8 h-3 my-1 fill-current" />
                     </button>
                 </div>
 
@@ -216,7 +216,7 @@
                 <div class="flex-1 text-right">
                     <button x-bind:disabled="! Basket.canPlaceOrder({{ json_encode($this->canPlaceOrder) }})" wire:click="placeOrder(Basket.items(), Basket.orderId())" wire:loading.attr="disabled"
                         class="inline-flex items-center justify-center btn btn-lg">
-                        @svg('lock-closed', 'w-4 h-4 fill-current mr-2')
+                        <x:icon-lock-closed class="w-4 h-4 fill-current mr-2" />
                         <span x-show="! Basket.isEditingOrder()">Place Order</span>
                         <span x-show="Basket.isEditingOrder()">Update Order</span>
                     </button>

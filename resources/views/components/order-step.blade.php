@@ -2,9 +2,9 @@
     <div class="flex w-full items-center space-x-4">
         <span class="{{ ($active ?? false) ? 'bg-blue-400 text-white' : (($complete ?? false) ? 'bg-green-400 text-white' : 'bg-gray-100 text-gray-400') }} rounded-full inline-flex items-center justify-center w-10 h-10 text-lg font-bold flex-shrink-0">
             @if ($complete ?? false)
-                @svg('checkmark', 'w-4 h-4 fill-current')
+                <x:icon-checkmark class="w-4 h-4 fill-current" />
             @elseif ($cancelled ?? false)
-                @svg('close', 'w-4 h-4 fill-current')
+                <x:icon-close class="w-4 h-4 fill-current" />
             @else
                 {{ $number }}
             @endif

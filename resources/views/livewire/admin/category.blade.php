@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <div class="flex-1 p-12">
+    <div class="flex-1">
         @livewire('admin.order', ['orderId' => $orderId])
     </div>
 </div>

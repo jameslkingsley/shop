@@ -24,8 +24,8 @@
                     <div class="relative">
                         <div>
                             <button x-on:click="options = ! options" class="btn py-3">
-                                @svg('cheveron-down', 'w-4 h-4 fill-current', ['x-show' => '! options'])
-                                @svg('cheveron-up', 'w-4 h-4 fill-current', ['x-show' => 'options'])
+                                <x:icon-cheveron-down class="w-4 h-4 fill-current" x-show="! options" />
+                                <x:icon-cheveron-up class="w-4 h-4 fill-current" x-show="options" />
                             </button>
                         </div>
 

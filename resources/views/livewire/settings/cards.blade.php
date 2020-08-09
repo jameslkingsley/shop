@@ -6,7 +6,7 @@
     @endforeach
 
     <div class="flex items-center justify-center space-x-2 bg-background font-semibold text-blue-600 hover:text-blue-500 cursor-pointer select-none rounded-md p-6">
-        @svg('add-outline', 'w-4 h-4 fill-current')
+        <x:icon-add-outline class="w-4 h-4 fill-current" />
         <span>Add Card</span>
     </div>
 </div>

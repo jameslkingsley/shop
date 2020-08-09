@@ -27,6 +27,7 @@
                     <x-admin-nav-link icon="cart" label="Being Picked" route="admin.picking" />
                     <x-admin-nav-link icon="tag" label="Out for Delivery" route="admin.out" />
                     <x-admin-nav-link icon="delivered" label="Delivered" route="admin.delivered" />
+                    <x-admin-nav-link icon="cancelled" label="Cancelled" route="admin.cancelled" />
                 </div>
 
                 <div class="flex flex-col space-y-4 w-full flex-shrink-0 items-center justify-start">
@@ -35,7 +36,7 @@
             </nav>
         </header>
 
-        <main class="pl-20">
+        <main class="pl-20 overflow-x-hidden">
             @yield('content')
         </main>
 

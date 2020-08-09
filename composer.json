@@ -11,6 +11,7 @@
         "php": "^7.4",
         "ext-dom": "*",
         "ext-json": "*",
+        "blade-ui-kit/blade-icons": "^0.4.3",
         "bugsnag/bugsnag-laravel": "^2.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
@@ -22,8 +23,8 @@
         "laravel/tinker": "^2.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "livewire/livewire": "^1.1",
-        "nothingworks/blade-svg": "^0.3.4",
         "pusher/pusher-php-server": "^4.1",
+        "spatie/laravel-model-states": "^1.6",
         "stripe/stripe-php": "^7.27"
     },
     "require-dev": {

@@ -10,6 +10,8 @@ class Setting extends Model
 
     public static function isShutdown()
     {
+        return false;
+
         return (bool) static::where('key', 'online_shop_disabled')->first()->value ?? false;
     }
 }

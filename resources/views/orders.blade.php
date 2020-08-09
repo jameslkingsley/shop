@@ -77,15 +77,15 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span class="text-sm bg-{{ $order->status['color'] }}-100 text-{{ $order->status['color'] }}-500 rounded-full px-3 py-1 font-medium">
-                                        {{ $order->status['message'] }}
+                                    <span class="text-sm bg-{{ $order->status->color() }}-100 text-{{ $order->status->color() }}-500 rounded-full px-3 py-1 font-medium">
+                                        {{ $order->status->customerLabel() }}
                                     </span>
                                 </td>
 
                                 <td class="select-none px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                                     <a href="{{ route('order', $order->id) }}" class="group inline-flex items-center text-blue-600 hover:text-blue-500 font-semibold uppercase text-xs tracking-wide">
                                         <span>View Order</span>
-                                        @svg('arrow-right', 'w-3 h-3 ml-2 fill-current transform transition-all group-hover:translate-x-1 duration-200 ease-in-out')
+                                        <x:icon-arrow-right class="w-3 h-3 ml-2 fill-current transform transition-all group-hover:translate-x-1 duration-200 ease-in-out" />
                                     </a>
                                 </td>
                             </tr>

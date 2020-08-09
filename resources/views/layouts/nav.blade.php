@@ -40,7 +40,7 @@
                     <span class="hidden lg:block text-white text-sm text-blue-100 mr-4">Click to checkout &rarr;</span>
 
                     <a href="{{ url('/basket') }}" x-data="{}" x-subscribe class="inline-flex items-center text-white font-bold">
-                        @svg('bag', 'w-5 h-5 mr-2 fill-current')
+                        <x:icon-bag class="w-5 h-5 mr-2 fill-current" />
                         <span x-text="toCurrency(Basket.total())" class="font-number"></span>
                     </a>
 
@@ -49,8 +49,8 @@
                             <div>
                                 <button @click="open = ! open" x-bind:class="{ 'bg-blue-700': open }" class="max-w-xs bg-blue-600 inline-flex items-center text-base font-medium px-4 py-1 rounded-full text-white focus:outline-none transition-all duration-200 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
                                     {{ auth()->user()->first_name }}
-                                    @svg('cheveron-down', 'w-4 h-4 fill-current', ['x-show' => '! open'])
-                                    @svg('cheveron-up', 'w-4 h-4 fill-current', ['x-show' => 'open'])
+                                    <x:icon-cheveron-down class="w-4 h-4 fill-current" x-show="! open" />
+                                    <x:icon-cheveron-up class="w-4 h-4 fill-current" x-show="open" />
                                 </button>
                             </div>
 
@@ -118,14 +118,14 @@
             <div class="flex-1">
                 <button x-on:click="Basket.cancelEditing()" class="py-3 cursor-pointer select-none group inline-flex items-center justify-center text-yellow-600 hover:text-yellow-500 font-semibold text-sm transition-all duration-200 ease-in-out leading-none">
                     <span>Cancel</span>
-                    @svg('close', 'w-3 h-3 ml-2 fill-current')
+                    <x:icon-close class="w-3 h-3 ml-2 fill-current" />
                 </button>
             </div>
 
             <div class="flex-1 text-right">
                 <a href="{{ route('basket') }}" class="py-3 cursor-pointer select-none group inline-flex items-center justify-center text-yellow-600 hover:text-yellow-500 font-semibold text-sm transition-all duration-200 ease-in-out leading-none">
                     <span>Checkout to finish editing your order</span>
-                    @svg('arrow-right', 'w-3 h-3 ml-2 fill-current transform transition-all group-hover:translate-x-1 duration-200 ease-in-out')
+                    <x:icon-arrow-right class="w-3 h-3 ml-2 fill-current transform transition-all group-hover:translate-x-1 duration-200 ease-in-out" />
                 </a>
             </div>
         </div>

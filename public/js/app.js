@@ -309,7 +309,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _basket__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./basket */ "./resources/js/basket.js");
 /* harmony import */ var _livewire_Stripe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./livewire/Stripe */ "./resources/js/livewire/Stripe.js");
 /* harmony import */ var _livewire_Checkout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./livewire/Checkout */ "./resources/js/livewire/Checkout.js");
+/* harmony import */ var _components_Select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Select */ "./resources/js/components/Select.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -322,6 +324,9 @@ window.Basket = new _basket__WEBPACK_IMPORTED_MODULE_0__["default"]({
 window.Wire = {
   Stripe: _livewire_Stripe__WEBPACK_IMPORTED_MODULE_1__["default"],
   Checkout: _livewire_Checkout__WEBPACK_IMPORTED_MODULE_2__["default"]
+};
+window.Components = {
+  Select: _components_Select__WEBPACK_IMPORTED_MODULE_3__["default"]
 };
 
 var _default = function _default(data) {
@@ -577,22 +582,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _spruce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./spruce */ "./resources/js/spruce/index.js");
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
 var Turbolinks = __webpack_require__(/*! turbolinks */ "./node_modules/turbolinks/dist/turbolinks.js");
 
 Turbolinks.start();
 
-window.Spruce = _spruce__WEBPACK_IMPORTED_MODULE_0__["default"];
 
+
+window.Spruce = _spruce__WEBPACK_IMPORTED_MODULE_0__["default"];
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 window.moment.updateLocale('en', {
   week: {
     dow: 1
   }
-}); // window.ajax = require('axios')
-// window.ajax.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+});
 
 window.toCurrency = function (value) {
   var langage = (navigator.language || navigator.browserLanguage).split('-')[0];
@@ -600,22 +604,46 @@ window.toCurrency = function (value) {
     style: 'currency',
     currency: 'GBP'
   });
-};
+}; // window.Pusher = require('pusher-js')
+//
+// window.Echo = new Echo({
+//     forceTLS: true,
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+// })
 
-window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
-  forceTLS: true,
-  broadcaster: 'pusher',
-  key: "3e1017ab0bb9f034a416",
-  cluster: "eu"
-});
 
 (function () {
   this.CreateApp = function (config) {
-    return new _app__WEBPACK_IMPORTED_MODULE_3__["default"](config);
+    return new _app__WEBPACK_IMPORTED_MODULE_2__["default"](config);
   };
 }).call(window);
+
+/***/ }),
+
+/***/ "./resources/js/components/Select.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/Select.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  return {
+    open: false,
+    select: function select(event, el) {
+      var value = event.target.getAttribute('value') || event.target.innerText;
+      el.dispatchEvent(new CustomEvent('input', {
+        detail: value,
+        bubbles: true
+      }));
+      this.open = false;
+    }
+  };
+});
 
 /***/ }),
 

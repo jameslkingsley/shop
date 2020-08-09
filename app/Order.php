@@ -3,10 +3,28 @@
 namespace App;
 
 use Stripe\Customer;
+use App\States\Paid;
+use App\States\Pending;
+use App\States\Picking;
+use App\States\Completed;
+use App\States\Cancelled;
+use App\States\OrderState;
+use App\Transitions\ToCancelled;
+use Spatie\ModelStates\HasStates;
+use App\Transitions\PickingToPaid;
+use App\Transitions\PaidToCompleted;
+use App\Transitions\PendingToPicking;
+use App\Transitions\PickingToPending;
 use Illuminate\Database\Eloquent\Model;
+use App\Transitions\CancelledToPending;
 
+/**
+ * @property \App\States\OrderState $status
+ */
 class Order extends Model
 {
+    use HasStates;
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -19,7 +37,6 @@ class Order extends Model
 
     protected $appends = [
         'total',
-        'status',
         'subTotal',
         'deliveryFee',
         'total_formatted',
@@ -33,6 +50,36 @@ class Order extends Model
 
     protected $guarded = [];
 
+    public static function allPending()
+    {
+        return static::whereState('status', Pending::class)
+            ->get();
+    }
+
+    public static function allPicking()
+    {
+        return static::whereState('status', Picking::class)
+            ->get();
+    }
+
+    public static function allOutForDelivery()
+    {
+        return static::whereState('status', Paid::class)
+            ->get();
+    }
+
+    public static function allCompleted()
+    {
+        return static::whereState('status', Completed::class)
+            ->get();
+    }
+
+    public static function allCancelled()
+    {
+        return static::whereState('status', Cancelled::class)
+            ->get();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -41,42 +88,6 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class);
-    }
-
-    public function getStatusAttribute()
-    {
-        if ($this->cancelled_at) {
-            return [
-                'message' => 'Cancelled',
-                'color' => 'gray',
-            ];
-        }
-
-        if ($this->delivered_at) {
-            return [
-                'message' => 'Delivered',
-                'color' => 'green',
-            ];
-        }
-
-        if ($this->charged_at) {
-            return [
-                'message' => 'Out for Delivery',
-                'color' => 'blue',
-            ];
-        }
-
-        if ($this->picking_at) {
-            return [
-                'message' => 'Being Picked',
-                'color' => 'blue',
-            ];
-        }
-
-        return [
-            'message' => 'Order Placed',
-            'color' => 'blue',
-        ];
     }
 
     public function getSubTotalAttribute()
@@ -106,5 +117,20 @@ class Order extends Model
         }
 
         return Customer::retrieve($this->customer_id);
+    }
+
+    protected function registerStates(): void
+    {
+        $this
+            ->addState('status', OrderState::class)
+            ->default(Pending::class)
+            ->allowTransitions([
+                [Pending::class, Picking::class, PendingToPicking::class],
+                [Picking::class, Pending::class, PickingToPending::class],
+                [Picking::class, Paid::class, PickingToPaid::class],
+                [Paid::class, Completed::class, PaidToCompleted::class],
+                [Cancelled::class, Pending::class, CancelledToPending::class],
+            ])
+            ->allowTransition([Pending::class, Picking::class, Paid::class], Cancelled::class, ToCancelled::class);
     }
 }

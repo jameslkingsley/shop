@@ -25,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('collection')->nullable()->index();
             $table->boolean('substitutions')->nullable();
             $table->date('delivery_date')->index();
+            $table->string('status')->default('pending');
             $table->timestamp('picking_at')->nullable()->index();
             $table->timestamp('charged_at')->nullable()->index();
             $table->timestamp('delivered_at')->nullable()->index();
